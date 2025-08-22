@@ -1,0 +1,72 @@
+{% load static %}
+    <!-- Footer Section Begin -->
+    <section class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="fs-about">
+                        <div class="fa-logo">
+                            <a href="{% url 'website:index' %}"><img src="{% static 'img/logo.png' %}" alt="Logo" width="150" height="100"></a>
+                        </div>
+                        <p>در فضای مجازی با ما در ارتباط باشید</p>
+                        <div class="fa-social">
+                            <a href="https://t.me/sasan_ghobadi"><i class="fa fa-telegram"></i></a>
+                            <a href="https://wa.me/989334746000"><i class="fa fa-whatsapp"></i></a>
+                            <a href="https://www.instagram.com/goriilashop"><i class="fa fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-6">
+                    <div class="fs-widget">
+                        <h4>لینک های اصلی</h4>
+                        <ul>
+                            <li><a href="{% url 'website:index' %}">صفحه اصلی</a></li>
+                            <li><a href="{% url 'website:about' %}">درباره ما</a></li>
+                            <li><a href="{% url 'shop:shop' %}">فروشگاه</a></li>
+                            <li><a href="{% url 'website:contact' %}">ارتباط با ما</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-6">
+                    <div class="fs-widget">
+                        <h4>پشتیبانی</h4>
+                        <ul>
+                            {% if request.user.is_authenticated %}
+                            <li><a href="#">حساب کاربری</a></li>
+                            <li><a href="{% url 'accounts:logout' %}">خروح</a></li>
+                            {% else %}
+                            <li><a href="{% url 'accounts:login' %}">ورود</a></li>
+                            {% endif %}
+                            <li><a href="{% url 'website:contact' %}">پشتیبانی</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="fs-widget">
+                        <h4>بایوتک & سایوتک</h4>
+                        <div class="fw-recent">
+                            <h6><a href="/shop/?brand=biotech-usa">خرید بهترین مکمل های بایوتک</a></h6>
+                            <ul>
+                                <li>Biotech usa</li>
+                            </ul>
+                        </div>
+                        <div class="fw-recent">
+                            <h6><a href="/shop/?brand=scitec-nutrition">خرید بهترین مکمل های سایوتک</a></h6>
+                            <ul>
+                                <li>Scitec Nutrition</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="copyright-text">
+                        <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved</p>
+                        <p>Developed by <a href="https://amirhamidi.pythonanywhere.com/">Amir Hamidi</a> | Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer Section End -->

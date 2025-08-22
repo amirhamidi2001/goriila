@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "website.apps.WebsiteConfig",
+    "accounts.apps.AccountsConfig",
+    "shop.apps.ShopConfig",
 ]
 
 MIDDLEWARE = [
@@ -119,7 +122,17 @@ STATIC_URL = "static/"
 STATIC_ROOT = "static/"
 STATICFILES_DIRS = [BASE_DIR / "assets"]
 
+# Media files (Images)
+
+MEDIA_URL = "media/"
+MEDIA_ROOT = "media/"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# accounts model settings
+AUTH_USER_MODEL = "accounts.User"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
