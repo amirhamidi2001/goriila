@@ -23,7 +23,7 @@ class Category(models.Model):
 class Brand(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
-    logo = models.ImageField(upload_to="media/brands/logos/", blank=True, null=True)
+    logo = models.ImageField(upload_to="brands/logos/", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -45,6 +45,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
     weight = models.IntegerField(default=1000)
+    taste = models.CharField(max_length=255)
     available = models.BooleanField(default=True)
     stock = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -90,7 +90,7 @@ class Profile(models.Model):
     phone_number = models.CharField(
         max_length=12, validators=[validate_iranian_cellphone_number]
     )
-    image = models.ImageField(upload_to="media/profile/", default="media/profile/default.png")
+    image = models.ImageField(upload_to="profiles/", default="profiles/default.png")
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
