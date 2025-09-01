@@ -8,7 +8,7 @@
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>مکمل گوریلا | ورود</title>
+    <title>مکمل گوریلا | درباره ما</title>
 
     <!-- Favicons -->
     <link href="{% static 'img/favicon.ico' %}" rel="icon">
@@ -80,7 +80,7 @@
                     <nav class="nav-menu">
                         <ul>
                             <li><a href="{% url 'website:index' %}">صفحه اصلی</a></li>
-                            <li><a href="{% url 'website:about' %}">درباره ما</a></li>
+                            <li class="active"><a href="{% url 'website:about' %}">درباره ما</a></li>
                             <li><a href="{% url 'shop:shop' %}">فروشگاه</a></li>
                             <li><a href="{% url 'website:contact' %}">ارتباط با ما</a></li>
                         </ul>
@@ -116,10 +116,10 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb-text">
-                        <h2>ورود</h2>
+                        <h2>درباره ما</h2>
                         <div class="bt-option">
                             <a href="{% url 'website:index' %}">صفحه اصلی</a>
-                            <span>ورود</span>
+                            <span>گوریلا</span>
                         </div>
                     </div>
                 </div>
@@ -127,140 +127,112 @@
         </div>
     </section>
     <!-- Breadcrumb Section End -->
+<!--================ Cart Area =================-->
+  <section class="cart_area spad">
+    <div class="container">
+      <div class="cart_inner">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Example Row -->
+              <tr>
+                <td>
+                  <div class="media">
+                    <div class="d-flex">
+                      <img src="img/classes/class-1.jpg" alt="product" style="width:80px; border-radius:6px;">
+                    </div>
+                    <div class="media-body">
+                      <p>Weightlifting Class</p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <h5>$39.00</h5>
+                </td>
+                <td>
+                  <div class="product_count">
+                    <span class="input-number-decrement"> <i class="fa fa-minus"></i></span>
+                    <input class="input-number" type="text" value="1" min="0" max="10">
+                    <span class="input-number-increment"> <i class="fa fa-plus"></i></span>
+                  </div>
+                </td>
+                <td>
+                  <h5>$39.00</h5>
+                </td>
+              </tr>
 
-    <!-- Register Section Begin -->
-    <section class="bmi-calculator-section spad"><!-- reused styling section -->
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <div class="section-title text-center">
-                        <span>خوش برگشتی!</span>
-                        <h2> لطفا همین حالا وارد شوید </h2>
-                    </div>
-                    <div class="chart-calculate-form"><!-- reused same form container style -->
-                        <form action="#" method="post">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <input type="text" placeholder="نام کاربری" required>
-                                </div>
-                                <div class="col-lg-12">
-                                    <input type="password" placeholder="رمز عبور" required>
-                                </div>
-                                <div class="col-lg-12 text-center">
-                                    <button type="submit" class="site-btn">ورود</button>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="text-center mt-3">
-                            <p>تازه به فروشگاه ما آمده‌اید؟ <a href="login.html">ایجاد حساب کاربری</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Register Section End -->
+              <!-- Update/Apply Coupon -->
+              <tr class="bottom_button">
+                <td>
+                  <a class="primary-btn btn-sm" href="#">Update Cart</a>
+                </td>
+                <td></td>
+                <td></td>
+                <td>
+                  <div class="cupon_text float-right">
+                    <a class="primary-btn btn-sm" href="#">Apply Coupon</a>
+                  </div>
+                </td>
+              </tr>
 
-    <!-- Get In Touch Section Begin -->
-    <div class="gettouch-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="gt-text">
-                        <i class="fa fa-map-marker"></i>
-                        <p>تهران - پاکدشت - انتهای بلوار رحیمی<br/>تقاطع خانمحمدی - باشگاه گوریلا</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="gt-text">
-                        <i class="fa fa-mobile"></i>
-                        <ul>
-                            <li>+98 912 410 3607</li>
-                            <li>+98 933 474 6000</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="gt-text email">
-                        <i class="fa fa-envelope"></i>
-                        <p>ghobadisasan2@gmail.com</p>
-                    </div>
-                </div>
-            </div>
+              <!-- Subtotal -->
+              <tr>
+                <td></td>
+                <td></td>
+                <td><h5>Subtotal</h5></td>
+                <td><h5>$39.00</h5></td>
+              </tr>
+
+              <!-- Shipping -->
+              <tr class="shipping_area">
+                <td></td>
+                <td></td>
+                <td><h5>Shipping</h5></td>
+                <td>
+                  <div class="shipping_box">
+                    <ul class="list">
+                      <li>Flat Rate: $5.00 <input type="radio" name="shipping"></li>
+                      <li>Free Shipping <input type="radio" name="shipping"></li>
+                      <li>Local Delivery: $2.00 <input type="radio" name="shipping"></li>
+                    </ul>
+                    <h6>Calculate Shipping <i class="fa fa-caret-down"></i></h6>
+                    <select class="shipping_select">
+                      <option value="1">USA</option>
+                      <option value="2">Canada</option>
+                      <option value="3">UK</option>
+                    </select>
+                    <select class="shipping_select">
+                      <option value="1">Select a State</option>
+                    </select>
+                    <input class="post_code" type="text" placeholder="Postcode/Zipcode">
+                    <a class="primary-btn btn-sm" href="#">Update Details</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Checkout Buttons -->
+          <div class="checkout_btn_inner float-right">
+            <a class="primary-btn btn-sm" href="classes.html">Continue Shopping</a>
+            <a class="primary-btn btn-sm checkout_btn_1" href="checkout.html">Proceed to Checkout</a>
+          </div>
         </div>
+      </div>
     </div>
-    <!-- Get In Touch Section End -->
+  </section>
+  <!--================ End Cart Area =================-->
+    {% include "website/gettouch.html" %}
 
-    <!-- Footer Section Begin -->
-    <section class="footer-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="fs-about">
-                        <div class="fa-logo">
-                            <a href="#"><img src="{% static 'img/logo.png' %}" alt="Logo" width="150" height="100"></a>
-                        </div>
-                        <p>در فضای مجازی با ما در ارتباط باشید</p>
-                        <div class="fa-social">
-                            <a href="https://t.me/sasan_ghobadi"><i class="fa fa-telegram"></i></a>
-                            <a href="https://wa.me/989334746000"><i class="fa fa-whatsapp"></i></a>
-                            <a href="https://www.instagram.com/goriilashop"><i class="fa fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6">
-                    <div class="fs-widget">
-                        <h4>Useful links</h4>
-                        <ul>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Classes</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6">
-                    <div class="fs-widget">
-                        <h4>Support</h4>
-                        <ul>
-                            <li><a href="#">Login</a></li>
-                            <li><a href="#">My account</a></li>
-                            <li><a href="#">Subscribe</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="fs-widget">
-                        <h4>Tips & Guides</h4>
-                        <div class="fw-recent">
-                            <h6><a href="#">Physical fitness may help prevent depression, anxiety</a></h6>
-                            <ul>
-                                <li>3 min read</li>
-                                <li>20 Comment</li>
-                            </ul>
-                        </div>
-                        <div class="fw-recent">
-                            <h6><a href="#">Fitness: The best exercise to lose belly fat and tone up...</a></h6>
-                            <ul>
-                                <li>3 min read</li>
-                                <li>20 Comment</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="copyright-text">
-                        <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved</p>
-                        <p>Developed by <a href="https://amirhamidi.pythonanywhere.com/">Amir Hamidi</a> | Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Footer Section End -->
+    {% include "website/footer.html" %}
 
     <!-- Search model Begin -->
     <div class="search-model">
@@ -282,6 +254,7 @@
     <script src="{% static 'js/jquery.slicknav.js' %}"></script>
     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+
 
 
 </body>

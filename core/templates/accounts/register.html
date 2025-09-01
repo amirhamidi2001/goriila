@@ -8,7 +8,7 @@
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>مکمل گوریلا | ورود</title>
+    <title>مکمل گوریلا | ثبت نام</title>
 
     <!-- Favicons -->
     <link href="{% static 'img/favicon.ico' %}" rel="icon">
@@ -116,10 +116,10 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb-text">
-                        <h2>ورود</h2>
+                        <h2>ثبت نام</h2>
                         <div class="bt-option">
                             <a href="{% url 'website:index' %}">صفحه اصلی</a>
-                            <span>ورود</span>
+                            <span>ثبت نام</span>
                         </div>
                     </div>
                 </div>
@@ -134,25 +134,34 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="section-title text-center">
-                        <span>خوش برگشتی!</span>
-                        <h2> لطفا همین حالا وارد شوید </h2>
+                        <span> همین امروز به ما بپیوندید </span>
+                        <h2>حساب کاربری خود را ایجاد کنید </h2>
                     </div>
                     <div class="chart-calculate-form"><!-- reused same form container style -->
                         <form action="#" method="post">
                             <div class="row">
+                                <div class="col-lg-12">
+                                    <input type="text" placeholder="نام و نام خانوادگی" required>
+                                </div>
+                                <div class="col-lg-12">
+                                    <input type="email" placeholder="ایمیل" required>
+                                </div>
                                 <div class="col-lg-12">
                                     <input type="text" placeholder="نام کاربری" required>
                                 </div>
                                 <div class="col-lg-12">
                                     <input type="password" placeholder="رمز عبور" required>
                                 </div>
+                                <div class="col-lg-12">
+                                    <input type="password" placeholder="تأیید رمز عبور" required>
+                                </div>
                                 <div class="col-lg-12 text-center">
-                                    <button type="submit" class="site-btn">ورود</button>
+                                    <button type="submit" class="site-btn">ثبت نام</button>
                                 </div>
                             </div>
                         </form>
                         <div class="text-center mt-3">
-                            <p>تازه به فروشگاه ما آمده‌اید؟ <a href="login.html">ایجاد حساب کاربری</a></p>
+                            <p>آیا قبلاً حساب کاربری خود را ایجاد کردید؟ <a href="login.html"> از اینجا وارد شوید</a></p>
                         </div>
                     </div>
                 </div>
