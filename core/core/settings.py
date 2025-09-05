@@ -39,8 +39,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "website.apps.WebsiteConfig",
     "accounts.apps.AccountsConfig",
+    "blog.apps.BlogConfig",
     "cart.apps.CartConfig",
     "shop.apps.ShopConfig",
+    "django.contrib.humanize",
+    "taggit",
 ]
 
 MIDDLEWARE = [
