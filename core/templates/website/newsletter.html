@@ -1,20 +1,21 @@
 <!-- subscribe part here -->
-    <section class="subscribe_part section_padding">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="subscribe_part_content">
-                        <h3>برای دریافت آخرین اخبار و پیشنهادهای ویژه، در خبرنامه ما عضو شوید</h3>
-                        <div class="subscribe_form">
-                            <form action="{% url 'website:newsletter' %}" method="post">
-                            {% csrf_token %}
-                            <input type="email" name="email" placeholder="ایمیل خود را وارد کنید">
-                            <button class="btn_1">عضویت</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<section class="subscribe_part section_padding">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="subscribe_part_content">
+          <h3>برای دریافت آخرین اخبار و پیشنهادهای ویژه، در خبرنامه ما عضو شوید
+          </h3>
+          <div class="subscribe_form">
+            <form action="{% url 'website:newsletter' %}" method="post">
+              {% csrf_token %}
+              <input type="email" name="email" placeholder="ایمیل خود را وارد کنید">
+              <button class="btn_1">عضویت</button>
+            </form>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 <!-- subscribe part end -->

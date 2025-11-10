@@ -1,0 +1,791 @@
+<!doctype html>
+<html class="no-js" lang="fa" dir="rtl">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      <title>پروفایل کاربری | فروشگاه اینترنتی</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="manifest" href="site.webmanifest">
+      <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    
+      <!-- CSS here -->
+      <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+      <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+      <link rel="stylesheet" href="assets/css/flaticon.css">
+      <link rel="stylesheet" href="assets/css/slicknav.css">
+      <link rel="stylesheet" href="assets/css/animate.min.css">
+      <link rel="stylesheet" href="assets/css/magnific-popup.css">
+      <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+      <link rel="stylesheet" href="assets/css/themify-icons.css">
+      <link rel="stylesheet" href="assets/css/slick.css">
+      <link rel="stylesheet" href="assets/css/nice-select.css">
+      <link rel="stylesheet" href="assets/css/style.css">
+      <style>
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 0;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            object-fit: cover;
+        }
+        .profile-stats {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+        }
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #764ba2;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #6c757d;
+        }
+        .profile-tabs .nav-link {
+            color: #495057;
+            font-weight: 500;
+            border: none;
+            border-bottom: 3px solid transparent;
+            padding: 12px 20px;
+        }
+        .profile-tabs .nav-link.active {
+            color: #764ba2;
+            border-bottom: 3px solid #764ba2;
+            background: transparent;
+        }
+        .order-history-item {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+        .order-history-item:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .badge-status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        .wishlist-item {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .wishlist-item img {
+            height: 150px;
+            object-fit: cover;
+        }
+        .address-card {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .address-card.default {
+            border-color: #764ba2;
+        }
+        .badge-default {
+            background: #764ba2;
+            color: white;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 3px 8px;
+            font-size: 12px;
+            border-radius: 4px;
+        }
+      </style>
+   </head>
+
+<body>
+
+   <!-- Preloader Start -->
+   <div id="preloader-active">
+      <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+               <div class="preloader-circle"></div>
+               <div class="preloader-img pere-text">
+                  <img src="assets/img/logo/logo.png" alt="">
+               </div>
+            </div>
+      </div>
+   </div>
+   <!-- Preloader Start-->
+
+   <header>
+      <!-- Header Start -->
+     <div class="header-area">
+          <div class="main-header ">
+              <div class="header-top top-bg d-none d-lg-block">
+                 <div class="container-fluid">
+                     <div class="col-xl-12">
+                          <div class="row d-flex justify-content-between align-items-center">
+                              <div class="header-info-left d-flex">
+                                  <div class="flag">
+                                      <img src="assets/img/icon/header_icon.png" alt="">
+                                  </div>
+                                  <div class="select-this">
+                                      <form action="#">
+                                          <div class="select-itms">
+                                              <select name="select" id="select1">
+                                                  <option value="">USA</option>
+                                                  <option value="">SPN</option>
+                                                  <option value="">CDA</option>
+                                                  <option value="">USD</option>
+                                              </select>
+                                          </div>
+                                      </form>
+                                  </div>
+                                  <ul class="contact-now">     
+                                      <li>+777 2345 7886</li>
+                                  </ul>
+                              </div>
+                              <div class="header-info-right">
+                                 <ul>                                          
+                                     <li><a href="login.html">حساب کاربری</a></li>
+                                     <li><a href="product_list.html">لیست علاقه‌مندی‌ها</a></li>
+                                     <li><a href="cart.html">سبد خرید</a></li>
+                                     <li><a href="checkout.html">پرداخت</a></li>
+                                 </ul>
+                              </div>
+                          </div>
+                     </div>
+                 </div>
+              </div>
+             <div class="header-bottom  header-sticky">
+                  <div class="container-fluid">
+                      <div class="row align-items-center">
+                          <!-- Logo -->
+                          <div class="col-xl-1 col-lg-1 col-md-1 col-sm-3">
+                              <div class="logo">
+                                <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                              </div>
+                          </div>
+                          <div class="col-xl-6 col-lg-8 col-md-7 col-sm-5">
+                              <!-- Main-menu -->
+                              <div class="main-menu f-right d-none d-lg-block">
+                                  <nav>                                                
+                                      <ul id="navigation">                                                                                                                                     
+                                          <li><a href="index.html">خانه</a></li>
+                                          <li><a href="Catagori.html">دسته‌بندی‌ها</a></li>
+                                          <li class="hot"><a href="#">جدیدترین‌ها</a>
+                                              <ul class="submenu">
+                                                  <li><a href="product_list.html"> لیست محصولات</a></li>
+                                                  <li><a href="single-product.html"> جزئیات محصول</a></li>
+                                              </ul>
+                                          </li>
+                                          <li><a href="blog.html">بلاگ</a>
+                                              <ul class="submenu">
+                                                  <li><a href="blog.html">بلاگ</a></li>
+                                                  <li><a href="single-blog.html">جزئیات بلاگ</a></li>
+                                              </ul>
+                                          </li>
+                                          <li><a href="#">صفحات</a>
+                                              <ul class="submenu">
+                                                  <li><a href="login.html">ورود</a></li>
+                                                  <li><a href="cart.html">سبد خرید</a></li>
+                                                  <li><a href="elements.html">المان‌ها</a></li>
+                                                  <li><a href="about.html">درباره ما</a></li>
+                                                  <li><a href="confirmation.html">تأیید</a></li>
+                                                  <li><a href="checkout.html">پرداخت</a></li>
+                                              </ul>
+                                          </li>
+                                          <li><a href="contact.html">تماس با ما</a></li>
+                                      </ul>
+                                  </nav>
+                              </div>
+                          </div> 
+                          <div class="col-xl-5 col-lg-3 col-md-3 col-sm-3 fix-card">
+                              <ul class="header-right f-right d-none d-lg-block d-flex justify-content-between">
+                                  <li class="d-none d-xl-block">
+                                      <div class="form-box f-right ">
+                                          <input type="text" name="Search" placeholder="جستجوی محصولات">
+                                          <div class="search-icon">
+                                              <i class="fas fa-search special-tag"></i>
+                                          </div>
+                                      </div>
+                                   </li>
+                                  <li class=" d-none d-xl-block">
+                                      <div class="favorit-items">
+                                          <i class="far fa-heart"></i>
+                                      </div>
+                                  </li>
+                                  <li>
+                                      <div class="shopping-card">
+                                          <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+                                      </div>
+                                  </li>
+                                 <li class="d-none d-lg-block"> <a href="profile.html" class="btn header-btn">پروفایل من</a></li>
+                              </ul>
+                          </div>
+                          <!-- Mobile Menu -->
+                          <div class="col-12">
+                              <div class="mobile_menu d-block d-lg-none"></div>
+                          </div>
+                      </div>
+                  </div>
+             </div>
+          </div>
+     </div>
+      <!-- Header End -->
+   </header>
+
+    <!-- slider Area Start-->
+    <div class="slider-area ">
+      <!-- Mobile Menu -->
+      <div class="single-slider slider-height2 d-flex align-items-center" data-background="assets/img/hero/category.jpg">
+          <div class="container">
+              <div class="row">
+                  <div class="col-xl-12">
+                      <div class="hero-cap text-center">
+                          <h2>پروفایل کاربری</h2>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- slider Area End-->
+     
+   <!--================Profile Area =================-->
+   <section class="blog_area single-post-area section-padding">
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-8 posts-list">
+               <div class="profile-header text-center">
+                  <div class="media align-items-center justify-content-center">
+                     <img src="assets/img/blog/author.png" alt="پروفایل کاربر" class="profile-picture mr-4">
+                     <div class="media-body text-white text-right">
+                        <h3>محمد رضایی</h3>
+                        <p>عضو از فروردین ۱۴۰۰</p>
+                        <p class="mb-0">mohammad.rezaei@example.com</p>
+                     </div>
+                  </div>
+               </div>
+               
+               <div class="profile-stats">
+                  <div class="row">
+                     <div class="col-md-3 col-6 stat-item">
+                        <div class="stat-number">۱۲</div>
+                        <div class="stat-label">سفارشات</div>
+                     </div>
+                     <div class="col-md-3 col-6 stat-item">
+                        <div class="stat-number">۷</div>
+                        <div class="stat-label">علاقه‌مندی‌ها</div>
+                     </div>
+                     <div class="col-md-3 col-6 stat-item">
+                        <div class="stat-number">۴</div>
+                        <div class="stat-label">نظرات</div>
+                     </div>
+                     <div class="col-md-3 col-6 stat-item">
+                        <div class="stat-number">۳</div>
+                        <div class="stat-label">آدرس‌ها</div>
+                     </div>
+                  </div>
+               </div>
+               
+               <div class="profile-tabs mb-5">
+                  <ul class="nav nav-tabs" id="profileTab" role="tablist">
+                     <li class="nav-item">
+                        <a class="nav-link active" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="true">سفارشات من</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" id="wishlist-tab" data-toggle="tab" href="#wishlist" role="tab" aria-controls="wishlist" aria-selected="false">لیست علاقه‌مندی‌ها</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" id="addresses-tab" data-toggle="tab" href="#addresses" role="tab" aria-controls="addresses" aria-selected="false">آدرس‌ها</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">تنظیمات حساب</a>
+                     </li>
+                  </ul>
+                  <div class="tab-content" id="profileTabContent">
+                     <div class="tab-pane fade show active" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                        <h4 class="my-4">تاریخچه سفارشات</h4>
+                        
+                        <div class="order-history-item">
+                           <div class="d-md-flex justify-content-between">
+                              <div>
+                                 <h5>سفارش #ORD-2023-0012</h5>
+                                 <p class="mb-1">تاریخ: ۱۵ مرداد ۱۴۰۲</p>
+                                 <p class="mb-0">مبلغ: ۲,۴۵۰,۰۰۰ تومان</p>
+                              </div>
+                              <div class="mt-2 mt-md-0">
+                                 <span class="badge-status badge-success">تحویل شده</span>
+                              </div>
+                           </div>
+                           <div class="mt-3">
+                              <a href="#" class="btn btn-outline-primary btn-sm">مشاهده جزئیات</a>
+                              <a href="#" class="btn btn-outline-secondary btn-sm">درخواست مرجوعی</a>
+                           </div>
+                        </div>
+                        
+                        <div class="order-history-item">
+                           <div class="d-md-flex justify-content-between">
+                              <div>
+                                 <h5>سفارش #ORD-2023-0011</h5>
+                                 <p class="mb-1">تاریخ: ۵ مرداد ۱۴۰۲</p>
+                                 <p class="mb-0">مبلغ: ۱,۸۷۰,۰۰۰ تومان</p>
+                              </div>
+                              <div class="mt-2 mt-md-0">
+                                 <span class="badge-status badge-warning">در حال ارسال</span>
+                              </div>
+                           </div>
+                           <div class="mt-3">
+                              <a href="#" class="btn btn-outline-primary btn-sm">مشاهده جزئیات</a>
+                              <a href="#" class="btn btn-outline-secondary btn-sm">پیگیری سفارش</a>
+                           </div>
+                        </div>
+                        
+                        <div class="order-history-item">
+                           <div class="d-md-flex justify-content-between">
+                              <div>
+                                 <h5>سفارش #ORD-2023-0010</h5>
+                                 <p class="mb-1">تاریخ: ۲۵ تیر ۱۴۰۲</p>
+                                 <p class="mb-0">مبلغ: ۳,۱۲۰,۰۰۰ تومان</p>
+                              </div>
+                              <div class="mt-2 mt-md-0">
+                                 <span class="badge-status badge-success">تحویل شده</span>
+                              </div>
+                           </div>
+                           <div class="mt-3">
+                              <a href="#" class="btn btn-outline-primary btn-sm">مشاهده جزئیات</a>
+                              <a href="#" class="btn btn-outline-secondary btn-sm">ثبت نظر</a>
+                           </div>
+                        </div>
+                     </div>
+                     
+                     <div class="tab-pane fade" id="wishlist" role="tabpanel" aria-labelledby="wishlist-tab">
+                        <h4 class="my-4">لیست علاقه‌مندی‌ها</h4>
+                        
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="wishlist-item">
+                                 <div class="row no-gutters">
+                                    <div class="col-4">
+                                       <img src="assets/img/product/prod1.jpg" class="w-100" alt="محصول">
+                                    </div>
+                                    <div class="col-8">
+                                       <div class="p-3">
+                                          <h6>گوشی موبایل سامسونگ گلکسی A73</h6>
+                                          <p class="text-primary mb-2">۱۲,۵۰۰,۰۰۰ تومان</p>
+                                          <div class="d-flex">
+                                             <a href="#" class="btn btn-primary btn-sm ml-2">افزودن به سبد</a>
+                                             <a href="#" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           
+                           <div class="col-md-6">
+                              <div class="wishlist-item">
+                                 <div class="row no-gutters">
+                                    <div class="col-4">
+                                       <img src="assets/img/product/prod2.jpg" class="w-100" alt="محصول">
+                                    </div>
+                                    <div class="col-8">
+                                       <div class="p-3">
+                                          <h6>هدفون بی‌سیم سونی WH-1000XM4</h6>
+                                          <p class="text-primary mb-2">۶,۸۰۰,۰۰۰ تومان</p>
+                                          <div class="d-flex">
+                                             <a href="#" class="btn btn-primary btn-sm ml-2">افزودن به سبد</a>
+                                             <a href="#" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           
+                           <div class="col-md-6">
+                              <div class="wishlist-item">
+                                 <div class="row no-gutters">
+                                    <div class="col-4">
+                                       <img src="assets/img/product/prod3.jpg" class="w-100" alt="محصول">
+                                    </div>
+                                    <div class="col-8">
+                                       <div class="p-3">
+                                          <h6>لپ‌تاپ ایسوس ویووبوک ۱۵</h6>
+                                          <p class="text-primary mb-2">۲۴,۹۰۰,۰۰۰ تومان</p>
+                                          <div class="d-flex">
+                                             <a href="#" class="btn btn-primary btn-sm ml-2">افزودن به سبد</a>
+                                             <a href="#" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     
+                     <div class="tab-pane fade" id="addresses" role="tabpanel" aria-labelledby="addresses-tab">
+                        <h4 class="my-4">آدرس‌های من</h4>
+                        
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="address-card default">
+                                 <span class="badge-default">پیش‌فرض</span>
+                                 <h5>منزل</h5>
+                                 <p>تهران، خیابان ولیعصر، نرسیده به میدان ولیعصر، پلاک ۱۲۳۴، طبقه ۳، واحد ۵</p>
+                                 <p>کد پستی: ۱۲۳۴۵۶۷۸۹۰</p>
+                                 <p>تلفن: ۰۹۱۲۳۴۵۶۷۸۹</p>
+                                 <div class="mt-3">
+                                    <a href="#" class="btn btn-outline-primary btn-sm">ویرایش</a>
+                                    <a href="#" class="btn btn-outline-danger btn-sm">حذف</a>
+                                 </div>
+                              </div>
+                           </div>
+                           
+                           <div class="col-md-6">
+                              <div class="address-card">
+                                 <h5>محل کار</h5>
+                                 <p>تهران، خیابان شهید بهشتی، خیابان قائم مقام فراهانی، پلاک ۵۶، واحد ۲</p>
+                                 <p>کد پستی: ۹۸۷۶۵۴۳۲۱۰</p>
+                                 <p>تلفن: ۰۲۱۸۸۵۶۴۷۳۹</p>
+                                 <div class="mt-3">
+                                    <a href="#" class="btn btn-outline-primary btn-sm">ویرایش</a>
+                                    <a href="#" class="btn btn-outline-danger btn-sm">حذف</a>
+                                    <a href="#" class="btn btn-outline-success btn-sm">تنظیم به عنوان پیش‌فرض</a>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        
+                        <button class="btn btn-primary mt-3">افزودن آدرس جدید</button>
+                     </div>
+                     
+                     <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                        <h4 class="my-4">تنظیمات حساب کاربری</h4>
+                        
+                        <form>
+                           <div class="row">
+                              <div class="col-md-6">
+                                 <div class="form-group">
+                                    <label for="firstName">نام</label>
+                                    <input type="text" class="form-control" id="firstName" value="محمد">
+                                 </div>
+                              </div>
+                              <div class="col-md-6">
+                                 <div class="form-group">
+                                    <label for="lastName">نام خانوادگی</label>
+                                    <input type="text" class="form-control" id="lastName" value="رضایی">
+                                 </div>
+                              </div>
+                              <div class="col-md-6">
+                                 <div class="form-group">
+                                    <label for="email">ایمیل</label>
+                                    <input type="email" class="form-control" id="email" value="mohammad.rezaei@example.com">
+                                 </div>
+                              </div>
+                              <div class="col-md-6">
+                                 <div class="form-group">
+                                    <label for="phone">تلفن همراه</label>
+                                    <input type="text" class="form-control" id="phone" value="۰۹۱۲۳۴۵۶۷۸۹">
+                                 </div>
+                              </div>
+                              <div class="col-12">
+                                 <div class="form-group">
+                                    <label for="birthdate">تاریخ تولد</label>
+                                    <input type="date" class="form-control" id="birthdate" value="1990-05-15">
+                                 </div>
+                              </div>
+                              <div class="col-12">
+                                 <button type="submit" class="btn btn-primary">ذخیره تغییرات</button>
+                              </div>
+                           </div>
+                        </form>
+                        
+                        <hr class="my-5">
+                        
+                        <h5 class="mb-3">تغییر رمز عبور</h5>
+                        <form>
+                           <div class="row">
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label for="currentPassword">رمز عبور فعلی</label>
+                                    <input type="password" class="form-control" id="currentPassword">
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label for="newPassword">رمز عبور جدید</label>
+                                    <input type="password" class="form-control" id="newPassword">
+                                 </div>
+                              </div>
+                              <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label for="confirmPassword">تکرار رمز عبور جدید</label>
+                                    <input type="password" class="form-control" id="confirmPassword">
+                                 </div>
+                              </div>
+                              <div class="col-12">
+                                 <button type="submit" class="btn btn-primary">تغییر رمز عبور</button>
+                              </div>
+                           </div>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            
+            <div class="col-lg-4">
+               <div class="blog_right_sidebar">
+                  <aside class="single_sidebar_widget post_category_widget">
+                     <h4 class="widget_title">دسترسی سریع</h4>
+                     <ul class="list cat-list">
+                        <li>
+                           <a href="#" class="d-flex">
+                              <p>سفارشات من</p>
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#" class="d-flex">
+                              <p>لیست علاقه‌مندی‌ها</p>
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#" class="d-flex">
+                              <p>آدرس‌ها</p>
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#" class="d-flex">
+                              <p>کارت هدیه</p>
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#" class="d-flex">
+                              <p>اطلاعات حساب</p>
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#" class="d-flex">
+                              <p>پیام‌ها</p>
+                           </a>
+                        </li>
+                     </ul>
+                  </aside>
+                  
+                  <aside class="single_sidebar_widget popular_post_widget">
+                     <h3 class="widget_title">سفارشات اخیر</h3>
+                     <div class="media post_item">
+                        <img src="assets/img/product/prod_small1.jpg" alt="محصول">
+                        <div class="media-body">
+                           <a href="#">
+                              <h4>گوشی موبایل سامسونگ</h4>
+                           </a>
+                           <p>۱۵ مرداد ۱۴۰۲</p>
+                        </div>
+                     </div>
+                     <div class="media post_item">
+                        <img src="assets/img/product/prod_small2.jpg" alt="محصول">
+                        <div class="media-body">
+                           <a href="#">
+                              <h4>هدفون بی‌سیم سونی</h4>
+                           </a>
+                           <p>۵ مرداد ۱۴۰۲</p>
+                        </div>
+                     </div>
+                     <div class="media post_item">
+                        <img src="assets/img/product/prod_small3.jpg" alt="محصول">
+                        <div class="media-body">
+                           <a href="#">
+                              <h4>لپ‌تاپ ایسوس</h4>
+                           </a>
+                           <p>۲۵ تیر ۱۴۰۲</p>
+                        </div>
+                     </div>
+                  </aside>
+                  
+                  <aside class="single_sidebar_widget tag_cloud_widget">
+                     <h4 class="widget_title">برچسب‌های محبوب</h4>
+                     <ul class="list">
+                        <li>
+                           <a href="#">موبایل</a>
+                        </li>
+                        <li>
+                           <a href="#">لپ‌تاپ</a>
+                        </li>
+                        <li>
+                           <a href="#">هدفون</a>
+                        </li>
+                        <li>
+                           <a href="#">تبلت</a>
+                        </li>
+                        <li>
+                           <a href="#">کامپیوتر</a>
+                        </li>
+                        <li>
+                           <a href="#">لوازم جانبی</a>
+                        </li>
+                     </ul>
+                  </aside>
+                  
+                  <aside class="single_sidebar_widget newsletter_widget">
+                     <h4 class="widget_title">خبرنامه</h4>
+                     <p>برای دریافت جدیدترین تخفیف‌ها و پیشنهادات ویژه در خبرنامه ما عضو شوید.</p>
+                     <form action="#">
+                        <div class="form-group">
+                           <input type="email" class="form-control" onfocus="this.placeholder = ''"
+                              onblur="this.placeholder = 'ایمیل خود را وارد کنید'" placeholder='ایمیل خود را وارد کنید' required>
+                        </div>
+                        <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                           type="submit">عضویت</button>
+                     </form>
+                  </aside>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <!--================ Profile Area end =================-->
+
+   <footer>
+      <!-- Footer Start-->
+      <div class="footer-area footer-padding2">
+          <div class="container">
+              <div class="row d-flex justify-content-between">
+                  <div class="col-xl-3 col-lg-3 col-md-5 col-sm-6">
+                     <div class="single-footer-caption mb-50">
+                       <div class="single-footer-caption mb-30">
+                            <!-- logo -->
+                           <div class="footer-logo">
+                               <a href="index.html"><img src="assets/img/logo/logo2_footer.png" alt=""></a>
+                           </div>
+                           <div class="footer-tittle">
+                               <div class="footer-pera">
+                                   <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                              </div>
+                           </div>
+                       </div>
+                     </div>
+                  </div>
+                  <div class="col-xl-2 col-lg-3 col-md-3 col-sm-5">
+                      <div class="single-footer-caption mb-50">
+                          <div class="footer-tittle">
+                              <h4>لینک‌های سریع</h4>
+                              <ul>
+                                  <li><a href="#">درباره ما</a></li>
+                                  <li><a href="#">تخفیف‌ها و پیشنهادها</a></li>
+                                  <li><a href="#">دریافت کوپن</a></li>
+                                  <li><a href="#">تماس با ما</a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-7">
+                      <div class="single-footer-caption mb-50">
+                          <div class="footer-tittle">
+                              <h4>محصولات جدید</h4>
+                              <ul>
+                                  <li><a href="#">پوشاک زنانه</a></li>
+                                  <li><a href="#">اکسسوری مد</a></li>
+                                  <li><a href="#">اکسسوری مردانه</a></li>
+                                  <li><a href="#">اسباب‌بازی پلاستیکی</a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-5 col-sm-7">
+                      <div class="single-footer-caption mb-50">
+                          <div class="footer-tittle">
+                              <h4>پشتیبانی</h4>
+                              <ul>
+                               <li><a href="#">سوالات متداول</a></li>
+                               <li><a href="#">قوانین و مقررات</a></li>
+                               <li><a href="#">حریم خصوصی</a></li>
+                               <li><a href="#">گزارش مشکل پرداخت</a></li>
+                           </ul>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!-- Footer bottom -->
+              <div class="row">
+               <div class="col-xl-7 col-lg-7 col-md-7">
+                   <div class="footer-copy-right">
+                       <p>تمامی حقوق محفوظ است | این قالب با <i class="ti-heart" aria-hidden="true"></i> توسط <a href="https://colorlib.com" target="_blank">Colorlib</a> ساخته شده است</p>
+                   </div>
+               </div>
+                <div class="col-xl-5 col-lg-5 col-md-5">
+                   <div class="footer-copy-right f-right">
+                       <!-- social -->
+                       <div class="footer-social">
+                           <a href="#"><i class="fab fa-twitter"></i></a>
+                           <a href="#"><i class="fab fa-facebook-f"></i></a>
+                           <a href="#"><i class="fab fa-behance"></i></a>
+                           <a href="#"><i class="fas fa-globe"></i></a>
+                       </div>
+                   </div>
+               </div>
+           </div>
+          </div>
+      </div>
+      <!-- Footer End-->
+    </footer>
+  
+   
+<!-- JS here -->
+	
+		<!-- All JS Custom Plugins Link Here here -->
+      <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+		
+		<!-- Jquery, Popper, Bootstrap -->
+		<script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
+        <script src="./assets/js/popper.min.js"></script>
+        <script src="./assets/js/bootstrap.min.js"></script>
+	    <!-- Jquery Mobile Menu -->
+        <script src="./assets/js/jquery.slicknav.min.js"></script>
+
+		<!-- Jquery Slick , Owl-Carousel Plugins -->
+        <script src="./assets/js/owl.carousel.min.js"></script>
+        <script src="./assets/js/slick.min.js"></script>
+        <!-- Date Picker -->
+        <script src="./assets/js/gijgo.min.js"></script>
+		<!-- One Page, Animated-HeadLin -->
+      <script src="./assets/js/wow.min.js"></script>
+		<script src="./assets/js/animated.headline.js"></script>
+      <script src="./assets/js/jquery.magnific-popup.js"></script>
+
+		<!-- Scrollup, nice-select, sticky -->
+      <script src="./assets/js/jquery.scrollUp.min.js"></script>
+      <script src="./assets/js/jquery.nice-select.min.js"></script>
+		<script src="./assets/js/jquery.sticky.js"></script>
+        
+        <!-- contact js -->
+        <script src="./assets/js/contact.js"></script>
+        <script src="./assets/js/jquery.form.js"></script>
+        <script src="./assets/js/jquery.validate.min.js"></script>
+        <script src="./assets/js/mail-script.js"></script>
+        <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+        
+		<!-- Jquery Plugins, main Jquery -->	
+        <script src="./assets/js/plugins.js"></script>
+        <script src="./assets/js/main.js"></script>
+        
+
+</body>
+
+</html>

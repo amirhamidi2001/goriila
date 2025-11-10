@@ -47,9 +47,7 @@ class NewsletterSubscribeView(FormView):
 
     def form_valid(self, form):
         form.save()
-        messages.success(
-            self.request, "عضویت شما در خبرنامه با موفقیت انجام شد"
-        )
+        messages.success(self.request, "عضویت شما در خبرنامه با موفقیت انجام شد")
         return super().form_valid(form)
 
     def form_invalid(self, form):

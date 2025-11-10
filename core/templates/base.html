@@ -1,247 +1,323 @@
 {% load static %}
 <!doctype html>
 <html lang="fa">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>{% block title %}{% endblock %}</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="manifest" href="site.webmanifest">
-		<link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.ico' %}">
-
-		<!-- CSS here -->
-            <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
-            <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
-            <link rel="stylesheet" href="{% static 'assets/css/flaticon.css' %}">
-            <link rel="stylesheet" href="{% static 'assets/css/slicknav.css' %}">
-            <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
-            <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
-            <link rel="stylesheet" href="{% static 'assets/css/fontawesome-all.min.css' %}">
-            <link rel="stylesheet" href="{% static 'assets/css/themify-icons.css' %}">
-            <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
-            <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
-            <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-   </head>
-
-   <body>
-       
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}
+    </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.ico' %}">
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/slicknav.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+  </head>
+  <body>
     <!-- Preloader Start -->
     <div id="preloader-active">
-        <div class="preloader d-flex align-items-center justify-content-center">
-            <div class="preloader-inner position-relative">
-                <div class="preloader-circle"></div>
-                <div class="preloader-img pere-text">
-                    <img src="{% static 'assets/img/logo/logo.png' %}" alt="">
-                </div>
-            </div>
+      <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+          <div class="preloader-circle">
+          </div>
+          <div class="preloader-img pere-text">
+            <h6>Goriila.</h6>
+          </div>
         </div>
+      </div>
     </div>
     <!-- Preloader Start -->
-
     <header>
-        <!-- Header Start -->
-       <div class="header-area">
-            <div class="main-header ">
-                <div class="header-top top-bg d-none d-lg-block">
-                   <div class="container-fluid">
-                       <div class="col-xl-12">
-                            <div class="row d-flex justify-content-between align-items-center">
-                                <div class="header-info-left d-flex">
-                                    <ul class="contact-now">     
-                                        <li>+777 2345 7886</li>
-                                    </ul>
-                                </div>
-                                <div class="header-info-right">
-                                   <ul>                                          
-                                       <li><a href="login.html">حساب کاربری</a></li>
-                                       <li><a href="cart.html">سبد خرید</a></li>
-                                       <li><a href="checkout.html">ثبت سفارش</a></li>
-                                   </ul>
-                                </div>
-                            </div>
-                       </div>
-                   </div>
+      <!-- Header Start -->
+      <div class="header-area">
+        <div class="main-header ">
+          <div class="header-top top-bg d-none d-lg-block">
+            <div class="container-fluid">
+              <div class="col-xl-12">
+                <div class="row d-flex justify-content-between align-items-center">
+                  <div class="header-info-left d-flex">
+                    <ul class="contact-now">     
+                      <li>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="header-info-right">
+                    <ul>                                          
+                      <li>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'accounts:profile_detail' %}">حساب کاربری</a>
+                        {% else %}
+                        <a href="{% url 'accounts:login' %}">حساب کاربری</a>
+                        {% endif %}
+                      </li>
+                      <li>
+                        <a href="{% url 'cart:cart-summary' %}">سبد خرید</a>
+                      </li>
+                      <li>
+                        <a href="checkout.html">ثبت سفارش</a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-               <div class="header-bottom  header-sticky">
-                    <div class="container-fluid">
-                        <div class="row align-items-center">
-                            <!-- Logo -->
-                            <div class="col-xl-1 col-lg-1 col-md-1 col-sm-3">
-                                <div class="logo">
-                                  <a href="{% url 'website:index' %}"><img src="{% static 'assets/img/logo/logo.png' %}" alt=""></a>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-8 col-md-7 col-sm-5">
-                                <!-- Main-menu -->
-                                <div class="main-menu f-right d-none d-lg-block">
-                                    <nav>                                                
-                                        <ul id="navigation">                                                                                                                                     
-                                            <li><a href="{% url 'website:index' %}">صفحه اصلی</a></li>
-                                            <li><a href="{% url 'website:about' %}">درباره ما</a></li>
-                                            <li><a href="{% url 'shop:shop' %}">فروشگاه</a>
-                                            <li><a href="{% url 'blog:post-list' %}">وبلاگ</a>
-                                            <li><a href="{% url 'website:contact' %}">ارتباط با ما</a></li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div> 
-                            <div class="col-xl-5 col-lg-3 col-md-3 col-sm-3 fix-card">
-                                <ul class="header-right f-right d-none d-lg-block d-flex justify-content-between">
-                                    <li class="d-none d-xl-block">
-                                        <div class="form-box f-right ">
-                                            <input type="text" name="Search" placeholder="Search products">
-                                            <div class="search-icon">
-                                                <i class="fas fa-search special-tag"></i>
-                                            </div>
-                                        </div>
-                                     </li>
-                                   <li class="d-none d-lg-block"> <a href="#" class="btn header-btn">ورود</a></li>
-                                </ul>
-                            </div>
-                            <!-- Mobile Menu -->
-                            <div class="col-12">
-                                <div class="mobile_menu d-block d-lg-none"></div>
-                            </div>
-                        </div>
-                    </div>
-               </div>
+              </div>
             </div>
-        </div>
-        <!-- Header End -->
-         {% include 'messages.html' %}
-    </header>
-
-{% block content %}
-
-{% endblock %}
-
-    <footer>
-       <!-- Footer Start-->
-       <div class="footer-area footer-padding">
-           <div class="container">
-               <div class="row d-flex justify-content-between">
-                   <div class="col-xl-3 col-lg-3 col-md-5 col-sm-6">
-                      <div class="single-footer-caption mb-50">
-                        <div class="single-footer-caption mb-30">
-                             <!-- logo -->
-                            <div class="footer-logo">
-                                <a href="{% url 'website:index' %}"><img src="{% static 'assets/img/logo/logo2_footer.png' %}" alt=""></a>
-                            </div>
-                            <div class="footer-tittle">
-                                <div class="footer-pera">
-                                    <p>گوریلا؛ پلی میان تو و بهترین برندهای دنیا</p>
-                               </div>
-                            </div>
-                        </div>
+          </div>
+          <div class="header-bottom  header-sticky">
+            <div class="container-fluid">
+              <div class="row align-items-center">
+                <!-- Logo -->
+                <div class="col-xl-1 col-lg-1 col-md-1 col-sm-3">
+                  <div class="logo">
+                    <a href="{% url 'website:index' %}"><h6>Goriila.</h6></a>
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-8 col-md-7 col-sm-5">
+                  <!-- Main-menu -->
+                  <div class="main-menu f-right d-none d-lg-block">
+                    <nav>                                                
+                      <ul id="navigation">                                                                                                                                     
+                        <li>
+                          <a href="{% url 'website:index' %}">صفحه اصلی</a>
+                        </li>
+                        <li>
+                          <a href="{% url 'website:about' %}">درباره ما</a>
+                        </li>
+                        <li>
+                          <a href="{% url 'shop:product-list' %}">فروشگاه</a>
+                        </li>
+                        <li>
+                          <a href="{% url 'cart:cart-summary' %}">سبد خرید</a>
+                        </li>
+                        <li>
+                          {% if user.is_authenticated %}
+                          <a href="{% url 'accounts:profile_detail' %}">حساب کاربری</a>
+                          {% else %}
+                          <a href="{% url 'accounts:login' %}">حساب کاربری</a>
+                          {% endif %}
+                        </li>
+                        <li>
+                          <a href="{% url 'blog:post-list' %}">وبلاگ</a>
+                        <li>
+                          <a href="{% url 'website:contact' %}">ارتباط با ما</a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div> 
+                <div class="col-xl-5 col-lg-3 col-md-3 col-sm-3 fix-card">
+                  <ul class="header-right f-right d-none d-lg-block d-flex justify-content-between">
+                    <li class="d-none d-xl-block">
+                      <div class="form-box f-right">
+                        <form method="get" action="{% url 'shop:product-list' %}">
+                          <input type="text" name="search" placeholder="جستوجوی محصولات" value="{{ search_query|default:'' }}">
+                          <button type="submit" class="search-icon" style="border:none; background:none;">
+                            <i class="fas fa-search special-tag"></i>
+                          </button>
+                        </form>
                       </div>
-                   </div>
-                   <div class="col-xl-2 col-lg-3 col-md-3 col-sm-5">
-                       <div class="single-footer-caption mb-50">
-                           <div class="footer-tittle">
-                               <h4>دسترسی سریع</h4>
-                               <ul>
-                                   <li><a href="{% url 'website:index' %}">صفحه اصلی</a></li>
-                                   <li><a href="{% url 'website:about' %}">درباره ما</a></li>
-                                   <li><a href="{% url 'blog:post-list' %}">وبلاگ</a></li>
-                                   <li><a href="{% url 'website:contact' %}">ارتباط با ما</a></li>
-                               </ul>
-                           </div>
-                       </div>
-                   </div>
-                   <div class="col-xl-3 col-lg-3 col-md-4 col-sm-7">
-                       <div class="single-footer-caption mb-50">
-                           <div class="footer-tittle">
-                               <h4>New Products</h4>
-                               <ul>
-                                   <li><a href="#">Woman Cloth</a></li>
-                                   <li><a href="#">Fashion Accessories</a></li>
-                                   <li><a href="#"> Man Accessories</a></li>
-                                   <li><a href="#"> Rubber made Toys</a></li>
-                               </ul>
-                           </div>
-                       </div>
-                   </div>
-                   <div class="col-xl-3 col-lg-3 col-md-5 col-sm-7">
-                       <div class="single-footer-caption mb-50">
-                           <div class="footer-tittle">
-                               <h4>Support</h4>
-                               <ul>
-                                <li><a href="#">Frequently Asked Questions</a></li>
-                                <li><a href="#">Terms & Conditions</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Report a Payment Issue</a></li>
-                            </ul>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-               <!-- Footer bottom -->
-               <div class="row">
-                <div class="col-xl-7 col-lg-7 col-md-7">
-                    <div class="footer-copy-right">
-                        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        </p>
-                        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Developed by <a href="https://amirhamidi.pythonanywhere.com/" target="_blank">Amir Hamidi</a> | Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                        </p>              
-                    </div>
+                    </li>
+                    <li>
+                      <div class="shopping-card">
+                        <a href="{% url 'cart:cart-summary' %}">
+                          <i class="fas fa-shopping-cart"></i>
+                          <span class="cart-count" id="cart-count">{{ cart.get_total_quantity }}</span>
+                        </a>
+                      </div>
+                    </li>
+                    <li class="d-none d-lg-block"> 
+                      {% if user.is_authenticated %}
+                        <a href="{% url 'accounts:logout' %}" class="btn header-btn">خروج</a>
+                      {% else %}
+                        <a href="{% url 'accounts:login' %}" class="btn header-btn">ورود</a>
+                      {% endif %}
+                    </li>
+                  </ul>
                 </div>
-                 <div class="col-xl-5 col-lg-5 col-md-5">
-                    <div class="footer-copy-right f-right">
-                        <!-- social -->
-                        <div class="footer-social">
-                            <a href="https://t.me/sasan_ghobadi"><i class="fab fa-telegram"></i></a>
-                            <a href="https://www.instagram.com/goriilagym/"><i class="fab fa-instagram"></i></a>
-                            <a href="https://wa.me/989334746000"><i class="fab fa-whatsapp"></i></a>
-                        </div>
-                    </div>
+                <!-- Mobile Menu -->
+                <div class="col-12">
+                  <div class="mobile_menu d-block d-lg-none">
+                  </div>
                 </div>
+              </div>
             </div>
-           </div>
-       </div>
-       <!-- Footer End-->
-
-   </footer>
-   
-	<!-- JS here -->
-	
-		<!-- All JS Custom Plugins Link Here here -->
-        <script src="{% static 'assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
-		<!-- Jquery, Popper, Bootstrap -->
-		<script src="{% static 'assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
-        <script src="{% static 'assets/js/popper.min.js' %}"></script>
-        <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
-	    <!-- Jquery Mobile Menu -->
-        <script src="{% static 'assets/js/jquery.slicknav.min.js' %}"></script>
-
-		<!-- Jquery Slick , Owl-Carousel Plugins -->
-        <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
-        <script src="{% static 'assets/js/slick.min.js' %}"></script>
-
-		<!-- One Page, Animated-HeadLin -->
-        <script src="{% static 'assets/js/wow.min.js' %}"></script>
-		<script src="{% static 'assets/js/animated.headline.js' %}"></script>
-        <script src="{% static 'assets/js/jquery.magnific-popup.js' %}"></script>
-
-		<!-- Scrollup, nice-select, sticky -->
-        <script src="{% static 'assets/js/jquery.scrollUp.min.js' %}"></script>
-        <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
-		<script src="{% static 'assets/js/jquery.sticky.js' %}"></script>
-        
-        <!-- contact js -->
-        <script src="{% static 'assets/js/contact.js' %}"></script>
-        <script src="{% static 'assets/js/jquery.form.js' %}"></script>
-        <script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
-        <script src="{% static 'assets/js/mail-script.js' %}"></script>
-        <script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
-        
-		<!-- Jquery Plugins, main Jquery -->	
-        <script src="{% static 'assets/js/plugins.js' %}"></script>
-        <script src="{% static 'assets/js/main.js' %}"></script>
-        
-    </body>
+          </div>
+        </div>
+      </div>
+      <!-- Header End -->
+      {% include 'messages.html' %}
+    </header>
+    {% block content %}
+    {% endblock %}
+    <footer>
+      <!-- Footer Start-->
+      <div class="footer-area footer-padding">
+        <div class="container">
+          <div class="row d-flex justify-content-between">
+            <div class="col-xl-3 col-lg-3 col-md-5 col-sm-6">
+              <div class="single-footer-caption mb-50">
+                <div class="single-footer-caption mb-30">
+                  <!-- logo -->
+                  <div class="footer-logo">
+                    <a href="{% url 'website:index' %}"><h6>Goriila.</h6></a>
+                  </div>
+                  <div class="footer-tittle">
+                    <div class="footer-pera">
+                      <p>گوریلا؛ پلی میان تو و بهترین برندهای دنیا
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-3 col-sm-5">
+              <div class="single-footer-caption mb-50">
+                <div class="footer-tittle">
+                  <h4>دسترسی سریع
+                  </h4>
+                  <ul>
+                    <li>
+                      <a href="{% url 'website:index' %}">صفحه اصلی</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'website:about' %}">درباره ما</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'blog:post-list' %}">وبلاگ</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'website:contact' %}">ارتباط با ما</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-7">
+              <div class="single-footer-caption mb-50">
+                <div class="footer-tittle">
+                  <h4>محصولات گوریلا
+                  </h4>
+                  <ul>
+                    <li>
+                      <a href="#">فروشگاه</a>
+                    </li>
+                    <li>
+                      <a href="#">بایوتک</a>
+                    </li>
+                    <li>
+                      <a href="#">سایوتک</a>
+                    </li>
+                    <li>
+                      <a href="#">ترک</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-5 col-sm-7">
+              <div class="single-footer-caption mb-50">
+                <div class="footer-tittle">
+                  <h4>حساب کاربری
+                  </h4>
+                  <ul>
+                    <li>
+                      {% if user.is_authenticated %}
+                        <a href="{% url 'accounts:logout' %}">خروج</a>
+                      {% else %}
+                        <a href="{% url 'accounts:login' %}">ورود</a>
+                      {% endif %}
+                    </li>
+                    <li>
+                      {% if user.is_authenticated %}
+                        <a href="{% url 'accounts:profile_detail' %}">حساب کاربری</a>
+                      {% else %}
+                        <a href="{% url 'accounts:login' %}">حساب کاربری</a>
+                      {% endif %}
+                    </li>
+                    <li>
+                      <a href="{% url 'accounts:register' %}">ایجاد حساب کاربری</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'cart:cart-summary' %}">سبد خرید</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Footer bottom -->
+          <div class="row">
+            <div class="col-xl-7 col-lg-7 col-md-7">
+              <div class="footer-copy-right">
+                <p>
+                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                  Copyright &copy;
+                  <script>document.write(new Date().getFullYear());</script> All rights reserved
+                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </p>
+                <p>
+                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                  Developed by 
+                  <a href="https://amirhamidi.pythonanywhere.com/" target="_blank">Amir Hamidi</a> | Designed by 
+                  <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                </p>              
+              </div>
+            </div>
+            <div class="col-xl-5 col-lg-5 col-md-5">
+              <div class="footer-copy-right f-right">
+                <!-- social -->
+                <div class="footer-social">
+                  <a href="https://t.me/sasan_ghobadi"><i class="fab fa-telegram">
+                    </i></a>
+                  <a href="https://www.instagram.com/goriilagym/"><i class="fab fa-instagram">
+                    </i></a>
+                  <a href="https://wa.me/989334746000"><i class="fab fa-whatsapp">
+                    </i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Footer End-->
+    </footer>
+    <!-- JS here -->
+    <!-- All JS Custom Plugins Link Here here -->
+    <script src="{% static 'assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="{% static 'assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static 'assets/js/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="{% static 'assets/js/jquery.slicknav.min.js' %}"></script>
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/js/slick.min.js' %}"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src="{% static 'assets/js/wow.min.js' %}"></script>
+    <script src="{% static 'assets/js/animated.headline.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.magnific-popup.js' %}"></script>
+    <!-- Scrollup, nice-select, sticky -->
+    <script src="{% static 'assets/js/jquery.scrollUp.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.sticky.js' %}"></script>
+    <!-- contact js -->
+    <script src="{% static 'assets/js/contact.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.form.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'assets/js/mail-script.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
+    <!-- Jquery Plugins, main Jquery -->	
+    <script src="{% static 'assets/js/plugins.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+  </body>
 </html>

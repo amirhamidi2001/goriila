@@ -3,10 +3,16 @@ from shop.models import Product
 
 register = template.Library()
 
-@register.inclusion_tag("shop/latest_product.html")
-def recent_products(count=9):
+
+@register.inclusion_tag("shop/product_latest.html")
+def latest_products(limit=6, category=None):
     """
-    Retrieve 'count' number of recent products (default: 9).
+    Inclusion tag to render latest products.
+    :param limit: number of products to show
+    :param category: optional category slug to filter
     """
-    products = Product.objects.filter(available=True).order_by("-created_at")[:count]
-    return {"products": products}
+    products = Product.objects.filter(is_active=True).order_by("-created_at")
+    if category:
+        products = products.filter(category__slug=category)
+
+    return {"products": products[:limit]}

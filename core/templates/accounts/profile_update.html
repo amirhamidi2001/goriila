@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}ویرایش پروفایل{% endblock %}
+
+{% block content %}
+<!--================profile_edit_part Area =================-->
+<section class="profile_edit_part section_padding">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <div class="profile_edit_part_text">
+                    <div class="profile_edit_part_text_iner">
+                        <div class="profile_edit_header text-center mb-5">
+                            <h2 class="section_title">ویرایش پروفایل</h2>
+                            <p class="section_subtitle">اطلاعات پروفایل خود را ویرایش کنید و تغییرات را ذخیره نمایید.</p>
+                        </div>
+
+                        <form class="row contact_form" method="post" enctype="multipart/form-data" novalidate>
+                            {% csrf_token %}
+
+                            {% if form.non_field_errors %}
+                                <div class="col-12 mb-4">
+                                    <div class="alert alert-danger" role="alert">
+                                        <i class="fas fa-exclamation-triangle me-2"></i>
+                                        {% for error in form.non_field_errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            <!-- Profile Image Upload -->
+                            <div class="col-12 mb-4">
+                                <div class="profile_image_upload_section text-center">
+                                    <div class="current_image_preview mb-3">
+                                        {% if profile.image %}
+                                            <img src="{{ profile.image.url }}" alt="تصویر فعلی" class="profile_current_image rounded-circle" width="300" height="400">
+                                        {% else %}
+                                            <div class="profile_default_image rounded-circle">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="image_upload_wrapper">
+                                        {{ form.image }}
+                                    </div>
+                                    {% if form.image.errors %}
+                                        <div class="mt-2">
+                                            {% for error in form.image.errors %}
+                                                <small class="text-danger">{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- First Name -->
+                            <div class="col-md-6 form-group mb-4">
+                                <label for="{{ form.first_name.id_for_label }}" class="form-label">
+                                 نام
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    {{ form.first_name }}
+                                </div>
+                                {% if form.first_name.errors %}
+                                    <div class="mt-2">
+                                        {% for error in form.first_name.errors %}
+                                            <small class="text-danger">{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Last Name -->
+                            <div class="col-md-6 form-group mb-4">
+                                <label for="{{ form.last_name.id_for_label }}" class="form-label">
+                                 نام خانوادگی
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    {{ form.last_name }}
+                                </div>
+                                {% if form.last_name.errors %}
+                                    <div class="mt-2">
+                                        {% for error in form.last_name.errors %}
+                                            <small class="text-danger">{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Last Name -->
+                            <div class="col-md-12 form-group mb-4">
+                                <label for="{{ form.address.id_for_label }}" class="form-label">
+                                 آدرس 
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-map-marker"></i></span>
+                                    {{ form.address }}
+                                </div>
+                                {% if form.address.errors %}
+                                    <div class="mt-2">
+                                        {% for error in form.address.errors %}
+                                            <small class="text-danger">{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Phone Number -->
+                            <div class="col-12 form-group mb-4">
+                                <label for="{{ form.phone_number.id_for_label }}" class="form-label">
+                                 شماره تماس
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                    {{ form.phone_number }}
+                                </div>
+                                {% if form.phone_number.errors %}
+                                    <div class="mt-2">
+                                        {% for error in form.phone_number.errors %}
+                                            <small class="text-danger">{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Email (Readonly) -->
+                            <div class="col-12 form-group mb-4">
+                                <label class="form-label">
+                                ایمیل
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    <input type="email" class="form-control" value="{{ profile.user.email }}" readonly>
+                                </div>
+                                <div class="form-text">برای تغییر ایمیل با پشتیبانی تماس بگیرید.</div>
+                            </div>
+
+                            <div class="col-12 form-group mt-4">
+                                <div class="profile_edit_actions d-flex justify-content-between">
+                                    <button type="submit" class="btn btn-primary btn-lg px-5">
+                                        <i class="fas fa-save me-2"></i>ذخیره تغییرات
+                                    </button>
+                                    <a href="{% url 'accounts:profile_detail' %}" class="btn btn-outline-secondary btn-lg px-5">
+                                        <i class="fas fa-times me-2"></i>انصراف
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================profile_edit_part end =================-->
+{% endblock %}

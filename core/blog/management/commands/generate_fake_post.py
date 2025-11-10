@@ -44,7 +44,9 @@ class Command(BaseCommand):
                 counted_views=random.randint(0, 500),
                 login_require=random.choice([True, False]),
                 published_at=fake.date_time_between(
-                    start_date="-1y", end_date="now", tzinfo=timezone.utc
+                    start_date="-1y",
+                    end_date="now",
+                    tzinfo=timezone.get_current_timezone(),
                 ),
             )
 

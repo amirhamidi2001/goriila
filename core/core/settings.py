@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
     "website.apps.WebsiteConfig",
     "accounts.apps.AccountsConfig",
     "blog.apps.BlogConfig",
@@ -45,6 +46,8 @@ INSTALLED_APPS = [
     "django.contrib.humanize",
     "taggit",
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -69,6 +72,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "cart.context_processors.cart_processor",
             ],
         },
     },
@@ -136,7 +140,25 @@ MEDIA_ROOT = "media/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# accounts model settings
+# AUTHENTICATION BACKENDS
+AUTHENTICATION_BACKENDS = [
+    "accounts.backends.EmailBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
 AUTH_USER_MODEL = "accounts.User"
-LOGIN_REDIRECT_URL = "/"
-LOGOUT_REDIRECT_URL = "/"
+SITE_ID = 1
+
+# Email Settings
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "***"
+EMAIL_HOST_PASSWORD = "***"
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# Authentication Redirect URLs
+LOGIN_URL = "accounts:login"
+LOGIN_REDIRECT_URL = "website:index"
+LOGOUT_REDIRECT_URL = "accounts:login"

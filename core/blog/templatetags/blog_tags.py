@@ -5,7 +5,7 @@ register = template.Library()
 
 
 @register.inclusion_tag("blog/blog_latest_posts.html")
-def show_latest_posts(count=6):
+def latest_posts(count=6):
     """
     Returns the latest published posts.
     """

@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{product.name}}{% endblock %}
+{% block content %}
+
+<div class="slider-area">
+  <div class="single-slider slider-height2 d-flex align-items-center" data-background="{% static 'img/hero/category.jpg' %}">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="hero-cap text-center">
+            <h2>{{ product.name }}</h2>
+            <h3>
+              <strong>Brand:</strong> {{ product.brand.name }}
+            </h3>
+            <h3>
+              <strong>Category:</strong> {{ product.category.name }}
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="product_image_area">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-12">
+        <div class="product_img_slide owl-carousel">
+          {% if product.image %}
+          <div class="single_product_img">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid">
+          </div>
+          {% endif %}
+          {% if product.images.all %}
+          {% for img in product.images.all %}
+          <div class="single_product_img">
+            <img src="{{ img.image.url }}" alt="{{ img.alt|default:product.name }}" class="img-fluid">
+          </div>
+          {% endfor %}
+          {% endif %}
+          {% if not product.image and not product.images.exists %}
+          <div class="single_product_img">
+            <img src="{% static 'img/product/no_image.png' %}" alt="No image" class="img-fluid">
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="single_product_text text-center">
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.description }}</p>
+          <div class="card_area">
+              <p>Maximum: {{ product.stock }}</p>
+            <div class="product_count_area">
+              <p>Quantity</p>
+              <div class="product_count d-inline-block">
+                <span class="product_count_item number-decrement"><i class="ti-minus"></i></span>
+                <input id="product-quantity" class="product_count_item input-number" type="text" value="1" min="1" max="{{ product.stock }}">
+                <span class="product_count_item number-increment"><i class="ti-plus"></i></span>
+              </div>
+              <p>${{ product.price }}</p>
+            </div>
+            <div class="add_to_cart">
+            <button type="button" class="btn_3 add-to-cart-btn" data-product-id="{{ product.id }}">
+              Add to Cart
+            </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- subscribe part here -->
+{% include 'website/newsletter.html' %}
+<!-- subscribe part end -->
+<!-- Shop Method Start-->
+{% include 'website/shop_method.html' %}
+<!-- Shop Method End-->
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const addToCartBtn = document.querySelector('.add-to-cart-btn');
+
+    addToCartBtn.addEventListener('click', function() {
+        const productId = this.dataset.productId;
+        const quantityInput = document.getElementById('product-quantity');
+        const quantity = quantityInput ? quantityInput.value : 1;
+
+        fetch("{% url 'cart:session-add-product' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': csrftoken
+            },
+            body: new URLSearchParams({
+                product_id: productId,
+                quantity: quantity
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Update cart icon / total count in the header if you have one
+            console.log('Cart updated:', data);
+
+            // Example feedback to user:
+            alert('Product added to cart! Total items: ' + data.total_quantity);
+        })
+        .catch(error => console.error('Error adding to cart:', error));
+    });
+});
+</script>
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+</script>
+
+{% endblock %}

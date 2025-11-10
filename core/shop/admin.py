@@ -1,52 +1,75 @@
 from django.contrib import admin
-from shop.models import Category, Brand, Product, ProductImage  # , ShoppingCart
-
-
-class CategoryAdmin(admin.ModelAdmin):
-    """
-    This class is used to customize the appearance and functionality of the Category model in the Django admin interface.
-    """
-
-    list_display = ("title", "slug")
-    list_filter = ("title", "slug")
-    search_fields = ("title", "slug")
-    prepopulated_fields = {'slug': ('title',)}
+from django.utils.html import format_html
+from .models import Brand, Category, Product, ProductImage
 
 
 class BrandAdmin(admin.ModelAdmin):
-    """
-    This class is used to customize the appearance and functionality of the Brand model in the Django admin interface.
-    """
+    list_display = ("name", "slug", "is_active", "created_at")
+    list_filter = ("is_active", "created_at")
+    search_fields = ("name", "slug")
+    prepopulated_fields = {"slug": ("name",)}
+    ordering = ("name",)
 
-    list_display = ("title", "slug")
-    list_filter = ("title", "slug")
-    search_fields = ("title", "slug")
-    # prepopulated_fields = {'slug': ('title',)}
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ("name", "slug", "parent", "is_active", "created_at")
+    list_filter = ("is_active", "created_at", "parent")
+    search_fields = ("name", "slug")
+    prepopulated_fields = {"slug": ("name",)}
+    ordering = ("name",)
+
+
+class ProductImageInline(admin.TabularInline):
+    model = ProductImage
+    extra = 1
+    readonly_fields = ("image_preview",)
+
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html(
+                '<img src="{}" width="80" height="80" style="object-fit: cover;" />',
+                obj.image.url,
+            )
+        return "-"
+
+    image_preview.short_description = "Preview"
 
 
 class ProductAdmin(admin.ModelAdmin):
-    date_hierarchy = "created_at"
-    list_display = ('title', 'slug', 'price', 'available', 'stock', 'created_at', 'updated_at')
-    list_filter = ('available', 'category', 'brand')
-    search_fields = ('title', 'description')
-    prepopulated_fields = {'slug': ('title',)}
-    empty_value_display = '-empty-'
+    list_display = (
+        "name",
+        "slug",
+        "category",
+        "brand",
+        "price",
+        "stock",
+        "is_active",
+        "created_at",
+    )
+    list_filter = ("is_active", "category", "brand", "created_at")
+    search_fields = ("name", "slug", "description")
+    prepopulated_fields = {"slug": ("name",)}
+    ordering = ("-created_at",)
+    inlines = [ProductImageInline]
 
 
 class ProductImageAdmin(admin.ModelAdmin):
-    """
-    This class is used to customize the appearance and functionality of the ProductImage model in the Django admin interface
-    """
+    list_display = ("product", "alt", "image_preview")
+    search_fields = ("product__name", "alt")
+    readonly_fields = ("image_preview",)
 
-    list_display = ("get_product_title", "get_product_slug")
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html(
+                '<img src="{}" width="80" height="80" style="object-fit: cover;" />',
+                obj.image.url,
+            )
+        return "-"
 
-    def get_product_title(self, obj):
-        return obj.product.title
+    image_preview.short_description = "Preview"
 
-    def get_product_slug(self, obj):
-        return obj.product.slug
 
-admin.site.register(Category, CategoryAdmin)
 admin.site.register(Brand, BrandAdmin)
+admin.site.register(Category, CategoryAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductImage, ProductImageAdmin)
