@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>فعال‌سازی حساب کاربری فروشگاه اینترنتی مکمل گوریلا</title>
+    <style>
+      body {
+        font-family: 'Tahoma', sans-serif;
+        background-color: #f7f7f7;
+        color: #333333;
+        direction: rtl;
+        text-align: right;
+        padding: 20px;
+      }
+      .email-container {
+        max-width: 600px;
+        margin: auto;
+        background-color: #ffffff;
+        border-radius: 10px;
+        border: 1px solid #e0e0e0;
+        padding: 30px;
+      }
+      .header {
+        text-align: center;
+        color: #900090;
+      }
+      .activation-link {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #ff00ff;
+        color: #ffffff !important;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 20px;
+        font-weight: bold;
+      }
+      .footer {
+        margin-top: 30px;
+        font-size: 13px;
+        color: #100010;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <h2 class="header">فعال‌سازی حساب کاربری فروشگاه اینترنتی مکمل گوریلا</h2>
+
+      <p>
+        سلام <strong>{{ user.email }}</strong>
+      </p>
+
+      <p>از ثبت‌نام شما در سایت ما سپاسگزاریم. برای فعال‌سازی حساب کاربری خود، لطفاً روی دکمه‌ی زیر کلیک کنید</p>
+
+      <p style="text-align:center;">
+        <a href="{{ activation_link }}" class="activation-link">فعال‌سازی حساب</a>
+      </p>
+
+      <p>اگر دکمه بالا کار نکرد، می‌توانید لینک زیر را مستقیماً در مرورگر خود باز کنید</p>
+
+      <p style="direction:ltr; word-break:break-all;">{{ activation_link }}</p>
+
+      <div class="footer">
+        <p>اگر شما این ایمیل را درخواست نکرده‌اید، لطفاً آن را نادیده بگیرید</p>
+        <p>
+          با احترام،<br />تیم پشتیبانی گوریلا
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

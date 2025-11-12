@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  سوالات متداول فروشگاه اینترنتی مکمل گوریلا
+{% endblock %}
+{% block content %}
+  <main class="main">
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">سوالات متداول</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li>
+              <a href="{% url 'website:index' %}">صفحه اصلی</a>
+            </li>
+            <li class="current">سوالات متداول</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <!-- End Page Title -->
+
+    <!-- Faq Section -->
+    <section id="faq" class="faq section">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4 justify-content-between">
+          <div class="col-lg-8">
+            <div class="faq-list">
+              <div class="faq-item faq-active" data-aos="fade-up" data-aos-delay="100">
+                <h3>چطور می‌توانم از فروشگاه گوریلا سفارش بدهم؟</h3>
+                <div class="faq-content">
+                  <p>شما می‌توانید به راحتی از طریق سایت ما، محصولات مورد نظر خود را انتخاب کرده و در کمتر از چند دقیقه سفارش خود را ثبت کنید. پس از ثبت سفارش، یک پیامک یا ایمیل تایید دریافت خواهید کرد.</p>
+                </div>
+                <i class="bi bi-plus faq-toggle"></i>
+              </div>
+              <!-- End FAQ Item -->
+
+              <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                <h3>آیا امکان خرید حضوری هم وجود دارد؟</h3>
+                <div class="faq-content">
+                  <p>بله، امکان خرید حضوری نیز وجود دارد. شما می‌توانید برای خرید به باشگاه ما مراجعه فرمایید.</p>
+                </div>
+                <i class="bi bi-plus faq-toggle"></i>
+              </div>
+              <!-- End FAQ Item -->
+
+              <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                <h3>ارسال محصولات به چه صورت است؟</h3>
+                <div class="faq-content">
+                  <p>ما سفارش‌ها را به سراسر تهران و سایر شهرهای ایران ارسال می‌کنیم. ارسال برای تهران معمولاً 1 تا 2 روز کاری و برای سایر شهرها 3 تا 7 روز کاری طول می‌کشد.</p>
+                </div>
+                <i class="bi bi-plus faq-toggle"></i>
+              </div>
+              <!-- End FAQ Item -->
+
+              <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                <h3>هزینه ارسال چقدر است؟</h3>
+                <div class="faq-content">
+                  <p>هزینه ارسال بسته به وزن محصول و محل تحویل متفاوت است. هزینه دقیق هنگام ثبت سفارش نمایش داده می‌شود.</p>
+                </div>
+                <i class="bi bi-plus faq-toggle"></i>
+              </div>
+              <!-- End FAQ Item -->
+
+              <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                <h3>چطور می‌توانم وضعیت سفارش خود را پیگیری کنم؟</h3>
+                <div class="faq-content">
+                  <p>پس از ارسال، کد رهگیری مرسوله از طریق پیامک یا ایمیل برای شما ارسال می‌شود و می‌توانید وضعیت سفارش را از سایت پست یا سامانه ما پیگیری کنید.</p>
+                </div>
+                <i class="bi bi-plus faq-toggle"></i>
+              </div>
+              <!-- End FAQ Item -->
+
+              <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                <h3>روش‌های پرداخت موجود چیست؟</h3>
+                <div class="faq-content">
+                  <p>در حال حاضر روش پرداخت از طریق کارت به کارت فراهم می‌باشد</p>
+                </div>
+                <i class="bi bi-plus faq-toggle"></i>
+              </div>
+              <!-- End FAQ Item -->
+
+              <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                <h3>آیا امکان بازگشت یا تعویض محصولات وجود دارد؟</h3>
+                <div class="faq-content">
+                  <p>در صورت عدم انباکس (بازنشده) بودن محصول، امکان عودت وجه و تعویض کالا وجود دارد</p>
+                </div>
+                <i class="bi bi-plus faq-toggle"></i>
+              </div>
+              <!-- End FAQ Item -->
+
+              <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                <h3>چطور می‌توانم محصول مناسب برای خودم انتخاب کنم؟</h3>
+                <div class="faq-content">
+                  <p>شما می‌توانید با مطالعه توضیحات هر محصول، استفاده توصیه شده و ترکیبات آن، بهترین گزینه را انتخاب کنید. همچنین می‌توانید از طریق تلگرام یا اینستاگرامن با کارشناسان ما مشاوره رایگان بگیرید.</p>
+                </div>
+                <i class="bi bi-plus faq-toggle"></i>
+              </div>
+              <!-- End FAQ Item -->
+
+              <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                <h3>آیا مکمل‌ها برای همه سنین مناسب هستند؟</h3>
+                <div class="faq-content">
+                  <p>برخی محصولات ممکن است برای افراد زیر 14 سال، خانم‌های باردار یا بیماران خاص مناسب نباشد. لطفاً قبل از مصرف با پزشک یا مربی تغذیه مشورت کنید.</p>
+                </div>
+                <i class="bi bi-plus faq-toggle"></i>
+              </div>
+              <!-- End FAQ Item -->
+
+              <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+                <h3>مکمل‌های شما اورجینال هستند؟</h3>
+                <div class="faq-content">
+                  <p>بله، تمامی محصولات فروشگاه گوریلا کاملاً اورجینال و دارای تاریخ انقضا معتبر هستند.</p>
+                </div>
+                <i class="bi bi-plus faq-toggle"></i>
+              </div>
+              <!-- End FAQ Item -->
+
+              <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
+                <h3>چطور می‌توانم با پشتیبانی تماس بگیرم؟</h3>
+                <div class="faq-content">
+                  <p>شما می‌توانید از طریق شماره تماس، تلگرام یا اینستاگرام با تیم پشتیبانی ما در ارتباط باشید.</p>
+                </div>
+                <i class="bi bi-plus faq-toggle"></i>
+              </div>
+              <!-- End FAQ Item -->
+
+              <div class="faq-item" data-aos="fade-up" data-aos-delay="500">
+                <h3>ساعات پاسخگویی پشتیبانی چه زمانی است؟</h3>
+                <div class="faq-content">
+                  <p>پشتیبانی ما همه روزه از ساعت 10 صبح تا 9 شب آماده پاسخگویی است.</p>
+                </div>
+                <i class="bi bi-plus faq-toggle"></i>
+              </div>
+              <!-- End FAQ Item -->
+            </div>
+          </div>
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="faq-card">
+              <i class="bi bi-chat-dots-fill"></i>
+              <h3>پاسخ سوال خود را پیدا نمی‌کنید؟</h3>
+              <p>تیم پشتیبانی گوریلا همیشه و در تمام مراحل آماده پاسخگویی به سوالات و راهنمایی شماست. بدون تردید با ما تماس بگیرید.</p>
+              <a href="{% url 'website:contact' %}" class="btn btn-primary">با ما تماس بگیرید</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /Faq Section -->
+  </main>
+{% endblock %}

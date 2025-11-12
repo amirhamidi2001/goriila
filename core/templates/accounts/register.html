@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  ثبت نام در فروشگاه اینترنتی مکمل گوریلا
+{% endblock %}
+{% block content %}
+  <main class="main">
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">ثبت نام</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li>
+              <a href="{% url 'website:index' %}">صفحه اصلی</a>
+            </li>
+            <li class="current">ثبت نام</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <!-- End Page Title -->
+
+    <!-- Register Section -->
+    <section id="register" class="register section">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row justify-content-center">
+          <div class="col-lg-10">
+            <div class="registration-form-wrapper">
+              <div class="form-header text-center">
+                <h2>حساب کاربری خود را ایجاد کنید </h2>
+                <p>حساب کاربری خود را ایجاد کنید و از ما خرید کنید </p>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-8 mx-auto">
+                  <form method="post">
+                    {% csrf_token %}
+
+                    <div class="form-floating mb-3">
+                      <input type="email" class="form-control" id="email" name="email" placeholder="ایمیل" required="" autocomplete="email" />
+                      <label for="email">ایمیل</label>
+                      {% if form.email.errors %}
+                      <small class="text-danger">{{ form.email.errors.0 }}</small>
+                      {% endif %}
+                    </div>
+
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <div class="form-floating">
+                          <input type="password" class="form-control" id="password1" name="password1" placeholder="رمز عبور" required="" minlength="8" autocomplete="new-password" />
+                          <label for="password">رمز عبور</label>
+                          {% if form.password1.errors %}
+                          <small class="text-danger">{{ form.password1.errors.0 }}</small>
+                          {% endif %}
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-floating">
+                          <input type="password" class="form-control" id="password2" name="password2" placeholder="تأیید رمز عبور" required="" minlength="8" autocomplete="new-password" />
+                          <label for="confirmPassword">تأیید رمز عبور</label>
+                          {% if form.password2.errors %}
+                          <small class="text-danger">{{ form.password2.errors.0 }}</small>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-check mb-4">
+                      <input class="form-check-input" type="checkbox" id="termsCheck" name="termsCheck" required="" />
+                      <label class="form-check-label" for="termsCheck"><a href="#">با شرایط خدمات</a> و <a href="#">سیاست حفظ حریم خصوصی </a>موافقم</label>
+                    </div>
+
+                    <div class="d-grid mb-4">
+                      <button type="submit" class="btn btn-register">ایجاد حساب کاربری</button>
+                    </div>
+
+                    <div class="login-link text-center">
+                      <p>
+                       حساب کاربری دارید؟ <a href="{% url 'accounts:login' %}">ورود</a>
+                      </p>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <div class="social-login">
+                <div class="row">
+                  <div class="col-lg-8 mx-auto">
+                    <div class="divider">
+                      <span>ثبت نام با گوگل</span>
+                    </div>
+                    <div class="social-buttons">
+                      <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-social">
+                        <span>گوگل</span>
+                        <i class="bi bi-google"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="decorative-elements">
+                <div class="circle circle-1"></div>
+                <div class="circle circle-2"></div>
+                <div class="circle circle-3"></div>
+                <div class="square square-1"></div>
+                <div class="square square-2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /Register Section -->
+  </main>
+{% endblock %}

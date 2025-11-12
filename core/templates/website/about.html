@@ -1,0 +1,251 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  درباره فروشگاه اینترنتی مکمل گوریلا
+{% endblock %}
+{% block content %}
+  <main class="main">
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">درباره گوریلا</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li>
+              <a href="{% url 'website:index' %}">صفحه اصلی</a>
+            </li>
+            <li class="current">درباره ما</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <!-- End Page Title -->
+
+    <!-- About 2 Section -->
+    <section id="about-2" class="about-2 section">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <span class="section-badge">درباره ما<i class="bi bi-info-circle"></i></span>
+        <div class="row">
+          <div class="col-lg-6">
+            <h2 class="about-title">فروشگاه آنلاین مکمل ورزشی گوریلا</h2>
+            <p class="about-description">سلام و خوش آمدید به وبسایت گوریلا، مقصدی کامل برای همه علاقه‌مندان به بدنسازی و تناسب اندام</p>
+          </div>
+          <div class="col-lg-6">
+            <p class="about-text">ما در گوریلا با افتخار مجموعه‌ای از بهترین مکمل‌های بدنسازی را ارائه می‌دهیم که به شما کمک می‌کند تا به اهداف ورزشی خود دست یابید. از پروتئین‌ها و آمینو اسیدها گرفته تا مکمل‌های چربی‌سوز و ویتامین‌ها، ما همه چیزهایی که برای بهبود عملکرد ورزشی و تسریع روند ریکاوری نیاز دارید را در اختیار شما قرار می‌دهیم</p>
+            <p class="about-text">مشاوره تخصصی: تیم متخصص ما متشکل از مربیان حرفه‌ای و مشاوران تغذیه، آماده‌اند تا به شما در انتخاب مکمل مناسب کمک کنند. ما با توجه به نیازهای خاص شما، برنامه‌های شخصی‌سازی شده‌ای طراحی می‌کنیم</p>
+          </div>
+        </div>
+
+        <div class="row features-boxes gy-4 mt-3">
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="feature-box">
+              <div class="icon-box">
+                <i class="bi bi-bullseye"></i>
+              </div>
+              <h3><a href="#" class="stretched-link">هیچ مرزی برای رشد تو وجود ندارد</a></h3>
+              <p>برنامه‌های آموزشی: ما برای هر سطح از ورزشکاران، از مبتدی تا حرفه‌ای، برنامه‌های آموزشی متناسب طراحی کرده‌ایم. با دنبال کردن این برنامه‌ها، می‌توانید به سرعت به اهداف خود برسید</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="feature-box">
+              <div class="icon-box">
+                <i class="bi bi-person-check"></i>
+              </div>
+              <h3><a href="#" class="stretched-link">مسیر رشدت را با اطمینان از اصالت، طی کن</a></h3>
+              <p>تغذیه سالم: در کنار تمرینات ورزشی، تغذیه سالم نقش بسزایی در دستیابی به نتایج مطلوب دارد. ما راهنمایی‌های تغذیه‌ای جامع ارائه می‌دهیم که شامل رژیم‌های غذایی متناسب با اهداف شماست</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="400">
+            <div class="feature-box">
+              <div class="icon-box">
+                <i class="bi bi-clipboard-data"></i>
+              </div>
+              <h3><a href="#" class="stretched-link">گوریلا؛ هم‌راز رشد تو</a></h3>
+              <p>کیفیت بالا: تمامی محصولات ما از برندهای معتبر و شناخته شده تهیه شده‌اند و تحت نظارت‌های دقیق کیفیت قرار دارند. ما به سلامت شما اهمیت می‌دهیم و تنها محصولاتی را ارائه می‌دهیم که از نظر علمی تأیید شده‌اند.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-5">
+          <div class="col-lg-12" data-aos="zoom-in" data-aos-delay="200">
+            <div class="video-box">
+              <img src="{% static 'assets/img/about/about-wide-1.webp' %}" class="img-fluid" alt="Video Thumbnail" />
+              <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /About 2 Section -->
+
+    <!-- Stats Section -->
+    <section id="stats" class="stats section light-background">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4">
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item">
+              <i class="bi bi-emoji-smile"></i>
+              <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+              <p>
+                <strong>Happy Clients</strong> <span>consequuntur quae</span>
+              </p>
+            </div>
+          </div>
+          <!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item">
+              <i class="bi bi-journal-richtext"></i>
+              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
+              <p>
+                <strong>Projects</strong> <span>adipisci atque cum quia aut</span>
+              </p>
+            </div>
+          </div>
+          <!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item">
+              <i class="bi bi-headset"></i>
+              <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
+              <p>
+                <strong>Hours Of Support</strong> <span>aut commodi quaerat</span>
+              </p>
+            </div>
+          </div>
+          <!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item">
+              <i class="bi bi-people"></i>
+              <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
+              <p>
+                <strong>Hard Workers</strong> <span>rerum asperiores dolor</span>
+              </p>
+            </div>
+          </div>
+          <!-- End Stats Item -->
+        </div>
+      </div>
+    </section>
+    <!-- /Stats Section -->
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials section">
+      <div class="container">
+        <div class="testimonial-masonry">
+          <div class="testimonial-item" data-aos="fade-up">
+            <div class="testimonial-content">
+              <div class="quote-pattern">
+                <i class="bi bi-quote"></i>
+              </div>
+              <p>Implementing innovative strategies has revolutionized our approach to market challenges and competitive positioning.</p>
+              <div class="client-info">
+                <div class="client-image">
+                  <img src="{% static 'assets/img/person/person-f-7.webp' %}" alt="Client" />
+                </div>
+                <div class="client-details">
+                  <h3>Rachel Bennett</h3>
+                  <span class="position">Strategy Director</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-item highlight" data-aos="fade-up" data-aos-delay="100">
+            <div class="testimonial-content">
+              <div class="quote-pattern">
+                <i class="bi bi-quote"></i>
+              </div>
+              <p>Exceptional service delivery and innovative solutions have transformed our business operations, leading to remarkable growth and enhanced customer satisfaction across all touchpoints.</p>
+              <div class="client-info">
+                <div class="client-image">
+                  <img src="{% static 'assets/img/person/person-m-7.webp' %}" alt="Client" />
+                </div>
+                <div class="client-details">
+                  <h3>Daniel Morgan</h3>
+                  <span class="position">Chief Innovation Officer</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="testimonial-content">
+              <div class="quote-pattern">
+                <i class="bi bi-quote"></i>
+              </div>
+              <p>Strategic partnership has enabled seamless digital transformation and operational excellence.</p>
+              <div class="client-info">
+                <div class="client-image">
+                  <img src="{% static 'assets/img/person/person-f-8.webp' %}" alt="Client" />
+                </div>
+                <div class="client-details">
+                  <h3>Emma Thompson</h3>
+                  <span class="position">Digital Lead</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-item" data-aos="fade-up" data-aos-delay="300">
+            <div class="testimonial-content">
+              <div class="quote-pattern">
+                <i class="bi bi-quote"></i>
+              </div>
+              <p>Professional expertise and dedication have significantly improved our project delivery timelines and quality metrics.</p>
+              <div class="client-info">
+                <div class="client-image">
+                  <img src="{% static 'assets/img/person/person-m-8.webp' %}" alt="Client" />
+                </div>
+                <div class="client-details">
+                  <h3>Christopher Lee</h3>
+                  <span class="position">Technical Director</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-item highlight" data-aos="fade-up" data-aos-delay="400">
+            <div class="testimonial-content">
+              <div class="quote-pattern">
+                <i class="bi bi-quote"></i>
+              </div>
+              <p>Collaborative approach and industry expertise have revolutionized our product development cycle, resulting in faster time-to-market and increased customer engagement levels.</p>
+              <div class="client-info">
+                <div class="client-image">
+                  <img src="{% static 'assets/img/person/person-f-9.webp' %}" alt="Client" />
+                </div>
+                <div class="client-details">
+                  <h3>Olivia Carter</h3>
+                  <span class="position">Product Manager</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-item" data-aos="fade-up" data-aos-delay="500">
+            <div class="testimonial-content">
+              <div class="quote-pattern">
+                <i class="bi bi-quote"></i>
+              </div>
+              <p>Innovative approach to user experience design has significantly enhanced our platform's engagement metrics and customer retention rates.</p>
+              <div class="client-info">
+                <div class="client-image">
+                  <img src="{% static 'assets/img/person/person-m-13.webp' %}" alt="Client" />
+                </div>
+                <div class="client-details">
+                  <h3>Nathan Brooks</h3>
+                  <span class="position">UX Director</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /Testimonials Section -->
+  </main>
+{% endblock %}
