@@ -1,0 +1,43 @@
+{% load blog_tags %}
+<!-- Call To Action Section -->
+<section id="call-to-action" class="call-to-action section">
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="main-content text-center" data-aos="zoom-in" data-aos-delay="200">
+          <h2 data-aos="fade-up" data-aos-delay="300">وبلاگ</h2>
+
+          <p class="subtitle" data-aos="fade-up" data-aos-delay="350">آخرین مطالب تخصصی در زمینه مکمل‌های ورزشی، تغذیه و تمرین</p>
+
+          <div class="action-buttons" data-aos="fade-up" data-aos-delay="450">
+            <a href="{% url 'blog:post-list' %}" class="btn-shop-now">مشاهده همه</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row featured-products-row" data-aos="fade-up" data-aos-delay="500">
+      {% for post in latest_posts %}
+        <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+          <div class="product-showcase">
+            <div class="product-image">
+              <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid" />
+              <div class="discount-badge">جدید</div>
+            </div>
+            <div class="product-details">
+              <h6><a href="{% url 'blog:post-detail' post.pk %}" class="post-title-link">{{ post.title }}</a></h6>
+              <div class="price-section">
+                <span>{{ post.published_at|date:'M j, Y' }}</span>
+              </div>
+              <div class="rating-heart">
+                <i class="bi bi-heart"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Product Showcase -->
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!-- /Call To Action Section -->
