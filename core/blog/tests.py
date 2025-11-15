@@ -14,15 +14,11 @@ class BlogTests(TestCase):
         self.client = Client()
 
         self.user = User.objects.create_user(
-            email="test@example.com",
-            password="1234",
-            is_verified=True
+            email="test@example.com", password="1234", is_verified=True
         )
 
         self.post = Post.objects.create(
-            title="Test Post",
-            author=self.user,
-            content="Test content"
+            title="Test Post", author=self.user, content="Test content"
         )
 
     def test_category_str(self):
@@ -34,13 +30,9 @@ class BlogTests(TestCase):
 
     def test_comment_str(self):
         comment = Comment.objects.create(
-            post=self.post,
-            name="John",
-            email="john@example.com",
-            comment="Nice"
+            post=self.post, name="John", email="john@example.com", comment="Nice"
         )
         self.assertEqual(str(comment), f"Comment by John on {self.post.title}")
-
 
     def test_get_absolute_url(self):
         self.assertEqual(self.post.get_absolute_url(), f"/blog/post/{self.post.pk}/")
@@ -103,7 +95,7 @@ class BlogTests(TestCase):
             "name": "John",
             "email": "john@example.com",
             "website": "https://example.com",
-            "comment": "Nice!"
+            "comment": "Nice!",
         }
 
         response = self.client.post(url, data, follow=True)
