@@ -38,10 +38,15 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "website.apps.WebsiteConfig",
-    "accounts.apps.AccountsConfig",
     "django.contrib.sites",
+    "django.contrib.humanize",
+    "website",
+    "accounts",
+    "blog",
+    "dashboard",
+    "shop",
     "social_django",
+    "taggit",
 ]
 
 MIDDLEWARE = [

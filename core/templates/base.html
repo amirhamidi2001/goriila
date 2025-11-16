@@ -129,19 +129,19 @@
                     <p class="mb-0">دسترسی به حساب کاربری و مدیریت سفارشات</p>
                   </div>
                   <div class="dropdown-body">
-                    <a class="dropdown-item d-flex align-items-center" href="account.html">
+                    <a class="dropdown-item d-flex align-items-center" href="{% url 'dashboard:dashboard' %}">
                       <i class="bi bi-person-circle me-2"></i>
                       <span>پروفایل</span>
                     </a>
-                    <a class="dropdown-item d-flex align-items-center" href="account.html">
+                    <a class="dropdown-item d-flex align-items-center" href="{% url 'dashboard:dashboard' %}">
                       <i class="bi bi-bag-check me-2"></i>
                       <span>سفارشات من</span>
                     </a>
-                    <a class="dropdown-item d-flex align-items-center" href="account.html">
+                    <a class="dropdown-item d-flex align-items-center" href="{% url 'dashboard:dashboard' %}">
                       <i class="bi bi-heart me-2"></i>
                       <span>موارد دلخواه من</span>
                     </a>
-                    <a class="dropdown-item d-flex align-items-center" href="account.html">
+                    <a class="dropdown-item d-flex align-items-center" href="{% url 'dashboard:dashboard' %}">
                       <i class="bi bi-gear me-2"></i>
                       <span>تنظیمات</span>
                     </a>
@@ -158,7 +158,7 @@
               </div>
 
               <!-- Wishlist -->
-              <a href="account.html" class="header-action-btn d-none d-md-block">
+              <a href="{% url 'dashboard:dashboard' %}" class="header-action-btn d-none d-md-block">
                 <i class="bi bi-heart"></i>
                 <span class="badge">0</span>
               </a>
@@ -188,7 +188,7 @@
                 <a href="{% url 'website:about' %}">درباره گوریلا</a>
               </li>
               <li>
-                <a href="category.html">فروشگاه</a>
+                <a href="{% url 'shop:product-list' %}">فروشگاه</a>
               </li>
               <li>
                 <a href="cart.html">سبد خرید</a>
@@ -898,7 +898,9 @@
                 <!-- End Products Mega Menu 2 Desktop View -->
               </li>
               <!-- End Products Mega Menu 2 -->
-
+              <li>
+                <a href="{% url 'blog:post-list' %}">وبلاگ</a>
+              </li>
               <li>
                 <a href="{% url 'website:contact' %}">ارتباط با ما</a>
               </li>
@@ -954,22 +956,22 @@
                 <h4>Shop</h4>
                 <ul class="footer-links">
                   <li>
-                    <a href="category.html">New Arrivals</a>
+                    <a href="{% url 'shop:product-list' %}">New Arrivals</a>
                   </li>
                   <li>
-                    <a href="category.html">Bestsellers</a>
+                    <a href="{% url 'shop:product-list' %}">Bestsellers</a>
                   </li>
                   <li>
-                    <a href="category.html">Women's Clothing</a>
+                    <a href="{% url 'shop:product-list' %}">Women's Clothing</a>
                   </li>
                   <li>
-                    <a href="category.html">Men's Clothing</a>
+                    <a href="{% url 'shop:product-list' %}">Men's Clothing</a>
                   </li>
                   <li>
-                    <a href="category.html">Accessories</a>
+                    <a href="{% url 'shop:product-list' %}">Accessories</a>
                   </li>
                   <li>
-                    <a href="category.html">Sale</a>
+                    <a href="{% url 'shop:product-list' %}">Sale</a>
                   </li>
                 </ul>
               </div>
@@ -983,7 +985,7 @@
                     <a href="support.html">Help Center</a>
                   </li>
                   <li>
-                    <a href="account.html">Order Status</a>
+                    <a href="{% url 'dashboard:dashboard' %}">Order Status</a>
                   </li>
                   <li>
                     <a href="shiping-info.html">Shipping Info</a>

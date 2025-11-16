@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load blog_tags %}
 {% load static %}
 {% block title %}
   فروشگاه اینترنتی مکمل گوریلا
@@ -685,5 +686,7 @@
       </div>
     </section>
     <!-- /Call To Action Section -->
+
+    {% latest_posts 4 %}
   </main>
 {% endblock %}
