@@ -70,7 +70,9 @@ class Command(BaseCommand):
                 price=Decimal(price),
                 discount=Decimal(discount),
                 weight=f"{random.randint(100, 5000)} g",
-                taste=random.choice(["Vanilla", "Chocolate", "Strawberry", "Mint", None]),
+                taste=random.choice(
+                    ["Vanilla", "Chocolate", "Strawberry", "Mint", None]
+                ),
                 stock=random.randint(0, 100),
                 rating=Decimal(round(random.uniform(0, 5), 1)),
                 available=True,

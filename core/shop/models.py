@@ -1,10 +1,13 @@
 from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
+from django.contrib.auth import get_user_model
 from decimal import Decimal
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 from django.core.validators import MinValueValidator, MaxValueValidator
+
+User = get_user_model()
 
 
 class Brand(models.Model):
@@ -217,3 +220,32 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return f"Image for {self.product.name}" if self.product else "No Product"
+
+
+class Review(models.Model):
+    """
+    Represents a reviews made by a user on a Shop product.
+    """
+
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="reviews"
+    )
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    website = models.URLField(blank=True, null=True)
+    review = models.TextField()
+    approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        """Returns a readable string representation of the review."""
+        return f"Review by {self.name} on {self.product.name}"
+
+
+class Wishlist(models.Model):
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.product.name

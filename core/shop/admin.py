@@ -1,11 +1,8 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Product, Category, Brand
+from .models import Product, Category, Brand, Review, Wishlist
 
 
-# ---------------------------
-# CATEGORY ADMIN
-# ---------------------------
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ("name", "slug", "created_at")
@@ -14,9 +11,6 @@ class CategoryAdmin(admin.ModelAdmin):
     ordering = ("name",)
 
 
-# ---------------------------
-# BRAND ADMIN
-# ---------------------------
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
     list_display = ("name", "slug")
@@ -25,9 +19,6 @@ class BrandAdmin(admin.ModelAdmin):
     ordering = ("name",)
 
 
-# ---------------------------
-# INLINE IMAGE PREVIEW
-# ---------------------------
 class ImagePreviewMixin:
     """Reusable image preview mixin."""
 
@@ -42,9 +33,6 @@ class ImagePreviewMixin:
     image_preview.short_description = "Image"
 
 
-# ---------------------------
-# PRODUCT ADMIN
-# ---------------------------
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin, ImagePreviewMixin):
     list_display = (
@@ -93,3 +81,26 @@ class ProductAdmin(admin.ModelAdmin, ImagePreviewMixin):
     hologram_preview.short_description = "Hologram"
 
     ordering = ("-created_at",)
+
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    """
+    Admin configuration for Review model.
+    """
+
+    list_display = ("name", "product", "approved", "created_at")
+    list_filter = ("approved",)
+    search_fields = ("name", "email", "review")
+    actions = ["approve_reviews"]
+
+
+@admin.register(Wishlist)
+class WishlistAdmin(admin.ModelAdmin):
+    """
+    Admin configuration for Wishlist model.
+    """
+
+    list_display = ("user", "product")
+    list_filter = ("user", "product")
+    search_fields = ("user", "product")

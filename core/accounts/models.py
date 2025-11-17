@@ -92,7 +92,7 @@ class Profile(models.Model):
     )
     image = models.ImageField(
         upload_to="profiles/",
-        default="profiles/default.png",
+        default="profiles/default.webp",
     )
     address = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)

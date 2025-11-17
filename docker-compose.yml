@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  goriila:
+    build:
+      context: .
+      dockerfile: dockerfiles/dev/django/Dockerfile
+    container_name: goriila
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=True
+    env_file:
+      - ./envs/dev/django/.env
+    depends_on:
+      - db
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+volumes:
+  postgres_data:
