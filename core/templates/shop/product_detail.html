@@ -78,6 +78,7 @@
 
               <h1 class="product-name">{{ product.name }}</h1>
 
+              {% if product.discount > 0 %}
               <div class="pricing-section">
                 <div class="price-display">
                   <span class="sale-price">{{ product.get_price }}&nbsp;تومان</span>
@@ -89,8 +90,17 @@
                 </div>
               </div>
 
+              {% else %}
+
+              <div class="pricing-section">
+                <div class="price-display">
+                  <span class="sale-price">{{ product.get_price }}&nbsp;تومان</span>
+                </div>
+              </div>
+              {% endif %}
+
               <div class="product-description">
-                <p>{{ product.description }}</p>
+                <p>{{ product.breif_description }}</p>
               </div>
 
               <div class="availability-status">

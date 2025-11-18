@@ -45,7 +45,6 @@ class ProductAdmin(admin.ModelAdmin, ImagePreviewMixin):
         "in_stock",
         "available",
         "image_preview",
-        "created_at",
     )
     list_filter = ("available", "category", "brand", "created_at")
     search_fields = ("name", "description")
@@ -56,7 +55,16 @@ class ProductAdmin(admin.ModelAdmin, ImagePreviewMixin):
     fieldsets = (
         (
             "Basic Information",
-            {"fields": ("name", "slug", "category", "brand", "description")},
+            {
+                "fields": (
+                    "name",
+                    "slug",
+                    "category",
+                    "brand",
+                    "description",
+                    "breif_description",
+                )
+            },
         ),
         (
             "Pricing & Availability",

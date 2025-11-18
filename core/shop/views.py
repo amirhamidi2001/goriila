@@ -14,6 +14,33 @@ class ProductListView(ListView):
     paginate_by = 12
     context_object_name = "products"
 
+    def get_queryset(self):
+        queryset = Product.objects.filter(available=True)
+        search_query = self.request.GET.get("search", "")
+        if search_query:
+            queryset = queryset.filter(name__icontains=search_query)
+
+        category_slug = self.request.GET.get("category")
+        if category_slug:
+            queryset = queryset.filter(category__slug=category_slug)
+
+        brand_slug = self.request.GET.get("brand")
+        if brand_slug:
+            queryset = queryset.filter(brand__slug=brand_slug)
+
+        sort_option = self.request.GET.get("sort", "")
+        if sort_option == "price_asc":
+            queryset = queryset.order_by("price")
+        elif sort_option == "price_desc":
+            queryset = queryset.order_by("-price")
+        elif sort_option == "name_asc":
+            queryset = queryset.order_by("name")
+        elif sort_option == "name_desc":
+            queryset = queryset.order_by("-name")
+        elif sort_option == "newest":
+            queryset = queryset.order_by("-created_at")
+
+        return queryset
 
 class ProductDetailView(DetailView):
     model = Product

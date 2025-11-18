@@ -115,15 +115,16 @@ class Product(models.Model):
     )
 
     description = models.TextField(blank=True)
-    price = models.DecimalField(max_digits=10, decimal_places=1)
-    discount = models.DecimalField(max_digits=5, decimal_places=1, default=0)
+    breif_description = models.TextField(null=True, blank=True)
+    price = models.DecimalField(max_digits=10, decimal_places=0)
+    discount = models.DecimalField(max_digits=5, decimal_places=0, default=0)
 
     weight = models.CharField(max_length=255)
     taste = models.CharField(max_length=255, null=True, blank=True)
     stock = models.PositiveIntegerField(default=0)
     rating = models.DecimalField(
         max_digits=2,
-        decimal_places=1,
+        decimal_places=0,
         default=0,
         validators=[
             MinValueValidator(0),
@@ -181,11 +182,7 @@ class Product(models.Model):
             else:
                 final_price *= 1 - (Decimal(discount) / 100)
 
-        if include_tax:
-            tax_rate = Decimal("0.10")
-            final_price *= 1 + tax_rate
-
-        return final_price.quantize(Decimal("0.1"))
+        return final_price.quantize(Decimal("0"))
 
     @property
     def discount_amount(self):
