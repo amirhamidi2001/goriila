@@ -25,117 +25,164 @@
       <div class="row">
         <div class="col-lg-4 sidebar">
           <div class="widgets-container">
+            <!--       Product Filter
+            <form action="." method="get">
+              <div class="product-categories-widget widget-item">
+                <h3 class="widget-title">دسته بندی ها</h3>
+                <ul class="category-tree list-unstyled mb-0">
+                  {% for category in categories %}
+                    <li class="category-item">
+                      <div class="d-flex justify-content-between align-items-center category-header">
+                        <label value="{{ category.id }}" class="category-link" for="category-{{ category.id }}">{{ category.name }}</label>
+                        <input class="form-check-input" type="checkbox" name="category_id" value="{{ category.id }}" id="category-{{ category.id }}" />
+                      </div>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+              <div class="pricing-range-widget widget-item">
+                <h3 class="widget-title">محدوده قیمت</h3>
+                <div class="price-range-container">
+                  <div class="current-range mb-3">
+                    تا
+                    <span class="max-price">{{ request.GET.max_price|default:1000 }}تومان</span>
+                    <span class="min-price float-end">{{ request.GET.min_price|default:0 }}تومان</span>
+                  </div>
+                  <div class="price-inputs mt-3">
+                    <div class="row g-2">
+                      <div class="col-6">
+                        <div class="input-group input-group-sm">
+                          <span class="input-group-text">تومان</span>
+                          <input type="number" name="min_price" class="form-control min-price-input" placeholder="کمترین قیمت مد نظر" min="0" max="10000" value="0" step="10" />
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="input-group input-group-sm">
+                          <span class="input-group-text">تومان</span>
+                          <input type="number" name="max_price" class="form-control max-price-input" placeholder="بیشترین قیمت مد نظر" min="0" max="10000000" value="500000" step="10" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="brand-filter-widget widget-item">
+                <h3 class="widget-title">فیلتر بر اساس برند</h3>
+                <div class="brand-filter-content">
+                  <div class="brand-list">
+                    <div class="brand-item">
+                      {% for brand in brands %}
+                        <div class="form-check">
+                          <label class="form-check-label" for="brand-{{ brand.id }}">
+                            {{ brand.name }}
+                            <span class="brand-count">({{ brand.products.count }})</span>
+                          </label>
+                          <input class="form-check-input" type="checkbox" name="brand_id" value="{{ brand.id }}" id="brand-{{ brand.id }}" />
+                        </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="brand-filter-widget">
+                <div class="brand-filter-content">
+                  <div class="brand-actions">
+                    <button class="btn btn-sm btn-outline-primary">اعمال فیلتر</button>
+                    <a href="{% url 'shop:product-list' %}" class="btn btn-sm btn-link">پاک کردن همه</a>
+                  </div>
+                </div>
+              </div>
+            </form>
+            End Product Filter      -->
             <!-- Product Categories Widget -->
             <div class="product-categories-widget widget-item">
-              <h3 class="widget-title">دسته بندی ها</h3>
+              <form action="." method="get">
+                <h3 class="widget-title">دسته بندی ها</h3>
 
-              <ul class="category-tree list-unstyled mb-0">
-                <!-- Clothing Category -->
-                <li class="category-item">
-                  <div class="d-flex justify-content-between align-items-center category-header collapsed" data-bs-toggle="collapse" data-bs-target="#categories-1-clothing-subcategories" aria-expanded="false" aria-controls="categories-1-clothing-subcategories">
-                    <a href="javascript:void(0)" class="category-link">Clothing</a>
-                    <span class="category-toggle">
-                      <i class="bi bi-chevron-down"></i>
-                      <i class="bi bi-chevron-up"></i>
-                    </span>
+                <ul class="category-tree list-unstyled mb-0">
+                  {% for category in categories %}
+                    <li class="category-item">
+                      <div class="d-flex justify-content-between align-items-center category-header">
+                        <label value="{{ category.id }}" class="category-link" for="category-{{ category.id }}">{{ category.name }}</label>
+                        <input class="form-check-input" type="checkbox" name="category_id" value="{{ category.id }}" id="category-{{ category.id }}" />
+                      </div>
+                    </li>
+                  {% endfor %}
+                </ul>
+                <div class="brand-filter-widget">
+                  <div class="brand-filter-content">
+                    <div class="brand-actions">
+                      <button class="btn btn-sm btn-outline-primary">اعمال فیلتر</button>
+                      <a href="{% url 'shop:product-list' %}" class="btn btn-sm btn-link">پاک کردن همه</a>
+                    </div>
                   </div>
-                  <ul id="categories-1-clothing-subcategories" class="subcategory-list list-unstyled collapse ps-3 mt-2">
-                    <li>
-                      <a href="#" class="subcategory-link">Men's Wear</a>
-                    </li>
-                    <li>
-                      <a href="#" class="subcategory-link">Women's Wear</a>
-                    </li>
-                    <li>
-                      <a href="#" class="subcategory-link">Kids' Clothing</a>
-                    </li>
-                    <li>
-                      <a href="#" class="subcategory-link">Accessories</a>
-                    </li>
-                  </ul>
-                </li>
-
-                <!-- Books Category (no subcategories) -->
-                <li class="category-item">
-                  <div class="d-flex justify-content-between align-items-center category-header">
-                    <a href="#" class="category-link">Books</a>
-                  </div>
-                </li>
-              </ul>
+                </div>
+              </form>
             </div>
             <!-- /Product Categories Widget -->
 
             <!-- Pricing Range Widget -->
             <div class="pricing-range-widget widget-item">
-              <h3 class="widget-title">Price Range</h3>
+              <form action="." method="get">
+                <h3 class="widget-title">محدوده قیمت</h3>
 
-              <div class="price-range-container">
-                <div class="current-range mb-3">
-                  <span class="min-price">$0</span>
-                  <span class="max-price float-end">$1000</span>
-                </div>
+                <div class="price-range-container">
+                  <div class="current-range mb-3">
+                    تا
+                    <span class="max-price">{{ request.GET.max_price|default:1000 }}تومان</span>
+                    <span class="min-price float-end">{{ request.GET.min_price|default:0 }}تومان</span>
+                  </div>
 
-                <div class="range-slider">
-                  <div class="slider-track"></div>
-                  <div class="slider-progress"></div>
-                  <input type="range" class="min-range" min="0" max="1000" value="0" step="10" />
-                  <input type="range" class="max-range" min="0" max="1000" value="500" step="10" />
-                </div>
-
-                <div class="price-inputs mt-3">
-                  <div class="row g-2">
-                    <div class="col-6">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-text">$</span>
-                        <input type="number" class="form-control min-price-input" placeholder="Min" min="0" max="1000" value="0" step="10" />
+                  <div class="price-inputs mt-3">
+                    <div class="row g-2">
+                      <div class="col-6">
+                        <div class="input-group input-group-sm">
+                          <span class="input-group-text">تومان</span>
+                          <input type="number" name="min_price" class="form-control min-price-input" placeholder="کمترین قیمت مد نظر" min="0" max="10000" value="0" step="10" />
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="input-group input-group-sm">
-                        <span class="input-group-text">$</span>
-                        <input type="number" class="form-control max-price-input" placeholder="Max" min="0" max="1000" value="500" step="10" />
+                      <div class="col-6">
+                        <div class="input-group input-group-sm">
+                          <span class="input-group-text">تومان</span>
+                          <input type="number" name="max_price" class="form-control max-price-input" placeholder="بیشترین قیمت مد نظر" min="0" max="10000000" value="500000" step="10" />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div class="filter-actions mt-3">
-                  <button type="button" class="btn btn-sm btn-primary w-100">Apply Filter</button>
+                  <div class="filter-actions mt-3">
+                    <button type="submit" class="btn btn-sm btn-primary w-100">اعمال فیلتر</button>
+                  </div>
                 </div>
-              </div>
+              </form>
             </div>
             <!-- /Pricing Range Widget -->
 
             <!-- Brand Filter Widget -->
-            <h3 class="brand-filter-widget widget-item">Filter by Brand</h3><!-- /Brand Filter Widget -->
-
-            <!-- Brand Filter Widget -->
             <div class="brand-filter-widget widget-item">
-              <h3 class="widget-title">Filter by Brand</h3>
-
-              <div class="brand-filter-content">
-                <div class="brand-search">
-                  <input type="text" class="form-control" placeholder="Search brands..." />
-                  <i class="bi bi-search"></i>
-                </div>
-
-                <div class="brand-list">
-                  <div class="brand-item">
-                    <div class="form-check">
-                      <label class="form-check-label" for="brand1">
-                        Nike
-                        <span class="brand-count">(24)</span>
-                      </label>
-                      <input class="form-check-input" type="checkbox" id="brand1" />
+              <h3 class="widget-title">فیلتر بر اساس برند</h3>
+              <form action="." method="get">
+                <div class="brand-filter-content">
+                  <div class="brand-list">
+                    <div class="brand-item">
+                      {% for brand in brands %}
+                        <div class="form-check">
+                          <label class="form-check-label" for="brand-{{ brand.id }}">
+                            {{ brand.name }}
+                            <span class="brand-count">({{ brand.products.count }})</span>
+                          </label>
+                          <input class="form-check-input" type="checkbox" name="brand_id" value="{{ brand.id }}" id="brand-{{ brand.id }}" />
+                        </div>
+                      {% endfor %}
                     </div>
                   </div>
+                  <div class="brand-actions">
+                    <button class="btn btn-sm btn-outline-primary">اعمال فیلتر</button>
+                    <a href="{% url 'shop:product-list' %}" class="btn btn-sm btn-link">پاک کردن همه</a>
+                  </div>
                 </div>
-
-                <div class="brand-actions">
-                  <button class="btn btn-sm btn-outline-primary">Apply Filter</button>
-                  <button class="btn btn-sm btn-link">Clear All</button>
-                </div>
-              </div>
+              </form>
             </div>
             <!-- /Brand Filter Widget -->
           </div>
@@ -150,55 +197,41 @@
                 <div class="row g-3">
                   <div class="col-12 col-md-6 col-lg-4">
                     <div class="filter-item search-form">
-                      <label for="productSearch" class="form-label">Search Products</label>
-                      <div class="input-group">
-                        <input type="text" class="form-control" id="productSearch" placeholder="Search for products..." aria-label="Search for products" />
-                        <button class="btn search-btn" type="button"><i class="bi bi-search"></i></button>
-                      </div>
+                      <label for="productSearch" class="form-label">جستجوی محصولات</label>
+                      <form method="GET" action="">
+                        <div class="input-group">
+                          <input type="text" class="form-control" id="productSearch" placeholder=" جستجوی محصولات ..." aria-label="Search for products" name="q" /> <button class="btn search-btn" type="submit"><i class="bi bi-search"></i></button>
+                        </div>
+                      </form>
                     </div>
                   </div>
 
                   <div class="col-12 col-md-6 col-lg-2">
                     <div class="filter-item">
-                      <label for="priceRange" class="form-label">Price Range</label>
-                      <select class="form-select" id="priceRange">
-                        <option selected="">All Prices</option>
-                        <option>Under $25</option>
-                        <option>$25 to $50</option>
-                        <option>$50 to $100</option>
-                        <option>$100 to $200</option>
-                        <option>$200 &amp; Above</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="col-12 col-md-6 col-lg-2">
-                    <div class="filter-item">
-                      <label for="sortBy" class="form-label">Sort By</label>
+                      <label for="sortBy" class="form-label">مرتب سازی</label>
                       <select class="form-select" id="sortBy">
-                        <option selected="">Featured</option>
-                        <option>Price: Low to High</option>
-                        <option>Price: High to Low</option>
-                        <option>Customer Rating</option>
-                        <option>Newest Arrivals</option>
+                        <option selected="">ویژه</option>
+                        <option>قیمت: از کم تا زیاد</option>
+                        <option>قیمت: از زیاد تا کم</option>
+                        <option>رتبه بندی مشتریان</option>
+                        <option>جدیدترین ها</option>
                       </select>
                     </div>
                   </div>
 
                   <div class="col-12 col-md-6 col-lg-4">
                     <div class="filter-item">
-                      <label class="form-label">View</label>
+                      <label class="form-label">مشاهده</label>
                       <div class="d-flex align-items-center">
                         <div class="view-options me-3">
                           <button type="button" class="btn view-btn active" data-view="grid" aria-label="Grid view"><i class="bi bi-grid-3x3-gap-fill"></i></button>
-                          <button type="button" class="btn view-btn" data-view="list" aria-label="List view"><i class="bi bi-list-ul"></i></button>
                         </div>
                         <div class="items-per-page">
                           <select class="form-select" id="itemsPerPage" aria-label="Items per page">
-                            <option value="12">12 per page</option>
-                            <option value="24">24 per page</option>
-                            <option value="48">48 per page</option>
-                            <option value="96">96 per page</option>
+                            <option value="12">12 عددی</option>
+                            <option value="24">24 عددی</option>
+                            <option value="48">48 عددی</option>
+                            <option value="96">96 عددی</option>
                           </select>
                         </div>
                       </div>
@@ -209,11 +242,8 @@
                 <div class="row mt-3">
                   <div class="col-12" data-aos="fade-up" data-aos-delay="200">
                     <div class="active-filters">
-                      <span class="active-filter-label">Active Filters:</span>
                       <div class="filter-tags">
-                        <span class="filter-tag">Electronics <button class="filter-remove"><i class="bi bi-x"></i></button></span>
-                        <span class="filter-tag">$50 to $100 <button class="filter-remove"><i class="bi bi-x"></i></button></span>
-                        <button class="clear-all-btn">Clear All</button>
+                        <a href="{% url 'shop:product-list' %}" class="clear-all-btn">پاک کردن همه</a>
                       </div>
                     </div>
                   </div>
@@ -304,4 +334,14 @@
       </div>
     </div>
   </main>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <script>
+    // A $( document ).ready() block.
+    $(document).ready(function () {
+      let urlp = new URLSearchParams(window.location.search)
+      let page_size = urlp.get("page_size") || ""
+      console.log(page_size)
+    })
+  </script>
 {% endblock %}

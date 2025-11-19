@@ -3,8 +3,9 @@ from django.views.generic.detail import DetailView
 
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.core.exceptions import FieldError
 
-from .models import Product, Review
+from .models import Product, Category, Brand
 from .forms import ReviewForm
 
 
@@ -14,33 +15,41 @@ class ProductListView(ListView):
     paginate_by = 12
     context_object_name = "products"
 
+    def get_paginate_by(self, queryset):
+        return self.request.GET.get('page_size', self.paginate_by)
+
     def get_queryset(self):
         queryset = Product.objects.filter(available=True)
-        search_query = self.request.GET.get("search", "")
-        if search_query:
-            queryset = queryset.filter(name__icontains=search_query)
 
-        category_slug = self.request.GET.get("category")
-        if category_slug:
-            queryset = queryset.filter(category__slug=category_slug)
+        if search_q := self.request.GET.get("q"):
+            queryset = queryset.filter(name__icontains=search_q)
 
-        brand_slug = self.request.GET.get("brand")
-        if brand_slug:
-            queryset = queryset.filter(brand__slug=brand_slug)
+        if category_id := self.request.GET.get("category_id"):
+            queryset = queryset.filter(category__id=category_id)
 
-        sort_option = self.request.GET.get("sort", "")
-        if sort_option == "price_asc":
-            queryset = queryset.order_by("price")
-        elif sort_option == "price_desc":
-            queryset = queryset.order_by("-price")
-        elif sort_option == "name_asc":
-            queryset = queryset.order_by("name")
-        elif sort_option == "name_desc":
-            queryset = queryset.order_by("-name")
-        elif sort_option == "newest":
-            queryset = queryset.order_by("-created_at")
+        if brand_id := self.request.GET.get("brand_id"):
+            queryset = queryset.filter(brand__id=brand_id)
 
+        if min_price := self.request.GET.get("min_price"):
+            queryset = queryset.filter(price__gte=min_price)
+
+        if max_price := self.request.GET.get("max_price"):
+            queryset = queryset.filter(price__lte=max_price)
+
+        if order_by := self.request.GET.get("order_by"):
+            try:
+                queryset = queryset.order_by(order_by)
+            except FieldError:
+                pass
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["total_items"] = self.get_queryset().count()
+        context["categories"] = Category.objects.all()
+        context["brands"] = Brand.objects.all()
+        return context
+
 
 class ProductDetailView(DetailView):
     model = Product
@@ -72,3 +81,9 @@ class ProductDetailView(DetailView):
         context = self.get_context_data()
         context["form"] = form
         return self.render_to_response(context)
+
+
+from django.views.generic.base import TemplateView
+
+class TestView(TemplateView):
+    template_name = "shop/test.html"

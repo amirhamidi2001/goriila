@@ -4401,7 +4401,7 @@ section,
 }
 
 .category-header .filter-container .filter-item.search-form .input-group .form-control {
-  border-right: none;
+  border-left: none;
   padding: 0.5rem 1rem;
   font-size: 0.95rem;
   height: 44px;
