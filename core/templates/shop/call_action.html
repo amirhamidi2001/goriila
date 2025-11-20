@@ -1,0 +1,60 @@
+{% load rating_tags %}
+<!-- Call To Action Section -->
+<section id="call-to-action" class="call-to-action section">
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="main-content text-center" data-aos="zoom-in" data-aos-delay="200">
+          <div class="offer-badge" data-aos="fade-down" data-aos-delay="250">
+            <span class="limited-time">تخفیفات ویژه</span>
+            <span class="offer-text">50% OFF</span>
+          </div>
+
+          <h2 data-aos="fade-up" data-aos-delay="300">تخفیف‌ ویژه در فروشگاه اینترنتی مکمل گوریلا</h2>
+
+          <p class="subtitle" data-aos="fade-up" data-aos-delay="350">اگر به‌دنبال خرید هوشمندانه و مقرون‌به‌صرفه انواع مکمل‌های بدنسازی اورجینال هستید، الان بهترین زمانه!</p>
+
+          <div class="action-buttons" data-aos="fade-up" data-aos-delay="450">
+            <a href="{% url 'shop:product-list' %}" class="btn-shop-now">خرید کنید</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row featured-products-row" data-aos="fade-up" data-aos-delay="500">
+      {% for product in call_action %}
+        <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+          <div class="product-showcase">
+            <div class="product-image">
+              <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid" />
+              <div class="discount-badge">{{ product.discount }}%-</div>
+            </div>
+            <div class="product-details">
+              <a href="{{ product.get_absolute_url }}"><h6>{{ product.name }}</h6></a>
+              <div class="price-section">
+                <span class="original-price">{{ product.price }}&nbsp;تومان</span>
+                <span class="sale-price">{{ product.get_price }}&nbsp;تومان</span>
+              </div>
+              {% with s=product.rating|star_parts %}
+                <div class="rating-stars">
+                  {% for _ in s.empty %}
+                    <i class="bi bi-star"></i>
+                  {% endfor %}
+                  {% for _ in s.half %}
+                    <i class="bi bi-star-half"></i>
+                  {% endfor %}
+                  {% for _ in s.full %}
+                    <i class="bi bi-star-fill"></i>
+                  {% endfor %}
+                  <span class="rating-count">({{ product.reviews.count }})</span>
+                </div>
+              {% endwith %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      <!-- End Product Showcase -->
+    </div>
+  </div>
+</section>
+<!-- /Call To Action Section -->

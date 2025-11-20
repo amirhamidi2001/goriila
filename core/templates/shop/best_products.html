@@ -1,0 +1,38 @@
+{% load rating_tags %}
+<div class="col-lg-4 col-md-6 mb-5 mb-md-0" data-aos="fade-up" data-aos-delay="200">
+  <div class="product-category">
+    <h3 class="category-title"><i class="bi bi-award"></i> پرفروش‌ترین‌ها</h3>
+    <div class="product-list">
+      {% for product in best_products %}
+        <div class="product-card">
+          <div class="product-image">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid" />
+            <div class="product-badges">
+              <span class="badge-sale">{{ product.stock }}</span>
+            </div>
+          </div>
+          <div class="product-info">
+            <h4 class="product-name">{{ product.name }}</h4>
+            {% with s=product.rating|star_parts %}
+              <div class="product-rating">
+                {% for _ in s.empty %}
+                  <i class="bi bi-star"></i>
+                {% endfor %}
+                {% for _ in s.half %}
+                  <i class="bi bi-star-half"></i>
+                {% endfor %}
+                {% for _ in s.full %}
+                  <i class="bi bi-star-fill"></i>
+                {% endfor %}
+                <span>({{ product.reviews.count }})</span>
+              </div>
+            {% endwith %}
+            <div class="product-price">
+              <span class="current-price">{{ product.get_price }}&nbsp;تومان</span>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

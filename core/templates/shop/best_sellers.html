@@ -1,0 +1,54 @@
+{% load rating_tags %}
+<!-- Best Sellers Section -->
+<section id="best-sellers" class="best-sellers section">
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>پرفروش‌ترین‌ها</h2>
+    <p>محبوب‌ترین و تأییدشده‌ترین مکمل‌ها توسط جامعه قدرتمند ورزشی ایران هستند</p>
+  </div>
+  <!-- End Section Title -->
+
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="row g-5">
+      {% for product in best_sellers %}
+        <div class="col-lg-3 col-md-6">
+          <div class="product-item">
+            <div class="product-image">
+              <div class="product-badge">{{ product.stock }}&nbsp;مانده</div>
+              <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid" loading="lazy" />
+              <div class="product-actions">
+                <button class="action-btn wishlist-btn"><i class="bi bi-heart"></i></button>
+                <button class="action-btn compare-btn"><i class="bi bi-arrow-left-right"></i></button>
+                <button class="action-btn quickview-btn"><i class="bi bi-zoom-in"></i></button>
+              </div>
+              <a href="{{ product.get_absolute_url }}" class="cart-btn">انتخاب گزینه‌ها</a>
+            </div>
+            <div class="product-info">
+              <h4 class="product-name"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h4>
+              <div class="product-category">{{ product.category }}</div>
+              <div class="product-category">{{ product.brand }}</div>
+              <div class="product-rating">
+                {% with s=product.rating|star_parts %}
+                  <div class="stars">
+                    {% for _ in s.empty %}
+                      <i class="bi bi-star"></i>
+                    {% endfor %}
+                    {% for _ in s.half %}
+                      <i class="bi bi-star-half"></i>
+                    {% endfor %}
+                    {% for _ in s.full %}
+                      <i class="bi bi-star-fill"></i>
+                    {% endfor %}
+                  </div>
+                {% endwith %}
+                <span class="rating-count">({{ product.reviews.count }})</span>
+              </div>
+              <div class="product-price">{{ product.get_price }}&nbsp;تومان</div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!-- /Best Sellers Section -->

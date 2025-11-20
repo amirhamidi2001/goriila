@@ -16,7 +16,7 @@ class ProductListView(ListView):
     context_object_name = "products"
 
     def get_paginate_by(self, queryset):
-        return self.request.GET.get('page_size', self.paginate_by)
+        return self.request.GET.get("page_size", self.paginate_by)
 
     def get_queryset(self):
         queryset = Product.objects.filter(available=True)
@@ -84,6 +84,7 @@ class ProductDetailView(DetailView):
 
 
 from django.views.generic.base import TemplateView
+
 
 class TestView(TemplateView):
     template_name = "shop/test.html"

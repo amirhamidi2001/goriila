@@ -119,6 +119,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=0)
     discount = models.DecimalField(max_digits=5, decimal_places=0, default=0)
 
+    especial = models.BooleanField(default=False, null=True, blank=True)
     weight = models.CharField(max_length=255)
     taste = models.CharField(max_length=255, null=True, blank=True)
     stock = models.PositiveIntegerField(default=0)
@@ -144,6 +145,7 @@ class Product(models.Model):
         null=True,
     )
 
+    especial = models.BooleanField(default=False)
     available = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -167,20 +169,14 @@ class Product(models.Model):
         return reverse("shop:product-detail", args=[self.slug])
 
     def get_price(self, include_tax=False, discount=None):
-        """
-        Returns the final price of the product.
-        """
-
+        """Returns the final price of the product."""
         final_price = Decimal(self.price)
 
         if discount is None:
             discount = self.discount
 
         if discount:
-            if discount <= 1:
-                final_price *= 1 - Decimal(discount)
-            else:
-                final_price *= 1 - (Decimal(discount) / 100)
+            final_price *= 1 - (Decimal(discount) / 100)
 
         return final_price.quantize(Decimal("0"))
 

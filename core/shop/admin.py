@@ -74,7 +74,7 @@ class ProductAdmin(admin.ModelAdmin, ImagePreviewMixin):
             "Images",
             {"fields": ("image", "image_preview", "hologram", "hologram_preview")},
         ),
-        ("Detail", {"fields": ("weight", "taste", "rating")}),
+        ("Detail", {"fields": ("weight", "taste", "rating", "especial")}),
         ("Metadata", {"fields": ("created_at", "updated_at")}),
     )
 

@@ -25,7 +25,7 @@
       <div class="row">
         <div class="col-lg-4 sidebar">
           <div class="widgets-container">
-            <!--       Product Filter
+            <!-- Product Filter -->
             <form action="." method="get">
               <div class="product-categories-widget widget-item">
                 <h3 class="widget-title">دسته بندی ها</h3>
@@ -53,7 +53,7 @@
                       <div class="col-6">
                         <div class="input-group input-group-sm">
                           <span class="input-group-text">تومان</span>
-                          <input type="number" name="min_price" class="form-control min-price-input" placeholder="کمترین قیمت مد نظر" min="0" max="10000" value="0" step="10" />
+                          <input type="number" name="min_price" class="form-control min-price-input" placeholder="کمترین قیمت مد نظر" min="0" max="1000000" value="0" step="10" />
                         </div>
                       </div>
                       <div class="col-6">
@@ -94,96 +94,7 @@
                 </div>
               </div>
             </form>
-            End Product Filter      -->
-            <!-- Product Categories Widget -->
-            <div class="product-categories-widget widget-item">
-              <form action="." method="get">
-                <h3 class="widget-title">دسته بندی ها</h3>
 
-                <ul class="category-tree list-unstyled mb-0">
-                  {% for category in categories %}
-                    <li class="category-item">
-                      <div class="d-flex justify-content-between align-items-center category-header">
-                        <label value="{{ category.id }}" class="category-link" for="category-{{ category.id }}">{{ category.name }}</label>
-                        <input class="form-check-input" type="checkbox" name="category_id" value="{{ category.id }}" id="category-{{ category.id }}" />
-                      </div>
-                    </li>
-                  {% endfor %}
-                </ul>
-                <div class="brand-filter-widget">
-                  <div class="brand-filter-content">
-                    <div class="brand-actions">
-                      <button class="btn btn-sm btn-outline-primary">اعمال فیلتر</button>
-                      <a href="{% url 'shop:product-list' %}" class="btn btn-sm btn-link">پاک کردن همه</a>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <!-- /Product Categories Widget -->
-
-            <!-- Pricing Range Widget -->
-            <div class="pricing-range-widget widget-item">
-              <form action="." method="get">
-                <h3 class="widget-title">محدوده قیمت</h3>
-
-                <div class="price-range-container">
-                  <div class="current-range mb-3">
-                    تا
-                    <span class="max-price">{{ request.GET.max_price|default:1000 }}تومان</span>
-                    <span class="min-price float-end">{{ request.GET.min_price|default:0 }}تومان</span>
-                  </div>
-
-                  <div class="price-inputs mt-3">
-                    <div class="row g-2">
-                      <div class="col-6">
-                        <div class="input-group input-group-sm">
-                          <span class="input-group-text">تومان</span>
-                          <input type="number" name="min_price" class="form-control min-price-input" placeholder="کمترین قیمت مد نظر" min="0" max="10000" value="0" step="10" />
-                        </div>
-                      </div>
-                      <div class="col-6">
-                        <div class="input-group input-group-sm">
-                          <span class="input-group-text">تومان</span>
-                          <input type="number" name="max_price" class="form-control max-price-input" placeholder="بیشترین قیمت مد نظر" min="0" max="10000000" value="500000" step="10" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="filter-actions mt-3">
-                    <button type="submit" class="btn btn-sm btn-primary w-100">اعمال فیلتر</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <!-- /Pricing Range Widget -->
-
-            <!-- Brand Filter Widget -->
-            <div class="brand-filter-widget widget-item">
-              <h3 class="widget-title">فیلتر بر اساس برند</h3>
-              <form action="." method="get">
-                <div class="brand-filter-content">
-                  <div class="brand-list">
-                    <div class="brand-item">
-                      {% for brand in brands %}
-                        <div class="form-check">
-                          <label class="form-check-label" for="brand-{{ brand.id }}">
-                            {{ brand.name }}
-                            <span class="brand-count">({{ brand.products.count }})</span>
-                          </label>
-                          <input class="form-check-input" type="checkbox" name="brand_id" value="{{ brand.id }}" id="brand-{{ brand.id }}" />
-                        </div>
-                      {% endfor %}
-                    </div>
-                  </div>
-                  <div class="brand-actions">
-                    <button class="btn btn-sm btn-outline-primary">اعمال فیلتر</button>
-                    <a href="{% url 'shop:product-list' %}" class="btn btn-sm btn-link">پاک کردن همه</a>
-                  </div>
-                </div>
-              </form>
-            </div>
             <!-- /Brand Filter Widget -->
           </div>
         </div>
@@ -210,11 +121,11 @@
                     <div class="filter-item">
                       <label for="sortBy" class="form-label">مرتب سازی</label>
                       <select class="form-select" id="sortBy">
-                        <option selected="">ویژه</option>
-                        <option>قیمت: از کم تا زیاد</option>
-                        <option>قیمت: از زیاد تا کم</option>
-                        <option>رتبه بندی مشتریان</option>
-                        <option>جدیدترین ها</option>
+                        <option value="-created_at">جدیدترین ها</option>
+                        <option value="price">قیمت: از کم تا زیاد</option>
+                        <option value="-price">قیمت: از زیاد تا کم</option>
+                        <option value="-rating">رتبه بندی مشتریان</option>
+                        <option value="especial">ویژه</option>
                       </select>
                     </div>
                   </div>
@@ -262,8 +173,8 @@
                   <div class="col-6 col-xl-4">
                     <div class="product-card" data-aos="zoom-in">
                       <div class="product-image">
-                        <img src="{{ product.image.url }}" class="main-image img-fluid" alt="{{ product.name }}" />
-                        <img src="{{ product.hologram.url }}" class="hover-image img-fluid" alt="{{ product.name }}" />
+                        <img src="{{ product.image.url }}" class="main-image img-fluid" alt="{{ product.name }}" loading="lazy"/>
+                        <img src="{{ product.hologram.url }}" class="hover-image img-fluid" alt="{{ product.name }}" loading="lazy"/>
                         <div class="product-overlay">
                           <div class="product-actions">
                             <button type="button" class="action-btn" data-bs-toggle="tooltip"><a href="{{ product.get_absolute_url }}" type="button" class="action-btn" data-bs-toggle="tooltip"><i class="bi bi-eye"></i></a></button>
@@ -339,9 +250,28 @@
   <script>
     // A $( document ).ready() block.
     $(document).ready(function () {
-      let urlp = new URLSearchParams(window.location.search)
-      let page_size = urlp.get("page_size") || ""
-      console.log(page_size)
+      let current_url_params = new URLSearchParams(window.location.search)
+      $('#itemsPerPage').val(current_url_params.get('page_size') || '12')
+      $('#productSearch').val(current_url_params.get('q') || '')
+      $('#category_id').val(current_url_params.get('category_id') || '')
+      $('#brand_id').val(current_url_params.get('brand_id') || '')
+      $('#min_price').val(current_url_params.get('min_price') || '')
+      $('#max_price').val(current_url_params.get('max_price') || '')
+      $('#sortBy').val(current_url_params.get('order_by') || '-created_at')
+    })
+    $('#itemsPerPage').change(function () {
+      let current_url_params = new URLSearchParams(window.location.search)
+      var selectedOption = $(this).val()
+      current_url_params.set('page_size', selectedOption)
+      let new_url = window.location.pathname + '?' + current_url_params.toString()
+      window.location.href = new_url
+    })
+    $('#sortBy').change(function () {
+      let current_url_params = new URLSearchParams(window.location.search)
+      var selectedOption = $(this).val()
+      current_url_params.set('order_by', selectedOption)
+      let new_url = window.location.pathname + '?' + current_url_params.toString()
+      window.location.href = new_url
     })
   </script>
 {% endblock %}
