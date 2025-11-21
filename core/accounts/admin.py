@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.sessions.models import Session
 from django.utils.translation import gettext_lazy as _
 from .models import User, Profile, Address
 
@@ -139,3 +140,12 @@ class AddressAdmin(admin.ModelAdmin):
         )
 
     short_address.short_description = _("address")
+
+
+@admin.register(Session)
+class SessionAdmin(admin.ModelAdmin):
+    def _session_data(self, obj):
+        return obj.get_decoded()
+
+    list_display = ("session_key", "_session_data", "expire_date")
+    readonly_fields = ("_session_data",)
