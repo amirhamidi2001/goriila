@@ -79,24 +79,22 @@
               <h1 class="product-name">{{ product.name }}</h1>
 
               {% if product.discount > 0 %}
-              <div class="pricing-section">
-                <div class="price-display">
-                  <span class="sale-price">{{ product.get_price }}&nbsp;تومان</span>
-                  <span class="regular-price">{{ product.price }}&nbsp;تومان</span>
+                <div class="pricing-section">
+                  <div class="price-display">
+                    <span class="sale-price">{{ product.get_price }}&nbsp;تومان</span>
+                    <span class="regular-price">{{ product.price }}&nbsp;تومان</span>
+                  </div>
+                  <div class="savings-info">
+                    <span class="save-amount">سود شما&nbsp;{{ product.discount_amount }}&nbsp;تومان</span>
+                    <span class="discount-percent">({{ product.discount }}% تخفیف )</span>
+                  </div>
                 </div>
-                <div class="savings-info">
-                  <span class="save-amount">سود شما&nbsp;{{ product.discount_amount }}&nbsp;تومان</span>
-                  <span class="discount-percent">({{ product.discount }}% تخفیف )</span>
-                </div>
-              </div>
-
               {% else %}
-
-              <div class="pricing-section">
-                <div class="price-display">
-                  <span class="sale-price">{{ product.get_price }}&nbsp;تومان</span>
+                <div class="pricing-section">
+                  <div class="price-display">
+                    <span class="sale-price">{{ product.get_price }}&nbsp;تومان</span>
+                  </div>
                 </div>
-              </div>
               {% endif %}
 
               <div class="product-description">
@@ -123,14 +121,14 @@
                   <div class="quantity-input-group">
                     <div class="quantity-selector">
                       <button class="quantity-btn decrease" type="button"><i class="bi bi-dash"></i></button>
-                      <input type="number" class="quantity-input" value="1" min="1" max="18" />
+                      <input id="product-quantity" type="number" class="quantity-input" value="1" min="1" max="10" />
                       <button class="quantity-btn increase" type="button"><i class="bi bi-plus"></i></button>
                     </div>
                   </div>
                 </div>
 
                 <div class="action-buttons">
-                  <button class="btn primary-action">
+                  <button type="button" onclick="addToCart({{ product.id }})" id="add-to-cart-btn" class="btn primary-action">
                     <i class="bi bi-bag-plus"></i>
                     افزودن به سبد خرید
                   </button>
@@ -346,4 +344,51 @@
     </section>
     <!-- /Product Details Section -->
   </main>
+
+  <!-- jQuery and AJAX script -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <script>
+    async function addToCart(product_id) {
+      const quantity = parseInt(document.querySelector('#product-quantity').value) || 1
+      if (quantity <= 0) return
+    
+      // disable button while working
+      const btn = document.getElementById('add-to-cart-btn')
+      btn.disabled = true
+    
+      // CSRF token from template
+      const csrftoken = '{{ csrf_token }}'
+      const url = "{% url 'cart:session-add-product' %}"
+    
+      try {
+        for (let i = 0; i < quantity; i++) {
+          const body = new URLSearchParams({ product_id: product_id }).toString()
+          const res = await fetch(url, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+              'X-CSRFToken': csrftoken
+            },
+            body: body
+          })
+    
+          if (!res.ok) {
+            // stop the loop on error
+            console.error('Server error', res.status)
+            break
+          }
+    
+          const data = await res.json()
+          // update UI after each successful add
+          document.getElementById('total-cart-item-count').innerHTML = data.total_quantity
+        }
+      } catch (err) {
+        console.error('Network error', err)
+      } finally {
+        btn.disabled = false
+      }
+    }
+  </script>
 {% endblock %}

@@ -173,12 +173,12 @@
                   <div class="col-6 col-xl-4">
                     <div class="product-card" data-aos="zoom-in">
                       <div class="product-image">
-                        <img src="{{ product.image.url }}" class="main-image img-fluid" alt="{{ product.name }}" loading="lazy"/>
-                        <img src="{{ product.hologram.url }}" class="hover-image img-fluid" alt="{{ product.name }}" loading="lazy"/>
+                        <img src="{{ product.image.url }}" class="main-image img-fluid" alt="{{ product.name }}" loading="lazy" />
+                        <img src="{{ product.hologram.url }}" class="hover-image img-fluid" alt="{{ product.name }}" loading="lazy" />
                         <div class="product-overlay">
                           <div class="product-actions">
                             <button type="button" class="action-btn" data-bs-toggle="tooltip"><a href="{{ product.get_absolute_url }}" type="button" class="action-btn" data-bs-toggle="tooltip"><i class="bi bi-eye"></i></a></button>
-                            <button type="button" class="action-btn" data-bs-toggle="tooltip" title="Add to Cart"><i class="bi bi-cart-plus"></i></button>
+                            <button type="button" onclick="addToCart({{ product.id }})" id="add-to-cart-btn" class="action-btn" data-bs-toggle="tooltip" title="افزودن به سبد خرید"><i class="bi bi-cart-plus"></i></button>
                           </div>
                         </div>
                       </div>
@@ -273,5 +273,23 @@
       let new_url = window.location.pathname + '?' + current_url_params.toString()
       window.location.href = new_url
     })
+  </script>
+  <script>
+    function addToCart(product_id) {
+      $.ajax({
+        url: "{% url 'cart:session-add-product' %}",
+        type: 'POST',
+        data: {
+          product_id: product_id,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function (response) {
+          $('#total-cart-item-count').html(response.total_quantity)
+        },
+        error: function (xhr, status, error) {
+          console.error(error)
+        }
+      })
+    }
   </script>
 {% endblock %}

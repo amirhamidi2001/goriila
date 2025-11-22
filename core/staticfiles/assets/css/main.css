@@ -5123,7 +5123,6 @@ section,
 }
 
 .cart .cart-items .cart-actions .coupon-form .input-group .form-control {
-  border-right: none;
   color: var(--default-color);
   background-color: var(--surface-color);
   font-size: 0.875rem;
@@ -5141,7 +5140,6 @@ section,
 
 .cart .cart-items .cart-actions .coupon-form .input-group .btn {
   border-color: color-mix(in srgb, var(--default-color), transparent 80%);
-  border-left: none;
   font-size: 0.875rem;
   background-color: color-mix(in srgb, var(--default-color), transparent 10%);
   color: var(--contrast-color);

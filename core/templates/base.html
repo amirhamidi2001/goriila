@@ -33,13 +33,13 @@
     <!-- Main CSS File -->
     <link href="{% static 'assets/css/main.css' %}" rel="stylesheet" />
 
-    <!--         =======================================================
+    <!--          =======================================================
   * Template Name: Goriila
   * Template URL: https://bootstrapmade.com/Goriila-bootstrap-ecommerce-template/
   * Updated: Aug 26 2025 with Bootstrap v5.3.7
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
-  ========================================================         -->
+  ========================================================          -->
   </head>
 
   <body class="index-page">
@@ -164,9 +164,9 @@
               </a>
 
               <!-- Cart -->
-              <a href="cart.html" class="header-action-btn">
+              <a href="{% url 'cart:cart-summary' %}" class="header-action-btn">
                 <i class="bi bi-cart3"></i>
-                <span class="badge">3</span>
+                <span class="badge" id="total-cart-item-count">{{ cart.get_total_quantity }}</span>
               </a>
 
               <!-- Mobile Navigation Toggle -->
@@ -191,7 +191,7 @@
                 <a href="{% url 'shop:product-list' %}">فروشگاه</a>
               </li>
               <li>
-                <a href="cart.html">سبد خرید</a>
+                <a href="{% url 'cart:cart-summary' %}">سبد خرید</a>
               </li>
               <li>
                 <a href="checkout.html">سفارشات</a>
@@ -379,6 +379,5 @@
     <!-- Main JS File -->
     <script src="{% static 'assets/js/main.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
   </body>
 </html>
