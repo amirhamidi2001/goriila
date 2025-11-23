@@ -45,20 +45,52 @@ class CartSession:
     def get_cart_items(self):
         for item in self._cart["items"]:
             product_obj = Product.objects.get(id=item["product_id"], available=True)
+
+            price_without_discount = product_obj.price
+            price_with_discount = product_obj.get_price()
+            discount_amount_per_unit = price_without_discount - price_with_discount
+
             item.update(
                 {
                     "product_obj": product_obj,
-                    "total_price": item["quantity"] * product_obj.get_price(),
+                    "total_price": item["quantity"] * price_with_discount,
+                    "total_discount": item["quantity"] * discount_amount_per_unit,
                 }
             )
 
         return self._cart["items"]
 
-    def get_total_payment_amount(self):
+    def get_total_weight(self):
+        total_weight = 0
+
+        for item in self._cart["items"]:
+            product = Product.objects.get(id=item["product_id"], available=True)
+            try:
+                weight = int(product.weight)
+            except ValueError:
+                weight = 0
+
+            total_weight += weight * item["quantity"]
+
+        return total_weight
+
+    def get_shipping_cost(self):
+        total_weight = self.get_total_weight()
+        return total_weight * 100
+
+    def get_total_price(self):
         return sum(item["total_price"] for item in self._cart["items"])
 
     def get_total_quantity(self):
         return sum(item["quantity"] for item in self._cart["items"])
+
+    def get_total_discount_amount(self):
+        return sum(item.get("total_discount", 0) for item in self.get_cart_items())
+
+    def get_total_payment_amount(self):
+        items_total = self.get_total_price()
+        shipping = self.get_shipping_cost()
+        return items_total + shipping
 
     def save(self):
         self.session.modified = True

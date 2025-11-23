@@ -62,4 +62,23 @@ class CartSummaryView(TemplateView):
         context["cart_items"] = cart_items
         context["total_quantity"] = cart.get_total_quantity()
         context["total_payment_price"] = cart.get_total_payment_amount()
+        context["total_discount"] = cart.get_total_discount_amount()
+        context["get_total_price"] = cart.get_total_price()
+        context["shipping_cost"] = cart.get_shipping_cost()
         return context
+
+
+class SessionClearCartView(View):
+    def post(self, request, *args, **kwargs):
+        cart = CartSession(request.session)
+        cart.clear()
+
+        if request.user.is_authenticated:
+            cart.merge_session_cart_in_db(request.user)
+
+        return JsonResponse(
+            {
+                "cart": cart.get_cart_dict(),
+                "total_quantity": cart.get_total_quantity(),
+            }
+        )

@@ -284,6 +284,7 @@
           csrfmiddlewaretoken: '{{ csrf_token }}'
         },
         success: function (response) {
+          console.log('Server Response:', response);
           $('#total-cart-item-count').html(response.total_quantity)
         },
         error: function (xhr, status, error) {

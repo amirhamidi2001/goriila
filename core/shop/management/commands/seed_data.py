@@ -69,7 +69,7 @@ class Command(BaseCommand):
                 description=fake.text(),
                 price=Decimal(price),
                 discount=Decimal(discount),
-                weight=f"{random.randint(100, 5000)} g",
+                weight=f"{random.randint(100, 5000)}",
                 taste=random.choice(
                     ["Vanilla", "Chocolate", "Strawberry", "Mint", None]
                 ),

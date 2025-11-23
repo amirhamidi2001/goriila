@@ -81,10 +81,3 @@ class ProductDetailView(DetailView):
         context = self.get_context_data()
         context["form"] = form
         return self.render_to_response(context)
-
-
-from django.views.generic.base import TemplateView
-
-
-class TestView(TemplateView):
-    template_name = "shop/test.html"

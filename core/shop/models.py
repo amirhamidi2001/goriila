@@ -120,7 +120,7 @@ class Product(models.Model):
     discount = models.DecimalField(max_digits=5, decimal_places=0, default=0)
 
     especial = models.BooleanField(default=False, null=True, blank=True)
-    weight = models.CharField(max_length=255)
+    weight = models.IntegerField(default=0)
     taste = models.CharField(max_length=255, null=True, blank=True)
     stock = models.PositiveIntegerField(default=0)
     rating = models.DecimalField(

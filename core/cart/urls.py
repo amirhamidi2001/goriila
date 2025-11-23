@@ -20,4 +20,5 @@ urlpatterns = [
         name="session-update-product-quantity",
     ),
     path("summary/", views.CartSummaryView.as_view(), name="cart-summary"),
+    path("clear/", views.SessionClearCartView.as_view(), name="session-clear-cart"),
 ]

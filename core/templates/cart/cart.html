@@ -86,7 +86,7 @@
                 <div class="row">
                   <div class="col-lg-6 text-md-end">
                     <a href="{% url 'shop:product-list' %}" class="btn btn-outline-heading me-2"><i class="bi bi-arrow-clockwise"></i> سبد خرید را به‌روزرسانی کنید</a>
-                    <button class="btn btn-outline-remove"><i class="bi bi-trash"></i> پاک کردن سبد خرید</button>
+                    <button class="btn btn-outline-remove" type="button" onclick="clearCart()"><i class="bi bi-trash"></i> پاک کردن سبد خرید</button>
                   </div>
                 </div>
               </div>
@@ -95,63 +95,36 @@
 
           <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="300">
             <div class="cart-summary">
-              <h4 class="summary-title">Order Summary</h4>
+              <h4 class="summary-title">ثبت سفارش</h4>
 
               <div class="summary-item">
-                <span class="summary-label">Subtotal</span>
-                <span class="summary-value">$269.96</span>
-              </div>
-
-              <div class="summary-item shipping-item">
-                <span class="summary-label">Shipping</span>
-                <div class="shipping-options">
-                  <div class="form-check text-end">
-                    <input class="form-check-input" type="radio" name="shipping" id="standard" checked="" />
-                    <label class="form-check-label" for="standard">Standard Delivery - $4.99</label>
-                  </div>
-                  <div class="form-check text-end">
-                    <input class="form-check-input" type="radio" name="shipping" id="express" />
-                    <label class="form-check-label" for="express">Express Delivery - $12.99</label>
-                  </div>
-                  <div class="form-check text-end">
-                    <input class="form-check-input" type="radio" name="shipping" id="free" />
-                    <label class="form-check-label" for="free">Free Shipping (Orders over $300)</label>
-                  </div>
-                </div>
+                <span class="summary-label">مجموع</span>
+                <span class="summary-value">{{ get_total_price }}</span>
               </div>
 
               <div class="summary-item">
-                <span class="summary-label">Tax</span>
-                <span class="summary-value">$27.00</span>
+                <span class="summary-label">هزینه ارسال</span>
+                <span class="summary-value">{{ shipping_cost }}</span>
               </div>
 
               <div class="summary-item discount">
-                <span class="summary-label">Discount</span>
-                <span class="summary-value">-$0.00</span>
+                <span class="summary-label">تخفیف</span>
+                <span class="summary-value">{{ total_discount }}</span>
               </div>
 
               <div class="summary-total">
-                <span class="summary-label">Total</span>
-                <span class="summary-value">$301.95</span>
+                <span class="summary-label">جمع کل</span>
+                <span class="summary-value">{{ total_payment_price }}</span>
               </div>
 
               <div class="checkout-button">
-                <a href="#" class="btn btn-accent w-100">Proceed to Checkout <i class="bi bi-arrow-right"></i></a>
+                <a href="#" class="btn btn-accent w-100">تصویه حساب<i class="bi bi-arrow-right"></i></a>
               </div>
 
               <div class="continue-shopping">
-                <a href="#" class="btn btn-link w-100"><i class="bi bi-arrow-left"></i> Continue Shopping</a>
+                <a href="#" class="btn btn-link w-100"><i class="bi bi-arrow-left"></i>ادامه خرید</a>
               </div>
 
-              <div class="payment-methods">
-                <p class="payment-title">We Accept</p>
-                <div class="payment-icons">
-                  <i class="bi bi-credit-card"></i>
-                  <i class="bi bi-paypal"></i>
-                  <i class="bi bi-wallet2"></i>
-                  <i class="bi bi-bank"></i>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -177,6 +150,27 @@
         },
         error: function (xhr, status, error) {
           console.error(error)
+        }
+      })
+    }
+  </script>
+  <script>
+    function clearCart() {
+      $.ajax({
+        url: "{% url 'cart:session-clear-cart' %}",
+        type: 'POST',
+        data: {
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function (response) {
+          $('#total-cart-item-count').html(response.total_quantity)
+          $('.cart-item').remove()
+          $('.summary-value').html(0)
+    
+          console.log('Cart cleared:', response)
+        },
+        error: function (xhr) {
+          console.error('Error clearing cart:', xhr)
         }
       })
     }
