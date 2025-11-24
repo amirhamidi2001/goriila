@@ -10,6 +10,11 @@ urlpatterns = [
         name="session-add-product",
     ),
     path(
+        "session/decrease-product/",
+        views.SessionDecreaseProductQuantityView.as_view(),
+        name="session-decrease-product",
+    ),
+    path(
         "session/remove-product/",
         views.SessionRemoveProductView.as_view(),
         name="session-remove-product",

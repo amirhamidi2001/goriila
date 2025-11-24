@@ -67,9 +67,9 @@
                       </div>
                       <div class="col-lg-2 col-12 mt-3 mt-lg-0 text-center">
                         <div class="quantity-selector">
-                          <button class="quantity-btn decrease"><i class="bi bi-dash"></i></button>
-                          <input type="number" class="quantity-input" value="{{ item.quantity }}" min="1" max="10" />
-                          <button class="quantity-btn increase"><i class="bi bi-plus"></i></button>
+                          <button class="quantity-btn decrease" type="button" onclick="decreaseFromCart({{ item.product_obj.id }})"><i class="bi bi-dash"></i></button>
+                          <input class="quantity-input" value="{{ item.quantity }}" min="1" max="{{ item.product_obj.stock }}" />
+                          <button class="quantity-btn increase" type="button" onclick="addToCart({{ item.product_obj.id }})"><i class="bi bi-plus"></i></button>
                         </div>
                       </div>
                       <div class="col-lg-2 col-12 mt-3 mt-lg-0 text-center">
@@ -96,35 +96,28 @@
           <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="300">
             <div class="cart-summary">
               <h4 class="summary-title">ثبت سفارش</h4>
-
               <div class="summary-item">
                 <span class="summary-label">مجموع</span>
                 <span class="summary-value">{{ get_total_price }}</span>
               </div>
-
               <div class="summary-item">
                 <span class="summary-label">هزینه ارسال</span>
                 <span class="summary-value">{{ shipping_cost }}</span>
               </div>
-
               <div class="summary-item discount">
                 <span class="summary-label">تخفیف</span>
                 <span class="summary-value">{{ total_discount }}</span>
               </div>
-
               <div class="summary-total">
                 <span class="summary-label">جمع کل</span>
                 <span class="summary-value">{{ total_payment_price }}</span>
               </div>
-
               <div class="checkout-button">
                 <a href="#" class="btn btn-accent w-100">تصویه حساب<i class="bi bi-arrow-right"></i></a>
               </div>
-
               <div class="continue-shopping">
                 <a href="#" class="btn btn-link w-100"><i class="bi bi-arrow-left"></i>ادامه خرید</a>
               </div>
-
             </div>
           </div>
         </div>
@@ -132,8 +125,9 @@
     </section>
     <!-- /Cart Section -->
   </main>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
+  <!-- jQuery and AJAX script -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script>
     function removeProduct(product_id) {
       console.log(product_id)
@@ -146,6 +140,7 @@
         },
         success: function (response) {
           $('#total-cart-item-count').html(response.total_quantity)
+          location.reload();
           console.log(response)
         },
         error: function (xhr, status, error) {
@@ -166,11 +161,62 @@
           $('#total-cart-item-count').html(response.total_quantity)
           $('.cart-item').remove()
           $('.summary-value').html(0)
-    
           console.log('Cart cleared:', response)
         },
         error: function (xhr) {
           console.error('Error clearing cart:', xhr)
+        }
+      })
+    }
+  </script>
+  <script>
+    function addToCart(product_id) {
+      $.ajax({
+        url: "{% url 'cart:session-add-product' %}",
+        type: 'POST',
+        data: {
+          product_id: product_id,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function (response) {
+          if (response.added === false) {
+            alert('تعداد انتخاب شده بیشتر از موجودی محصول است.')
+            return
+          }
+          $('#total-cart-item-count').html(response.total_quantity)
+          let item = response.cart.items.find((i) => i.product_id == product_id)
+          if (item) {
+            $('#quantity-' + product_id).val(item.quantity)
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error(error)
+        }
+      })
+    }
+  </script>
+  <script>
+    function decreaseFromCart(product_id) {
+      $.ajax({
+        url: "{% url 'cart:session-decrease-product' %}",
+        type: 'POST',
+        data: {
+          product_id: product_id,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function (response) {
+          if (response.decreased === false) {
+            alert('امکان کم کردن بیشتر وجود ندارد.')
+            return
+          }
+          $('#total-cart-item-count').html(response.total_quantity)
+          let item = response.cart.items.find((i) => i.product_id == product_id)
+          if (item) {
+            $('#quantity-' + product_id).val(item.quantity)
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error(error)
         }
       })
     }

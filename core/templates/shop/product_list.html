@@ -5,6 +5,7 @@
 {% endblock %}
 {% block content %}
   <main class="main">
+
     <!-- Page Title -->
     <div class="page-title light-background">
       <div class="container d-lg-flex justify-content-between align-items-center">
@@ -66,7 +67,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="brand-filter-widget widget-item">
                 <h3 class="widget-title">فیلتر بر اساس برند</h3>
                 <div class="brand-filter-content">
@@ -94,13 +94,12 @@
                 </div>
               </div>
             </form>
-
             <!-- /Brand Filter Widget -->
           </div>
         </div>
-
         <div class="col-lg-8">
           <!-- Category Header Section -->
+
           <section id="category-header" class="category-header section">
             <div class="container" data-aos="fade-up">
               <!-- Filter and Sort Options -->
@@ -111,12 +110,12 @@
                       <label for="productSearch" class="form-label">جستجوی محصولات</label>
                       <form method="GET" action="">
                         <div class="input-group">
-                          <input type="text" class="form-control" id="productSearch" placeholder=" جستجوی محصولات ..." aria-label="Search for products" name="q" /> <button class="btn search-btn" type="submit"><i class="bi bi-search"></i></button>
+                          <input type="text" class="form-control" id="productSearch" placeholder=" جستجوی محصولات ..." aria-label="Search for products" name="q" />
+                          <button class="btn search-btn" type="submit"><i class="bi bi-search"></i></button>
                         </div>
                       </form>
                     </div>
                   </div>
-
                   <div class="col-12 col-md-6 col-lg-2">
                     <div class="filter-item">
                       <label for="sortBy" class="form-label">مرتب سازی</label>
@@ -129,7 +128,6 @@
                       </select>
                     </div>
                   </div>
-
                   <div class="col-12 col-md-6 col-lg-4">
                     <div class="filter-item">
                       <label class="form-label">مشاهده</label>
@@ -149,7 +147,6 @@
                     </div>
                   </div>
                 </div>
-
                 <div class="row mt-3">
                   <div class="col-12" data-aos="fade-up" data-aos-delay="200">
                     <div class="active-filters">
@@ -215,7 +212,6 @@
                       </a>
                     </li>
                   {% endif %}
-
                   {% for num in page_obj.paginator.page_range %}
                     {% if page_obj.number == num %}
                       <li>
@@ -227,7 +223,6 @@
                       </li>
                     {% endif %}
                   {% endfor %}
-
                   {% if page_obj.has_next %}
                     <li>
                       <a href="?page={{ page_obj.next_page_number }}" aria-label="Next page">
@@ -245,8 +240,9 @@
       </div>
     </div>
   </main>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
+  <!-- jQuery and AJAX script -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script>
     // A $( document ).ready() block.
     $(document).ready(function () {
@@ -284,7 +280,10 @@
           csrfmiddlewaretoken: '{{ csrf_token }}'
         },
         success: function (response) {
-          console.log('Server Response:', response);
+          if (response.added === false) {
+            alert('تعداد انتخاب شده بیشتر از موجودی محصول است.')
+            return
+          }
           $('#total-cart-item-count').html(response.total_quantity)
         },
         error: function (xhr, status, error) {

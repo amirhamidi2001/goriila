@@ -73,7 +73,7 @@ class Command(BaseCommand):
                 taste=random.choice(
                     ["Vanilla", "Chocolate", "Strawberry", "Mint", None]
                 ),
-                stock=random.randint(0, 100),
+                stock=random.randint(0, 10),
                 rating=Decimal(round(random.uniform(0, 5), 1)),
                 available=True,
             )

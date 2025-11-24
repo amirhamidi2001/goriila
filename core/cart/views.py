@@ -14,12 +14,42 @@ class SessionAddProductView(View):
             product_id
             and Product.objects.filter(id=product_id, available=True).exists()
         ):
+            added = cart.add_product(product_id)
+        else:
+            added = False
 
-            cart.add_product(product_id)
         if request.user.is_authenticated:
             cart.merge_session_cart_in_db(request.user)
+
         return JsonResponse(
-            {"cart": cart.get_cart_dict(), "total_quantity": cart.get_total_quantity()}
+            {
+                "cart": cart.get_cart_dict(),
+                "total_quantity": cart.get_total_quantity(),
+                "added": added,
+            }
+        )
+
+
+class SessionDecreaseProductQuantityView(View):
+
+    def post(self, request, *args, **kwargs):
+        cart = CartSession(request.session)
+        product_id = request.POST.get("product_id")
+
+        if product_id:
+            decreased = cart.decrease_product_quantity(product_id)
+        else:
+            decreased = False
+
+        if request.user.is_authenticated:
+            cart.merge_session_cart_in_db(request.user)
+
+        return JsonResponse(
+            {
+                "cart": cart.get_cart_dict(),
+                "total_quantity": cart.get_total_quantity(),
+                "decreased": decreased,
+            }
         )
 
 

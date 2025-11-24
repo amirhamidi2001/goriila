@@ -26,20 +26,19 @@
     <section id="product-details" class="product-details section">
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="row g-4">
+
           <!-- Product Gallery -->
           <div class="col-lg-7" data-aos="zoom-in" data-aos-delay="150">
             <div class="product-gallery">
               <div class="main-showcase">
                 <div class="image-zoom-container">
                   <img src="{{ product.image.url }}" alt="Product Main" class="img-fluid main-product-image drift-zoom" id="main-product-image" data-zoom="{{ product.image.url }}" />
-
                   <div class="image-navigation">
                     <button class="nav-arrow prev-image image-nav-btn prev-image" type="button"><i class="bi bi-chevron-right"></i></button>
                     <button class="nav-arrow next-image image-nav-btn next-image" type="button"><i class="bi bi-chevron-left"></i></button>
                   </div>
                 </div>
               </div>
-
               <div class="thumbnail-grid">
                 <div class="thumbnail-wrapper thumbnail-item active" data-image="{{ product.image.url }}">
                   <img src="{{ product.image.url }}" alt="View 1" class="img-fluid" />
@@ -58,7 +57,6 @@
                 <span class="badge-category">{{ product.category.name }}</span>
                 <span class="badge-category">{{ product.brand.name }}</span>
                 {% load rating_tags %}
-
                 {% with s=product.rating|star_parts %}
                   <div class="rating-group">
                     <div class="stars">
@@ -75,9 +73,7 @@
                   </div>
                 {% endwith %}
               </div>
-
               <h1 class="product-name">{{ product.name }}</h1>
-
               {% if product.discount > 0 %}
                 <div class="pricing-section">
                   <div class="price-display">
@@ -96,11 +92,9 @@
                   </div>
                 </div>
               {% endif %}
-
               <div class="product-description">
                 <p>{{ product.breif_description }}</p>
               </div>
-
               <div class="availability-status">
                 <div class="stock-indicator">
                   {% if product.available %}
@@ -120,13 +114,12 @@
                   <label class="control-label">تعداد:</label>
                   <div class="quantity-input-group">
                     <div class="quantity-selector">
-                      <button class="quantity-btn decrease" type="button"><i class="bi bi-dash"></i></button>
-                      <input id="product-quantity" type="number" class="quantity-input" value="1" min="1" max="10" />
-                      <button class="quantity-btn increase" type="button"><i class="bi bi-plus"></i></button>
+                      <button class="quantity-btn decrease" type="button" onclick="decreaseFromCart({{ product.id }})"><i class="bi bi-dash"></i></button>
+                      <input id="quantity-{{ product.id }}" class="quantity-input" value="{{ product_cart_quantity }}" min="1" max="{{ product.stock }}" readonly />
+                      <button class="quantity-btn increase" type="button" onclick="addToCart({{ product.id }})"><i class="bi bi-plus"></i></button>
                     </div>
                   </div>
                 </div>
-
                 <div class="action-buttons">
                   <button type="button" onclick="addToCart({{ product.id }})" id="add-to-cart-btn" class="btn primary-action">
                     <i class="bi bi-bag-plus"></i>
@@ -168,7 +161,6 @@
                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#ecommerce-product-details-5-technical" type="button">جزئیات</button>
                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#ecommerce-product-details-5-customer-reviews" type="button">نظرات ({{ product.reviews.count }})</button>
               </nav>
-
               <div class="tab-content">
                 <!-- Overview Tab -->
                 <div class="tab-pane fade show active" id="ecommerce-product-details-5-overview">
@@ -202,7 +194,6 @@
                     </div>
                   </div>
                 </div>
-
                 <!-- Technical Details Tab -->
                 <div class="tab-pane fade" id="ecommerce-product-details-5-technical">
                   <div class="technical-content">
@@ -237,7 +228,6 @@
                     </div>
                   </div>
                 </div>
-
                 <!-- Reviews Tab -->
                 <div class="tab-pane fade" id="ecommerce-product-details-5-customer-reviews">
                   <div class="reviews-content">
@@ -261,14 +251,12 @@
                           <div class="total-reviews">{{ product.reviews.count }} نظر ثبت شده</div>
                         </div>
                       </div>
-
                       <div class="write-review-cta">
                         <h4>تجربه خود را به اشتراک بگذارید</h4>
                         <p>به دیگران کمک کنید تا تصمیمات آگاهانه بگیرند</p>
                         <button class="btn review-btn">ثبت نظر</button>
                       </div>
                     </div>
-
                     <div class="customer-reviews-list">
                       {% for review in reviews %}
                         <div class="review-card">
@@ -292,7 +280,6 @@
                               <h3>ثبت نظر</h3>
                               <p>آدرس ایمیل شما منتشر نخواهد شد. فیلدهای ضروری با * مشخص شده‌اند.</p>
                             </div>
-
                             <div class="row gy-3">
                               <div class="col-md-6">
                                 <div class="input-group">
@@ -301,7 +288,6 @@
                                   <span class="error-text">لطفاً نام خود را وارد کنید</span>
                                 </div>
                               </div>
-
                               <div class="col-md-6">
                                 <div class="input-group">
                                   <label for="email">آدرس ایمیل *</label>
@@ -309,14 +295,12 @@
                                   <span class="error-text">لطفاً یک آدرس ایمیل معتبر وارد کنید</span>
                                 </div>
                               </div>
-
                               <div class="col-12">
                                 <div class="input-group">
                                   <label for="website">وب‌سایت</label>
                                   <input type="url" name="website" id="website" placeholder="وب‌سایت شما (اختیاری)" />
                                 </div>
                               </div>
-
                               <div class="col-12">
                                 <div class="input-group">
                                   <label for="comment">نظر شما *</label>
@@ -324,7 +308,6 @@
                                   <span class="error-text">لطفاً نظر خود را وارد کنید</span>
                                 </div>
                               </div>
-
                               <div class="col-12 text-center">
                                 <button type="submit">ارسال نظر</button>
                               </div>
@@ -347,48 +330,56 @@
 
   <!-- jQuery and AJAX script -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
   <script>
-    async function addToCart(product_id) {
-      const quantity = parseInt(document.querySelector('#product-quantity').value) || 1
-      if (quantity <= 0) return
-    
-      // disable button while working
-      const btn = document.getElementById('add-to-cart-btn')
-      btn.disabled = true
-    
-      // CSRF token from template
-      const csrftoken = '{{ csrf_token }}'
-      const url = "{% url 'cart:session-add-product' %}"
-    
-      try {
-        for (let i = 0; i < quantity; i++) {
-          const body = new URLSearchParams({ product_id: product_id }).toString()
-          const res = await fetch(url, {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-              'X-CSRFToken': csrftoken
-            },
-            body: body
-          })
-    
-          if (!res.ok) {
-            // stop the loop on error
-            console.error('Server error', res.status)
-            break
+    function addToCart(product_id) {
+      $.ajax({
+        url: "{% url 'cart:session-add-product' %}",
+        type: 'POST',
+        data: {
+          product_id: product_id,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function (response) {
+          if (response.added === false) {
+            alert('تعداد انتخاب شده بیشتر از موجودی محصول است.')
+            return
           }
-    
-          const data = await res.json()
-          // update UI after each successful add
-          document.getElementById('total-cart-item-count').innerHTML = data.total_quantity
+          $('#total-cart-item-count').html(response.total_quantity)
+          let item = response.cart.items.find((i) => i.product_id == product_id)
+          if (item) {
+            $('#quantity-' + product_id).val(item.quantity)
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error(error)
         }
-      } catch (err) {
-        console.error('Network error', err)
-      } finally {
-        btn.disabled = false
-      }
+      })
+    }
+  </script>
+  <script>
+    function decreaseFromCart(product_id) {
+      $.ajax({
+        url: "{% url 'cart:session-decrease-product' %}",
+        type: 'POST',
+        data: {
+          product_id: product_id,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function (response) {
+          if (response.decreased === false) {
+            alert('امکان کم کردن بیشتر وجود ندارد.')
+            return
+          }
+          $('#total-cart-item-count').html(response.total_quantity)
+          let item = response.cart.items.find((i) => i.product_id == product_id)
+          if (item) {
+            $('#quantity-' + product_id).val(item.quantity)
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error(error)
+        }
+      })
     }
   </script>
 {% endblock %}
