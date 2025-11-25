@@ -126,7 +126,7 @@
     <!-- /Cart Section -->
   </main>
 
-  <!-- jQuery and AJAX script -->
+  <!--        jQuery and AJAX script
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script>
     function removeProduct(product_id) {
@@ -140,7 +140,7 @@
         },
         success: function (response) {
           $('#total-cart-item-count').html(response.total_quantity)
-          location.reload();
+          location.reload()
           console.log(response)
         },
         error: function (xhr, status, error) {
@@ -220,5 +220,137 @@
         }
       })
     }
+  </script>        -->
+
+  <script>
+function addToCart(product_id) {
+    $.ajax({
+        url: "{% url 'cart:session-add-product' %}",
+        type: 'POST',
+        data: {
+            product_id: product_id,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function (response) {
+            if (response.added === false) {
+                alert('تعداد انتخاب شده بیشتر از موجودی محصول است.');
+                return;
+            }
+            $('#total-cart-item-count').html(response.total_quantity);
+            
+            let item = response.cart.items.find((i) => i.product_id == product_id);
+            if (item) {
+                // آپدیت مقدار quantity
+                $(`.cart-item:has(input[value])`).each(function() {
+                    let input = $(this).find('.quantity-input');
+                    if (input.closest('.cart-item').find('.remove-item').attr('onclick').includes(product_id)) {
+                        input.val(item.quantity);
+                        
+                        // آپدیت قیمت کل آیتم
+                        let priceText = $(this).find('.current-price').text().replace(/,/g, '');
+                        let price = parseFloat(priceText);
+                        let total = price * item.quantity;
+                        $(this).find('.item-total span').text(total.toLocaleString());
+                    }
+                });
+                
+                // آپدیت جمع کل فاکتور
+                updateCartTotals();
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
+
+function decreaseFromCart(product_id) {
+    $.ajax({
+        url: "{% url 'cart:session-decrease-product' %}",
+        type: 'POST',
+        data: {
+            product_id: product_id,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function (response) {
+            if (response.decreased === false) {
+                alert('امکان کم کردن بیشتر وجود ندارد.');
+                return;
+            }
+            $('#total-cart-item-count').html(response.total_quantity);
+            
+            let item = response.cart.items.find((i) => i.product_id == product_id);
+            if (item) {
+                // آپدیت مقدار quantity
+                $(`.cart-item:has(input[value])`).each(function() {
+                    let input = $(this).find('.quantity-input');
+                    if (input.closest('.cart-item').find('.remove-item').attr('onclick').includes(product_id)) {
+                        input.val(item.quantity);
+                        
+                        // آپدیت قیمت کل آیتم
+                        let priceText = $(this).find('.current-price').text().replace(/,/g, '');
+                        let price = parseFloat(priceText);
+                        let total = price * item.quantity;
+                        $(this).find('.item-total span').text(total.toLocaleString());
+                    }
+                });
+                
+                // آپدیت جمع کل فاکتور
+                updateCartTotals();
+            } else {
+                // اگر آیتم کاملا حذف شده
+                $(`.cart-item:has(button[onclick*="${product_id}"])`).remove();
+                updateCartTotals();
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
+
+// تابع برای محاسبه و آپدیت جمع کل فاکتور
+function updateCartTotals() {
+    let subtotal = 0;
+    
+    // محاسبه جمع آیتم‌ها
+    $('.item-total span').each(function() {
+        let totalText = $(this).text().replace(/,/g, '');
+        subtotal += parseFloat(totalText) || 0;
+    });
+    
+    // آپدیت مقادیر (می‌توانید این مقادیر را از المنت‌های موجود بگیرید یا ثابت در نظر بگیرید)
+    $('.summary-item:eq(0) .summary-value').text(subtotal.toLocaleString());
+    
+    // هزینه ارسال - اگر ثابت است
+    let shippingCost = {{ shipping_cost }}; // یا از المنت موجود بگیرید
+    
+    // تخفیف - اگر دارید
+    let discount = {{ total_discount }}; // یا از المنت موجود بگیرید
+    
+    let total = subtotal + shippingCost - discount;
+    
+    $('.summary-total .summary-value').text(total.toLocaleString());
+}
+
+// همچنین تابع removeProduct را هم آپدیت کنید
+function removeProduct(product_id) {
+    $.ajax({
+        url: "{% url 'cart:session-remove-product' %}",
+        type: 'POST',
+        data: {
+            product_id: product_id,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function (response) {
+            $('#total-cart-item-count').html(response.total_quantity);
+            $(`.cart-item:has(button[onclick*="${product_id}"])`).remove();
+            updateCartTotals();
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
   </script>
 {% endblock %}
