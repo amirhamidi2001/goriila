@@ -1,155 +1,3 @@
-# from shop.models import Product
-# from cart.models import Cart, CartItem
-
-
-# class CartSession:
-#     def __init__(self, session):
-#         self.session = session
-#         self._cart = self.session.setdefault("cart", {"items": []})
-
-#     def update_product_quantity(self, product_id, quantity):
-#         for item in self._cart["items"]:
-#             if product_id == item["product_id"]:
-#                 item["quantity"] = int(quantity)
-#                 break
-#         else:
-#             return
-#         self.save()
-
-#     def remove_product(self, product_id):
-#         for item in self._cart["items"]:
-#             if product_id == item["product_id"]:
-#                 self._cart["items"].remove(item)
-#                 break
-#         else:
-#             return
-#         self.save()
-
-#     def add_product(self, product_id):
-#         product = Product.objects.get(id=product_id, available=True)
-
-#         for item in self._cart["items"]:
-#             if product_id == item["product_id"]:
-#                 if item["quantity"] + 1 > product.stock:
-#                     return False
-#                 item["quantity"] += 1
-#                 break
-#         else:
-#             if product.stock < 1:
-#                 return False
-#             new_item = {"product_id": product_id, "quantity": 1}
-#             self._cart["items"].append(new_item)
-
-#         self.save()
-#         return True
-
-#     def decrease_product_quantity(self, product_id):
-#         for item in self._cart["items"]:
-#             if product_id == item["product_id"]:
-#                 if item["quantity"] > 1:
-#                     item["quantity"] -= 1
-#                     self.save()
-#                     return True
-#                 return False
-
-#         return False
-
-#     def clear(self):
-#         self._cart = self.session["cart"] = {"items": []}
-#         self.save()
-
-#     def get_cart_dict(self):
-#         return self._cart
-
-#     def get_cart_items(self):
-#         for item in self._cart["items"]:
-#             product_obj = Product.objects.get(id=item["product_id"], available=True)
-
-#             price_without_discount = product_obj.price
-#             price_with_discount = product_obj.get_price()
-#             discount_amount_per_unit = price_without_discount - price_with_discount
-
-#             item.update(
-#                 {
-#                     "product_obj": product_obj,
-#                     "total_price": item["quantity"] * price_with_discount,
-#                     "total_discount": item["quantity"] * discount_amount_per_unit,
-#                 }
-#             )
-
-#         return self._cart["items"]
-
-#     def get_total_weight(self):
-#         total_weight = 0
-
-#         for item in self._cart["items"]:
-#             product = Product.objects.get(id=item["product_id"], available=True)
-#             try:
-#                 weight = int(product.weight)
-#             except ValueError:
-#                 weight = 0
-
-#             total_weight += weight * item["quantity"]
-
-#         return total_weight
-
-#     def get_shipping_cost(self):
-#         total_weight = self.get_total_weight()
-#         return total_weight * 100
-
-#     def get_total_price(self):
-#         return sum(item["total_price"] for item in self._cart["items"])
-
-#     def get_total_quantity(self):
-#         return sum(item["quantity"] for item in self._cart["items"])
-
-#     def get_total_discount_amount(self):
-#         return sum(item.get("total_discount", 0) for item in self.get_cart_items())
-
-#     def get_total_payment_amount(self):
-#         items_total = self.get_total_price()
-#         shipping = self.get_shipping_cost()
-#         return items_total + shipping
-
-#     def save(self):
-#         self.session.modified = True
-
-#     def sync_cart_items_from_db(self, user):
-#         cart, created = Cart.objects.get_or_create(user=user)
-#         cart_items = CartItem.objects.filter(cart=cart)
-
-#         for cart_item in cart_items:
-#             for item in self._cart["items"]:
-#                 if str(cart_item.product.id) == item["product_id"]:
-#                     cart_item.quantity = item["quantity"]
-#                     cart_item.save()
-#                     break
-#             else:
-#                 new_item = {
-#                     "product_id": str(cart_item.product.id),
-#                     "quantity": cart_item.quantity,
-#                 }
-#                 self._cart["items"].append(new_item)
-#         self.merge_session_cart_in_db(user)
-#         self.save()
-
-#     def merge_session_cart_in_db(self, user):
-#         cart, created = Cart.objects.get_or_create(user=user)
-
-#         for item in self._cart["items"]:
-#             product_obj = Product.objects.get(id=item["product_id"], available=True)
-
-#             cart_item, created = CartItem.objects.get_or_create(
-#                 cart=cart, product=product_obj
-#             )
-#             cart_item.quantity = item["quantity"]
-#             cart_item.save()
-#         session_product_ids = [item["product_id"] for item in self._cart["items"]]
-#         CartItem.objects.filter(cart=cart).exclude(
-#             product__id__in=session_product_ids
-#         ).delete()
-
-# cart/session.py
 from decimal import Decimal
 from typing import Dict, List, Optional
 
@@ -366,7 +214,9 @@ class CartSession:
 
             # use Decimal arithmetic; assume product.price and product.get_price() are Decimal
             price_without_discount = getattr(product_obj, "price", Decimal("0"))
-            price_with_discount = getattr(product_obj, "get_price", lambda: price_without_discount)()
+            price_with_discount = getattr(
+                product_obj, "get_price", lambda: price_without_discount
+            )()
             # ensure Decimal
             if not isinstance(price_without_discount, Decimal):
                 price_without_discount = Decimal(price_without_discount)
@@ -506,7 +356,9 @@ class CartSession:
             return
 
         # Normalize product ids and batch load products
-        session_product_ids = [int(self._normalize_pid(item["product_id"])) for item in items]
+        session_product_ids = [
+            int(self._normalize_pid(item["product_id"])) for item in items
+        ]
         products = Product.objects.filter(id__in=session_product_ids, available=True)
         product_map = {p.id: p for p in products}
         # Build session map keyed by product_id int
@@ -552,6 +404,8 @@ class CartSession:
                 existing_product_ids = set(existing_map.keys())
                 remove_ids = existing_product_ids - now_product_ids
                 if remove_ids:
-                    CartItem.objects.filter(cart=cart, product__id__in=remove_ids).delete()
+                    CartItem.objects.filter(
+                        cart=cart, product__id__in=remove_ids
+                    ).delete()
 
     # End of class
