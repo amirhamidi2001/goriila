@@ -46,21 +46,21 @@
                 <div class="price-range-container">
                   <div class="current-range mb-3">
                     تا
-                    <span class="max-price">{{ request.GET.max_price|default:1000 }}تومان</span>
-                    <span class="min-price float-end">{{ request.GET.min_price|default:0 }}تومان</span>
+                    <span class="max-price formatted-price">{{ request.GET.max_price|default:10000000 }}</span>
+                    <span class="min-price float-end formatted-price">{{ request.GET.min_price|default:0 }}</span>
                   </div>
                   <div class="price-inputs mt-3">
                     <div class="row g-2">
                       <div class="col-6">
                         <div class="input-group input-group-sm">
                           <span class="input-group-text">تومان</span>
-                          <input type="number" name="min_price" class="form-control min-price-input" placeholder="کمترین قیمت مد نظر" min="0" max="1000000" value="0" step="10" />
+                          <input type="number" name="min_price" class="form-control min-price-input" placeholder="کمترین قیمت مد نظر" min="0" max="10000000" value="0" step="100000" />
                         </div>
                       </div>
                       <div class="col-6">
                         <div class="input-group input-group-sm">
                           <span class="input-group-text">تومان</span>
-                          <input type="number" name="max_price" class="form-control max-price-input" placeholder="بیشترین قیمت مد نظر" min="0" max="10000000" value="500000" step="10" />
+                          <input type="number" name="max_price" class="form-control max-price-input" placeholder="بیشترین قیمت مد نظر" min="0" max="20000000" value="500000" step="100000" />
                         </div>
                       </div>
                     </div>
@@ -184,7 +184,7 @@
                         <div class="product-category">{{ product.category.name }}</div>
                         <div class="product-category">{{ product.brand.name }}</div>
                         <div class="product-meta">
-                          <div class="product-price">{{ product.get_price }}&nbsp;تومان</div>
+                          <div class="product-price formatted-price">{{ product.get_price }}</div>
                           <div class="product-rating">
                             <i class="bi bi-star-fill"></i>
                             {{ product.rating }}

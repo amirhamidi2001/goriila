@@ -58,7 +58,7 @@ class Command(BaseCommand):
 
         for _ in range(count):
             name = fake.sentence(nb_words=3).replace(".", "")
-            price = round(random.uniform(10, 500), 1)
+            price = round(random.uniform(100000, 500000), 1)
             discount = round(random.uniform(0, 20), 1)
 
             Product.objects.create(

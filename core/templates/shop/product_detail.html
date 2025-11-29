@@ -26,7 +26,6 @@
     <section id="product-details" class="product-details section">
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="row g-4">
-
           <!-- Product Gallery -->
           <div class="col-lg-7" data-aos="zoom-in" data-aos-delay="150">
             <div class="product-gallery">
@@ -77,8 +76,8 @@
               {% if product.discount > 0 %}
                 <div class="pricing-section">
                   <div class="price-display">
-                    <span class="sale-price">{{ product.get_price }}&nbsp;تومان</span>
-                    <span class="regular-price">{{ product.price }}&nbsp;تومان</span>
+                    <span class="sale-price formatted-price">{{ product.get_price }}</span>
+                    <span class="regular-price formatted-price">{{ product.price }}</span>
                   </div>
                   <div class="savings-info">
                     <span class="save-amount">سود شما&nbsp;{{ product.discount_amount }}&nbsp;تومان</span>
@@ -88,7 +87,7 @@
               {% else %}
                 <div class="pricing-section">
                   <div class="price-display">
-                    <span class="sale-price">{{ product.get_price }}&nbsp;تومان</span>
+                    <span class="sale-price formatted-price">{{ product.get_price }}</span>
                   </div>
                 </div>
               {% endif %}

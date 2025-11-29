@@ -62,7 +62,7 @@
                       </div>
                       <div class="col-lg-2 col-12 mt-3 mt-lg-0 text-center">
                         <div class="price-tag">
-                          <span class="current-price">{{ item.product_obj.get_price }}</span>
+                          <span class="current-price formatted-price">{{ item.product_obj.get_price }}</span>
                         </div>
                       </div>
                       <div class="col-lg-2 col-12 mt-3 mt-lg-0 text-center">
@@ -74,7 +74,7 @@
                       </div>
                       <div class="col-lg-2 col-12 mt-3 mt-lg-0 text-center">
                         <div class="item-total">
-                          <span>{{ item.total_price }}</span>
+                          <span class="formatted-price">{{ item.total_price }}</span>
                         </div>
                       </div>
                     </div>
@@ -98,19 +98,19 @@
               <h4 class="summary-title">ثبت سفارش</h4>
               <div class="summary-item">
                 <span class="summary-label">مجموع</span>
-                <span class="summary-value">{{ get_total_price }}</span>
+                <span class="summary-value formatted-price">{{ get_total_price }}</span>
               </div>
               <div class="summary-item">
                 <span class="summary-label">هزینه ارسال</span>
-                <span class="summary-value">{{ shipping_cost }}</span>
+                <span class="summary-value formatted-price">{{ shipping_cost }}</span>
               </div>
               <div class="summary-item discount">
                 <span class="summary-label">تخفیف</span>
-                <span class="summary-value">{{ total_discount }}</span>
+                <span class="summary-value formatted-price">{{ total_discount }}</span>
               </div>
               <div class="summary-total">
                 <span class="summary-label">جمع کل</span>
-                <span class="summary-value">{{ total_payment_price }}</span>
+                <span class="summary-value formatted-price">{{ total_payment_price }}</span>
               </div>
               <div class="checkout-button">
                 <a href="#" class="btn btn-accent w-100">تصویه حساب<i class="bi bi-arrow-right"></i></a>

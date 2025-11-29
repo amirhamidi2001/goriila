@@ -129,19 +129,19 @@
                     <p class="mb-0">دسترسی به حساب کاربری و مدیریت سفارشات</p>
                   </div>
                   <div class="dropdown-body">
-                    <a class="dropdown-item d-flex align-items-center" href="{% url 'dashboard:dashboard' %}">
+                    <a class="dropdown-item d-flex align-items-center" href="{% url 'dashboard:dashboard-settings' %}">
                       <i class="bi bi-person-circle me-2"></i>
                       <span>پروفایل</span>
                     </a>
-                    <a class="dropdown-item d-flex align-items-center" href="{% url 'dashboard:dashboard' %}">
+                    <a class="dropdown-item d-flex align-items-center" href="{% url 'dashboard:dashboard-orders' %}">
                       <i class="bi bi-bag-check me-2"></i>
                       <span>سفارشات من</span>
                     </a>
-                    <a class="dropdown-item d-flex align-items-center" href="{% url 'dashboard:dashboard' %}">
+                    <a class="dropdown-item d-flex align-items-center" href="{% url 'dashboard:dashboard-wishlist' %}">
                       <i class="bi bi-heart me-2"></i>
                       <span>موارد دلخواه من</span>
                     </a>
-                    <a class="dropdown-item d-flex align-items-center" href="{% url 'dashboard:dashboard' %}">
+                    <a class="dropdown-item d-flex align-items-center" href="{% url 'dashboard:dashboard-settings' %}">
                       <i class="bi bi-gear me-2"></i>
                       <span>تنظیمات</span>
                     </a>
@@ -158,7 +158,7 @@
               </div>
 
               <!-- Wishlist -->
-              <a href="{% url 'dashboard:dashboard' %}" class="header-action-btn d-none d-md-block">
+              <a href="{% url 'dashboard:dashboard-wishlist' %}" class="header-action-btn d-none d-md-block">
                 <i class="bi bi-heart"></i>
                 <span class="badge">0</span>
               </a>
@@ -284,7 +284,7 @@
                     <a href="support.html">Help Center</a>
                   </li>
                   <li>
-                    <a href="{% url 'dashboard:dashboard' %}">Order Status</a>
+                    <a href="{% url 'dashboard:dashboard-orders' %}">Order Status</a>
                   </li>
                   <li>
                     <a href="shiping-info.html">Shipping Info</a>

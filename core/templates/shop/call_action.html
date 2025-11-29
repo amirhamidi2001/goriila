@@ -32,8 +32,8 @@
             <div class="product-details">
               <a href="{{ product.get_absolute_url }}"><h6>{{ product.name }}</h6></a>
               <div class="price-section">
-                <span class="original-price">{{ product.price }}&nbsp;تومان</span>
-                <span class="sale-price">{{ product.get_price }}&nbsp;تومان</span>
+                <span class="original-price formatted-price">{{ product.price }}</span>
+                <span class="sale-price formatted-price">{{ product.get_price }}</span>
               </div>
               {% with s=product.rating|star_parts %}
                 <div class="rating-stars">
