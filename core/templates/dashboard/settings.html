@@ -110,31 +110,35 @@
                     <!-- Personal Information -->
                     <div class="settings-section" data-aos="fade-up">
                       <h3>اطلاعات شخصی</h3>
-                      <form class="php-email-form settings-form">
+
+                      <form method="post" action="{% url 'dashboard:dashboard-settings' %}">
+                        {% csrf_token %}
                         <div class="row g-3">
                           <div class="col-md-6">
-                            <label for="firstName" class="form-label">نام</label>
-                            <input type="text" class="form-control" id="firstName" value="Sarah" required="" />
+                            <label class="form-label">{{ form.first_name.label }}</label>
+                            {{ form.first_name }}
                           </div>
+
                           <div class="col-md-6">
-                            <label for="lastName" class="form-label">نام خانوادگی</label>
-                            <input type="text" class="form-control" id="lastName" value="Anderson" required="" />
+                            <label class="form-label">{{ form.last_name.label }}</label>
+                            {{ form.last_name }}
                           </div>
+
                           <div class="col-md-6">
-                            <label for="email" class="form-label">ایمیل</label>
-                            <input type="email" class="form-control" id="email" value="sarah@example.com" required="" />
+                            <label class="form-label">ایمیل</label>
+                            <input type="email" class="form-control" value="{{ request.user.email }}" readonly />
                           </div>
+
                           <div class="col-md-6">
-                            <label for="phone" class="form-label">تلفن</label>
-                            <input type="tel" class="form-control" id="phone" value="+1 (555) 123-4567" />
+                            <label class="form-label">{{ form.phone_number.label }}</label>
+                            {{ form.phone_number }}
                           </div>
                         </div>
-                        <div class="form-buttons">
-                          <button type="submit" class="btn-save">Save Changes</button>
+                        <div class="php-email-form settings-form">
+                          <div class="form-buttons">
+                            <button type="submit" class="btn-save">ذخیره تغییرات</button>
+                          </div>
                         </div>
-                        <div class="loading">Loading</div>
-                        <div class="error-message"></div>
-                        <div class="sent-message">Your changes have been saved successfully!</div>
                       </form>
                     </div>
                     <!-- Email Preferences -->
