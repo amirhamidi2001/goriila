@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  تصویه حساب فروشگاه اینترنتی مکمل گوریلا
+{% endblock %}
+{% block content %}
+  <main class="main">
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">تأیید سفارش</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li>
+              <a href="{% url 'website:index' %}">صفحه اصلی</a>
+            </li>
+            <li class="current">تأیید سفارش</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <!-- End Page Title -->
+
+    <!-- Order Confirmation Section -->
+    <section id="order-confirmation" class="order-confirmation section">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="order-confirmation-3">
+          <div class="row g-0">
+            <!-- Left sidebar with order summary -->
+            <div class="col-lg-4 sidebar" data-aos="fade-right">
+              <div class="sidebar-content">
+                <!-- Success animation -->
+                <div class="success-animation">
+                  <i class="bi bi-check-lg"></i>
+                </div>
+
+                <!-- Order number and date -->
+                <div class="order-id">
+                  <h4>شماره سفارش:</h4>
+                  <div class="order-date">March 2, 2025</div>
+                </div>
+
+                <!-- Order progress stepper -->
+                <div class="order-progress">
+                  <div class="stepper-container">
+                    <div class="stepper-item completed">
+                      <div class="stepper-icon">1</div>
+                      <div class="stepper-text">تأیید شد</div>
+                    </div>
+                    <div class="stepper-item current">
+                      <div class="stepper-icon">2</div>
+                      <div class="stepper-text">پردازش</div>
+                    </div>
+                    <div class="stepper-item">
+                      <div class="stepper-icon">3</div>
+                      <div class="stepper-text">ارسال شد</div>
+                    </div>
+                    <div class="stepper-item">
+                      <div class="stepper-icon">4</div>
+                      <div class="stepper-text">تحویل داده شد</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Delivery info -->
+                <div class="delivery-info">
+                  <h5>اطلاعات تحویل</h5>
+                  <p class="delivery-estimate">
+                    <i class="bi bi-calendar-check"></i>
+                    <span>تحویل تخمینی:</span>
+                  </p>
+                </div>
+
+                <!-- Customer service -->
+                <div class="customer-service">
+                  <h5>به کمک نیاز دارید؟</h5>
+                  <a href="{% url 'website:contact' %}" class="help-link">
+                    <i class="bi bi-telephone"></i>
+                    <span>تماس با ما</span>
+                  </a>
+                  <a href="{% url 'website:faq' %}" class="help-link">
+                    <i class="bi bi-question-circle"></i>
+                    <span>سوالات متداول</span>
+                  </a>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Main content area -->
+            <div class="col-lg-8 main-content" data-aos="fade-in">
+              <!-- Thank you message -->
+              <div class="thank-you-message">
+                <h1>ممنون از سفارش شما</h1>
+                <p>ما سفارش شما را دریافت کرده‌ایم و بلافاصله پردازش آن را آغاز خواهیم کرد. همزمان با پیشرفت سفارش، به‌روزرسانی‌ها را از طریق ایمیل برای شما ارسال خواهیم کرد.</p>
+              </div>
+
+              <!-- Shipping details -->
+              <div class="details-card" data-aos="fade-up">
+                <div class="card-header" data-toggle="collapse">
+                  <h3>
+                    <i class="bi bi-geo-alt"></i>
+                    جزئیات ارسال
+                  </h3>
+                  <i class="bi bi-chevron-down toggle-icon"></i>
+                </div>
+                <div class="card-body">
+                  <div class="row g-4">
+                    <div class="col-md-6">
+                      <div class="detail-group">
+                        <label>Ship To</label>
+                        <address>
+                          Michael Thompson<br />
+                          789 Oakwood Lane<br />
+                          Seattle, WA 98101<br />
+                          United States
+                        </address>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="detail-group">
+                        <label>Contact</label>
+                        <div class="contact-info">
+                          <p>
+                            <i class="bi bi-envelope"></i> michael.t@example.com
+                          </p>
+                          <p>
+                            <i class="bi bi-telephone"></i> (206) 555-1234
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Payment details -->
+              <div class="details-card" data-aos="fade-up">
+                <div class="card-header" data-toggle="collapse">
+                  <h3>
+                    <i class="bi bi-credit-card-2-front"></i>
+                    جزئیات پرداخت
+                  </h3>
+                  <i class="bi bi-chevron-down toggle-icon"></i>
+                </div>
+                <div class="card-body">
+                  <div class="item">
+                    <div class="item-image">
+                      <img src="{% static 'assets/img/product/product-7.webp' %}" alt="Product" loading="lazy" />
+                    </div>
+                    <div class="item-details">
+                      <h4>Wireless Bluetooth Speaker</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Order items -->
+              <div class="details-card" data-aos="fade-up">
+                <div class="card-header" data-toggle="collapse">
+                  <h3>
+                    <i class="bi bi-bag-check"></i>
+                    اقلام سفارش
+                  </h3>
+                  <i class="bi bi-chevron-down toggle-icon"></i>
+                </div>
+                <div class="card-body">
+                  <div class="item">
+                    <div class="item-image">
+                      <img src="{% static 'assets/img/product/product-9.webp' %}" alt="Product" loading="lazy" />
+                    </div>
+                    <div class="item-details">
+                      <h4>Smart Fitness Tracker</h4>
+                      <div class="item-meta">
+                        <span>Color: Black</span>
+                        <span>Size: Medium</span>
+                      </div>
+                      <div class="item-price">
+                        <span class="quantity">1 ×</span>
+                        <span class="price">$89.98</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action buttons -->
+              <div class="action-area" data-aos="fade-up">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <a href="#" class="btn btn-back">
+                      <i class="bi bi-arrow-left"></i>
+                      بازگشت به فروشگاه
+                    </a>
+                  </div>
+                  <div class="col-md-6">
+                    <a href="#" class="btn btn-account">
+                      <span>مشاهده در حساب کاربری</span>
+                      <i class="bi bi-arrow-right"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /Order Confirmation Section -->
+  </main>
+{% endblock %}

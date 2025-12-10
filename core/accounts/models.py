@@ -94,7 +94,6 @@ class Profile(models.Model):
         upload_to="profiles/",
         default="profiles/default.webp",
     )
-    address = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
@@ -110,25 +109,3 @@ def create_profile(sender, instance, created, **kwargs):
     """Automatically create a profile when a new user is created."""
     if created:
         Profile.objects.create(user=instance, pk=instance.pk)
-
-
-class Address(models.Model):
-    """Stores user address (simple version)."""
-
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="addresses",
-        verbose_name=_("user"),
-    )
-    address_line = models.TextField(_("full address"))
-    is_default = models.BooleanField(_("default address"), default=False)
-    created_date = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.user} - {self.address_line[:30]}"
-
-    class Meta:
-        verbose_name = _("address")
-        verbose_name_plural = _("addresses")
-        ordering = ["-is_default", "-created_date"]

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "blog",
     "cart",
     "dashboard",
+    "order",
     "shop",
     "social_django",
     "taggit",

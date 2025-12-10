@@ -71,13 +71,13 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#addresses">
+                    <a class="nav-link" href="{% url 'dashboard:addresses' %}">
                       <i class="bi bi-geo-alt"></i>&nbsp;
                       <span>آدرس ها</span>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" data-bs-toggle="tab" href="{% url 'dashboard:dashboard-settings' %}">
+                    <a class="nav-link active" href="{% url 'dashboard:dashboard-settings' %}">
                       <i class="bi bi-gear"></i>&nbsp;
                       <span>تنظیمات حساب</span>
                     </a>
@@ -106,22 +106,32 @@
                   <div class="section-header" data-aos="fade-up">
                     <h2>تنظیمات حساب</h2>
                   </div>
+
                   <div class="settings-content">
                     <!-- Personal Information -->
                     <div class="settings-section" data-aos="fade-up">
                       <h3>اطلاعات شخصی</h3>
 
-                      <form method="post" action="{% url 'dashboard:dashboard-settings' %}">
+                      <!-- فرم اطلاعات شخصی -->
+                      <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
+                        <input type="hidden" name="form_type" value="personal_info" />
+
                         <div class="row g-3">
                           <div class="col-md-6">
                             <label class="form-label">{{ form.first_name.label }}</label>
                             {{ form.first_name }}
+                            {% if form.first_name.errors %}
+                              <div class="text-danger small mt-1">{{ form.first_name.errors }}</div>
+                            {% endif %}
                           </div>
 
                           <div class="col-md-6">
                             <label class="form-label">{{ form.last_name.label }}</label>
                             {{ form.last_name }}
+                            {% if form.last_name.errors %}
+                              <div class="text-danger small mt-1">{{ form.last_name.errors }}</div>
+                            {% endif %}
                           </div>
 
                           <div class="col-md-6">
@@ -132,74 +142,75 @@
                           <div class="col-md-6">
                             <label class="form-label">{{ form.phone_number.label }}</label>
                             {{ form.phone_number }}
+                            {% if form.phone_number.errors %}
+                              <div class="text-danger small mt-1">{{ form.phone_number.errors }}</div>
+                            {% endif %}
                           </div>
+
+                          <!-- Profile Image
+                          <div class="col-md-12">
+                            <label class="form-label">{{ form.image.label }}</label>
+                            {{ form.image }}
+                            {% if form.image.errors %}
+                              <div class="text-danger small mt-1">{{ form.image.errors }}</div>
+                            {% endif %}
+                            {% if profile.image and profile.image.url != '/media/profiles/default.webp' %}
+                              <div class="mt-2">
+                                <img src="{{ profile.image.url }}" alt="تصویر فعلی" style="max-width: 150px; max-height: 150px;" class="img-thumbnail" />
+                              </div>
+                            {% endif %}
+                          </div>
+                           -->
                         </div>
-                        <div class="php-email-form settings-form">
+
+                        <div class="php-email-form settings-form mt-4">
                           <div class="form-buttons">
-                            <button type="submit" class="btn-save">ذخیره تغییرات</button>
+                            <button type="submit" name="personal_info_submit" class="btn-save">ذخیره تغییرات</button>
                           </div>
                         </div>
                       </form>
                     </div>
-                    <!-- Email Preferences -->
-                    <div class="settings-section" data-aos="fade-up" data-aos-delay="100">
-                      <h3>تنظیمات ایمیل</h3>
-                      <div class="preferences-list">
-                        <div class="preference-item">
-                          <div class="preference-info">
-                            <h4>به‌روزرسانی‌های سفارش</h4>
-                            <p>دریافت اعلان‌ها درباره وضعیت سفارش شما</p>
-                          </div>
-                          <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="orderUpdates" checked="" />
-                          </div>
-                        </div>
-                        <div class="preference-item">
-                          <div class="preference-info">
-                            <h4>تبلیغات</h4>
-                            <p>دریافت ایمیل در مورد تبلیغات و معاملات جدید</p>
-                          </div>
-                          <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="promotions" />
-                          </div>
-                        </div>
-                        <div class="preference-item">
-                          <div class="preference-info">
-                            <h4>خبرنامه</h4>
-                            <p>در خبرنامه هفتگی ما مشترک شوید</p>
-                          </div>
-                          <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="newsletter" checked="" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+
                     <!-- Security Settings -->
                     <div class="settings-section" data-aos="fade-up" data-aos-delay="200">
                       <h3>امنیت</h3>
-                      <form class="php-email-form settings-form">
+
+                      <!-- فرم تغییر رمز عبور -->
+                      <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="form_type" value="change_password" />
+
                         <div class="row g-3">
                           <div class="col-md-12">
-                            <label for="currentPassword" class="form-label">رمز عبور فعلی</label>
-                            <input type="password" class="form-control" id="currentPassword" required="" />
+                            <label class="form-label">{{ password_form.current_password.label }}</label>
+                            {{ password_form.current_password }}
+                            {% if password_form.current_password.errors %}
+                              <div class="text-danger small mt-1">{{ password_form.current_password.errors }}</div>
+                            {% endif %}
                           </div>
                           <div class="col-md-6">
-                            <label for="newPassword" class="form-label">رمز عبور جدید</label>
-                            <input type="password" class="form-control" id="newPassword" required="" />
+                            <label class="form-label">{{ password_form.new_password.label }}</label>
+                            {{ password_form.new_password }}
+                            {% if password_form.new_password.errors %}
+                              <div class="text-danger small mt-1">{{ password_form.new_password.errors }}</div>
+                            {% endif %}
                           </div>
                           <div class="col-md-6">
-                            <label for="confirmPassword" class="form-label">تأیید رمز عبور</label>
-                            <input type="password" class="form-control" id="confirmPassword" required="" />
+                            <label class="form-label">{{ password_form.confirm_password.label }}</label>
+                            {{ password_form.confirm_password }}
+                            {% if password_form.confirm_password.errors %}
+                              <div class="text-danger small mt-1">{{ password_form.confirm_password.errors }}</div>
+                            {% endif %}
                           </div>
                         </div>
-                        <div class="form-buttons">
-                          <button type="submit" class="btn-save">Update Password</button>
+                        <div class="php-email-form settings-form mt-4">
+                          <div class="form-buttons">
+                            <button type="submit" name="change_password_submit" class="btn-save">تغییر رمز عبور</button>
+                          </div>
                         </div>
-                        <div class="loading">Loading</div>
-                        <div class="error-message"></div>
-                        <div class="sent-message">Your password has been updated successfully!</div>
                       </form>
                     </div>
+
                     <!-- Delete Account -->
                     <div class="settings-section danger-zone" data-aos="fade-up" data-aos-delay="300">
                       <h3>حذف حساب کاربری</h3>

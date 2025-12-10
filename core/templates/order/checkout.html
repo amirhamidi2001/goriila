@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+  تصویه حساب فروشگاه اینترنتی مکمل گوریلا
+{% endblock %}
+
+{% block content %}
+  <main class="main">
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">تصویه حساب</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li>
+              <a href="{% url 'website:index' %}">صفحه اصلی</a>
+            </li>
+            <li class="current">تصویه حساب</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <!-- End Page Title -->
+
+    <!-- Checkout Section -->
+    <section id="checkout" class="checkout section">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row">
+          <div class="col-lg-7">
+            <!-- Checkout Form -->
+            <div class="checkout-container" data-aos="fade-up">
+              <!-- Payment Method -->
+              {% include 'order/credit_card.html' %}
+
+              <!-- Display Form Errors -->
+              {% if form.errors %}
+                <div class="alert alert-danger" role="alert">
+                  <strong>خطا در ثبت سفارش:</strong>
+                  <ul class="mb-0">
+                    {% for field, errors in form.errors.items %}
+                      {% for error in errors %}
+                        <li>{{ error }}</li>
+                      {% endfor %}
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endif %}
+
+              <form class="checkout-form" id="checkout-form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <!-- Shipping Address -->
+                <div class="checkout-section" id="shipping-address">
+                  <div class="section-header">
+                    <div class="section-number">1</div>
+                    <h3>انتخاب آدرس ارسال</h3>
+                  </div>
+                  <div class="section-content">
+                    {% if addresses %}
+                      {% for address in addresses %}
+                        <div class="form-check mb-3">
+                          <input class="form-check-input" type="radio" name="shipping_address" id="address_{{ address.id }}" value="{{ address.id }}" required />
+                          <label class="form-check-label" for="address_{{ address.id }}">
+                            <strong>{{ address.label }}</strong>
+                            {% if address.is_default %}
+                              <span class="badge bg-primary me-2">پیش‌فرض</span>
+                            {% endif %}
+                            <br />
+                            <small>{{ address.full_name }} - {{ address.phone }}</small>
+                            <br />
+                            <small>{{ address.state }}، {{ address.city }}، {{ address.address_line1 }}</small>
+                            {% if address.address_line2 %}
+                              <br />
+                              <small>{{ address.address_line2 }}</small>
+                            {% endif %}
+                            <br />
+                            <small>کد پستی: {{ address.postal_code }}</small>
+                          </label>
+                        </div>
+                      {% endfor %}
+                    {% else %}
+                      <div class="alert alert-warning">
+                        هیچ آدرسی ثبت نشده است. لطفاً ابتدا <a href="{% url 'accounts:address_create' %}">یک آدرس اضافه کنید</a>.
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+
+                <!-- Order Review -->
+                <div class="checkout-section" id="order-review">
+                  <div class="section-header">
+                    <div class="section-number">2</div>
+                    <h3>بررسی و ثبت سفارش</h3>
+                  </div>
+                  <div class="section-content">
+                    <!-- Upload Receipt -->
+                    <div class="mb-4">
+                      <label for="receipt" class="form-label">آپلود فیش کارت‌به‌کارت: <span class="text-danger">*</span></label>
+                      <input type="file" class="form-control" id="receipt" name="payment_receipt" accept="image/*" required />
+                      <small class="form-text text-muted">فرمت‌های مجاز: JPG, PNG, GIF (حداکثر 5MB)</small>
+                    </div>
+
+                    <!-- Terms and Conditions -->
+                    <div class="form-check terms-check mb-3">
+                      <input class="form-check-input" type="checkbox" id="terms" name="terms_accepted" required />
+                      <label class="form-check-label" for="terms">
+                        من
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">با شرایط و ضوابط</a>
+                        و
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">سیاست حفظ حریم خصوصی</a>
+                        موافقم
+                        <span class="text-danger">*</span>
+                      </label>
+                    </div>
+
+                    <div class="place-order-container">
+                      <button type="submit" class="btn btn-primary place-order-btn"><span class="btn-text">ثبت سفارش</span></button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <!-- Order Summary -->
+            <div class="order-summary" data-aos="fade-left" data-aos-delay="200">
+              <div class="order-summary-header">
+                <h3>خلاصه سفارش</h3>
+                <span class="item-count">{{ item_count }} آیتم</span>
+              </div>
+
+              <div class="order-summary-content">
+                <!-- Cart Items -->
+                {% if cart_items %}
+                  <div class="cart-items-summary mb-3">
+                    {% for item in cart_items %}
+                      <div class="cart-item-row d-flex justify-content-between align-items-center mb-2">
+                        <div>
+                          <small>{{ item.product.title }}</small>
+                          <br />
+                          <small class="text-muted">تعداد: {{ item.quantity }}</small>
+                        </div>
+                        <div>
+                          <small>{{ item.get_total_price|intcomma }} تومان</small>
+                        </div>
+                      </div>
+                    {% endfor %}
+                  </div>
+                  <hr />
+                {% endif %}
+
+                <div class="order-totals">
+                  <div class="order-total d-flex justify-content-between mb-2">
+                    <span>جمع کل محصولات</span>
+                    <span>{{ subtotal|intcomma }} تومان</span>
+                  </div>
+
+                  <div class="order-total d-flex justify-content-between mb-2">
+                    <span>هزینه ارسال</span>
+                    <span>
+                      {% if shipping_cost > 0 %}
+                        {{ shipping_cost|intcomma }} تومان
+                      {% else %}
+                        رایگان
+                      {% endif %}
+                    </span>
+                  </div>
+
+                  <hr />
+
+                  <div class="order-total d-flex justify-content-between">
+                    <strong>مبلغ قابل پرداخت</strong>
+                    <strong class="formatted-price">{{ total_amount|intcomma }} تومان</strong>
+                  </div>
+                </div>
+
+                <div class="secure-checkout mt-3">
+                  <div class="secure-checkout-header">
+                    <span>به شماره کارت درج شده واریز کنید و فیش واریز را بارگذاری کنید</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Terms and Privacy Modals -->
+        <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="termsModalLabel">شرایط و ضوابط</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">متوجه شدم</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="privacyModal" tabindex="-1" aria-labelledby="privacyModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="privacyModalLabel">سیاست حفظ حریم خصوصی</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">متوجه شدم</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /Checkout Section -->
+  </main>
+{% endblock %}

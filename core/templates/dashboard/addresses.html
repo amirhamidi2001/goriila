@@ -1,30 +1,32 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block title %}
-  حساب کاربری فروشگاه اینترنتی مکمل گوریلا
+  حساب کاربری - آدرس‌ها | فروشگاه اینترنتی مکمل گوریلا
 {% endblock %}
+
 {% block content %}
   <main class="main">
-    <!-- Page Title -->
+    <!-- عنوان صفحه -->
     <div class="page-title light-background">
       <div class="container d-lg-flex justify-content-between align-items-center">
-        <h1 class="mb-2 mb-lg-0">حساب کاربری</h1>
+        <h1 class="mb-2 mb-lg-0">آدرس‌ها</h1>
         <nav class="breadcrumbs">
           <ol>
             <li>
               <a href="{% url 'website:index' %}">صفحه اصلی</a>
             </li>
-            <li class="current">حساب کاربری</li>
+            <li class="current">آدرس‌ها</li>
           </ol>
         </nav>
       </div>
     </div>
-    <!-- End Page Title -->
+    <!-- پایان عنوان صفحه -->
 
-    <!-- Account Section -->
+    <!-- بخش حساب کاربری -->
     <section id="account" class="account section">
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <!-- Mobile Menu Toggle -->
+        <!-- منوی موبایل -->
         <div class="mobile-menu d-lg-none mb-4">
           <button class="mobile-menu-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#profileMenu">
             <i class="bi bi-grid"></i>
@@ -33,10 +35,10 @@
         </div>
 
         <div class="row g-4">
-          <!-- Profile Menu -->
+          <!-- منو پروفایل -->
           <div class="col-lg-3">
             <div class="profile-menu collapse d-lg-block" id="profileMenu">
-              <!-- User Info -->
+              <!-- اطلاعات کاربر -->
               <div class="user-info" data-aos="fade-right">
                 <div class="user-avatar">
                   <img src="{{ profile.image.url }}" alt="Profile" loading="lazy" />
@@ -49,38 +51,42 @@
                 </div>
               </div>
 
-              <!-- Navigation Menu -->
+              <!-- منوی ناوبری -->
               <nav class="menu-nav">
                 <ul class="nav flex-column" role="tablist">
                   <li class="nav-item">
-                    <a class="nav-link active" data-bs-toggle="tab" href="#orders">
-                      <i class="bi bi-box-seam"></i>&nbsp;
-                      <span>سفارش ها</span>
-                      <span class="badge">3</span>
+                    <a class="nav-link" href="">
+                      <i class="bi bi-box-seam"></i>
+                      <span>سفارش‌های من</span>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#wishlist">
-                      <i class="bi bi-heart"></i>&nbsp;
-                      <span>علاقه مندی ها</span>
-                      <span class="badge">12</span>
+                    <a class="nav-link" href="">
+                      <i class="bi bi-heart"></i>
+                      <span>لیست علاقه‌مندی‌ها</span>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#wallet">
-                      <i class="bi bi-wallet2"></i>&nbsp;
-                      <span>پرداخت ها</span>
+                    <a class="nav-link" href="">
+                      <i class="bi bi-wallet2"></i>
+                      <span>روش‌های پرداخت</span>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#addresses">
-                      <i class="bi bi-geo-alt"></i>&nbsp;
-                      <span>آدرس ها</span>
+                    <a class="nav-link" href="">
+                      <i class="bi bi-star"></i>
+                      <span>نظرات من</span>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#settings">
-                      <i class="bi bi-gear"></i>&nbsp;
+                    <a class="nav-link active" href="{% url 'dashboard:addresses' %}">
+                      <i class="bi bi-geo-alt"></i>
+                      <span>آدرس‌ها</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'dashboard:dashboard-settings' %}">
+                      <i class="bi bi-gear"></i>
                       <span>تنظیمات حساب</span>
                     </a>
                   </li>
@@ -100,92 +106,83 @@
             </div>
           </div>
 
-          <!-- Content Area -->
+          <!-- ناحیه محتوا -->
           <div class="col-lg-9">
             <div class="content-area">
-              <div class="tab-content">
-                <!-- Addresses Tab -->
-                <div class="tab-pane fade show active" id="addresses">
-                  <div class="section-header" data-aos="fade-up">
-                    <h2>My Addresses</h2>
-                    <div class="header-actions">
-                      <button type="button" class="btn-add-new">
-                        <i class="bi bi-plus-lg"></i>
-                        Add New Address
-                      </button>
-                    </div>
-                  </div>
-
-                  <div class="addresses-grid">
-                    <!-- Address Card 1 -->
-                    <div class="address-card default" data-aos="fade-up" data-aos-delay="100">
-                      <div class="card-header">
-                        <h4>Home</h4>
-                        <span class="default-badge">Default</span>
-                      </div>
-                      <div class="card-body">
-                        <p class="address-text">
-                          123 Main Street<br />Apt 4B<br />New York, NY 10001<br />United States
-                        </p>
-                        <div class="contact-info">
-                          <div>
-                            <i class="bi bi-person"></i> Sarah Anderson
-                          </div>
-                          <div>
-                            <i class="bi bi-telephone"></i> +1 (555) 123-4567
-                          </div>
-                        </div>
-                      </div>
-                      <div class="card-actions">
-                        <button type="button" class="btn-edit">
-                          <i class="bi bi-pencil"></i>
-                          Edit
-                        </button>
-                        <button type="button" class="btn-remove">
-                          <i class="bi bi-trash"></i>
-                          Remove
-                        </button>
-                      </div>
-                    </div>
-
-                    <!-- Address Card 2 -->
-                    <div class="address-card" data-aos="fade-up" data-aos-delay="200">
-                      <div class="card-header">
-                        <h4>Office</h4>
-                      </div>
-                      <div class="card-body">
-                        <p class="address-text">
-                          456 Business Ave<br />Suite 200<br />San Francisco, CA 94107<br />United States
-                        </p>
-                        <div class="contact-info">
-                          <div>
-                            <i class="bi bi-person"></i> Sarah Anderson
-                          </div>
-                          <div>
-                            <i class="bi bi-telephone"></i> +1 (555) 987-6543
-                          </div>
-                        </div>
-                      </div>
-                      <div class="card-actions">
-                        <button type="button" class="btn-edit">
-                          <i class="bi bi-pencil"></i>
-                          Edit
-                        </button>
-                        <button type="button" class="btn-remove">
-                          <i class="bi bi-trash"></i>
-                          Remove
-                        </button>
-                        <button type="button" class="btn-make-default">Make Default</button>
-                      </div>
-                    </div>
+              <!-- بخش آدرس‌ها -->
+              <div class="addresses-section">
+                <div class="section-header" data-aos="fade-up">
+                  <h2>آدرس‌های من</h2>
+                  <div class="header-actions">
+                    <a href="{% url 'dashboard:address_add' %}" class="btn-add-new">
+                      <i class="bi bi-plus-lg"></i>
+                      اضافه کردن آدرس جدید
+                    </a>
                   </div>
                 </div>
+
+                {% if addresses %}
+                  <div class="addresses-grid">
+                    {% for address in addresses %}
+                      <!-- کارت آدرس -->
+                      <div class="address-card {% if address.is_default %}default{% endif %}" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:'0'|add:'0' }}">
+                        <div class="card-header">
+                          <h4>{{ address.label }}</h4>
+                          {% if address.is_default %}
+                            <span class="default-badge">پیش‌فرض</span>
+                          {% endif %}
+                        </div>
+                        <div class="card-body">
+                          <p class="address-name">
+                            <i class="bi bi-person"></i> {{ address.full_name }}
+                          </p>
+                          <p class="address-phone">
+                            <i class="bi bi-telephone"></i> {{ address.phone }}
+                          </p>
+                          <p class="address-text">
+                            {{ address.address_line1 }}<br />
+                            {% if address.address_line2 %}
+                              {{ address.address_line2 }}<br />
+                            {% endif %}
+                            {{ address.city }}, {{ address.state }} {{ address.postal_code }}<br />
+                            {{ address.country }}
+                          </p>
+                        </div>
+                        <div class="card-actions">
+                          <a href="{% url 'dashboard:address_edit' address.pk %}" class="btn-edit">
+                            <i class="bi bi-pencil"></i>
+                            ویرایش
+                          </a>
+                          <a href="{% url 'dashboard:address_delete' address.pk %}" class="btn-remove" onclick="return confirm('آیا از حذف این آدرس مطمئن هستید؟');">
+                            <i class="bi bi-trash"></i>
+                            حذف
+                          </a>
+                          {% if not address.is_default %}
+                            <a href="{% url 'dashboard:address_set_default' address.pk %}" class="btn-make-default">
+                              <i class="bi bi-pin-angle"></i>
+                              تنظیم به عنوان پیش‌فرض
+                            </a>
+                          {% endif %}
+                        </div>
+                      </div>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  <div class="empty-state" data-aos="fade-up">
+                    <h3>هنوز آدرسی وجود ندارد</h3>
+                    <p>اولین آدرس خود را اضافه کنید</p>
+                    <a href="{% url 'dashboard:address_add' %}" class="btn btn-primary">
+                      <i class="bi bi-plus-lg"></i>
+                      افزودن آدرس
+                    </a>
+                  </div>
+                {% endif %}
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <!-- /Account Section -->
+    <!-- /بخش حساب کاربری -->
   </main>
 {% endblock %}
