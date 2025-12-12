@@ -1,93 +1,74 @@
 from django import forms
-from .models import Order
+from .models import Order, Address
 
 
 class CheckoutForm(forms.ModelForm):
     """Form for checkout process"""
     
-    shipping_address = forms.ChoiceField(
-        required=True,
-        widget=forms.RadioSelect(attrs={
-            'class': 'form-check-input'
-        }),
+    shipping_address = forms.ModelChoiceField(
+        queryset=None,  # Will be set in __init__
+        empty_label="آدرس خود را انتخاب کنید",
+        widget=forms.RadioSelect,
         label='آدرس ارسال',
-        error_messages={
-            'required': 'لطفاً یک آدرس برای ارسال انتخاب کنید.'
-        }
+        required=True,
+        help_text='یکی از آدرس‌های ذخیره شده خود را انتخاب کنید'
     )
     
     payment_receipt = forms.ImageField(
+        label='رسید پرداخت',
+        help_text='تصویر رسید واریز خود را آپلود کنید',
         required=True,
         widget=forms.FileInput(attrs={
             'class': 'form-control',
-            'accept': 'image/*',
-            'id': 'receipt'
-        }),
-        label='فیش کارت‌به‌کارت',
-        error_messages={
-            'required': 'لطفاً فیش واریز را بارگذاری کنید.'
-        }
+            'accept': 'image/*'
+        })
+    )
+    
+    notes = forms.CharField(
+        label='یادداشت (اختیاری)',
+        required=False,
+        widget=forms.Textarea(attrs={
+            'class': 'form-control',
+            'rows': 3,
+            'placeholder': 'توضیحات اضافی در مورد سفارش خود...'
+        })
     )
     
     terms_accepted = forms.BooleanField(
+        label='شرایط و قوانین را می‌پذیرم',
         required=True,
-        widget=forms.CheckboxInput(attrs={
-            'class': 'form-check-input',
-            'id': 'terms'
-        }),
-        label='موافقت با شرایط و ضوابط',
         error_messages={
-            'required': 'برای ثبت سفارش باید شرایط و ضوابط را بپذیرید.'
+            'required': 'برای ثبت سفارش باید شرایط و قوانین را بپذیرید'
         }
     )
     
     class Meta:
         model = Order
-        fields = ['shipping_address', 'payment_receipt', 'terms_accepted']
+        fields = ['payment_receipt', 'notes']
     
-    def __init__(self, user, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
         
-        # Get user's addresses
-        from .models import Address
-        addresses = Address.objects.filter(user=user).order_by('-is_default', '-created_date')
-        
-        # Create choices for addresses
-        address_choices = [
-            (str(addr.id), f"{addr.state}، {addr.city}، {addr.address_line1}")
-            for addr in addresses
-        ]
-        
-        if not address_choices:
-            address_choices = [('', 'هیچ آدرسی ثبت نشده است')]
-        
-        self.fields['shipping_address'].choices = address_choices
-        
-        # Set default address if exists
-        default_address = addresses.filter(is_default=True).first()
-        if default_address:
-            self.fields['shipping_address'].initial = str(default_address.id)
-    
-    def clean_payment_receipt(self):
-        receipt = self.cleaned_data.get('payment_receipt')
-        
-        if receipt:
-            # Validate file size (max 5MB)
-            if receipt.size > 5 * 1024 * 1024:
-                raise forms.ValidationError('حجم فایل نباید بیشتر از 5 مگابایت باشد.')
+        if user:
+            # Set queryset for shipping address
+            self.fields['shipping_address'].queryset = Address.objects.filter(
+                user=user
+            ).order_by('-is_default', '-created_date')
             
-            # Validate file type
-            valid_extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp']
-            ext = receipt.name.split('.')[-1].lower()
-            if ext not in valid_extensions:
-                raise forms.ValidationError('فقط فایل‌های تصویری مجاز هستند.')
-        
-        return receipt
+            # Customize the radio button labels to show full address
+            self.fields['shipping_address'].label_from_instance = (
+                lambda obj: f"{obj.label} - {obj.get_short_address()}"
+            )
     
-    def clean_shipping_address(self):
-        address_id = self.cleaned_data.get('shipping_address')
+    def clean(self):
+        cleaned_data = super().clean()
+        shipping_address = cleaned_data.get('shipping_address')
         
-        if not address_id or address_id == '':
-            raise forms.ValidationError('لطفاً یک آدرس برای ارسال انتخاب کنید.')
+        if not shipping_address:
+            raise forms.ValidationError(
+                'لطفاً یک آدرس برای ارسال انتخاب کنید'
+            )
         
-        return address_id
+        return cleaned_data
+    

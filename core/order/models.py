@@ -23,7 +23,7 @@ class Address(models.Model):
 
     # Address type and label
     address_type = models.CharField(
-        max_length=20,
+        max_length=200,
         choices=ADDRESS_TYPE_CHOICES,
         default="home",
         verbose_name="Address Type",
@@ -48,7 +48,7 @@ class Address(models.Model):
     )
     city = models.CharField(max_length=100, verbose_name="City")
     state = models.CharField(max_length=100, verbose_name="State/Province")
-    postal_code = models.CharField(max_length=20, verbose_name="Postal Code")
+    postal_code = models.CharField(max_length=200, verbose_name="Postal Code")
     country = models.CharField(max_length=100, default="ایران", verbose_name="Country")
 
     # Default address flag
@@ -94,110 +94,122 @@ class Address(models.Model):
         return f"{self.address_line1}, {self.city}, {self.state}"
 
 
-
 class Order(models.Model):
     """Model for storing orders"""
     
-    STATUS_CHOICES = (
+    ORDER_STATUS_CHOICES = (
         ('pending', 'در انتظار بررسی'),
-        ('confirmed', 'تایید شده'),
+        ('payment_verified', 'پرداخت تایید شده'),
         ('processing', 'در حال پردازش'),
         ('shipped', 'ارسال شده'),
         ('delivered', 'تحویل داده شده'),
         ('cancelled', 'لغو شده'),
     )
     
-    PAYMENT_STATUS_CHOICES = (
-        ('pending', 'در انتظار تایید'),
-        ('confirmed', 'تایید شده'),
-        ('rejected', 'رد شده'),
-    )
-    
-    # User and tracking
+    # User and cart reference
     user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name='orders'
-    )
-    order_number = models.CharField(
-        max_length=50,
-        unique=True,
-        editable=False
+        User, 
+        on_delete=models.CASCADE, 
+        related_name='orders',
+        verbose_name='کاربر'
     )
     
-    # Shipping address
-    shipping_address = models.ForeignKey(
-        'Address',
-        on_delete=models.SET_NULL,
-        null=True,
-        related_name='orders'
+    # Order number (unique identifier)
+    order_number = models.CharField(
+        max_length=200, 
+        unique=True, 
+        editable=False,
+        verbose_name='شماره سفارش'
+    )
+    
+    # Shipping address (copied from Address model)
+    shipping_full_name = models.CharField(max_length=200, verbose_name='نام گیرنده')
+    shipping_phone = models.CharField(max_length=12, verbose_name='شماره تماس')
+    shipping_address_line1 = models.CharField(max_length=255, verbose_name='آدرس خط 1')
+    shipping_address_line2 = models.CharField(
+        max_length=255, 
+        blank=True, 
+        null=True, 
+        verbose_name='آدرس خط 2'
+    )
+    shipping_city = models.CharField(max_length=100, verbose_name='شهر')
+    shipping_state = models.CharField(max_length=100, verbose_name='استان')
+    shipping_postal_code = models.CharField(max_length=200, verbose_name='کد پستی')
+    shipping_country = models.CharField(
+        max_length=100, 
+        default='ایران', 
+        verbose_name='کشور'
     )
     
     # Payment receipt
     payment_receipt = models.ImageField(
         upload_to='payment_receipts/%Y/%m/%d/',
-        null=True,
-        blank=True
+        verbose_name='رسید پرداخت'
     )
     
-    # Order details
-    total_amount = models.DecimalField(
-        max_digits=10,
-        decimal_places=0,
-        validators=[MinValueValidator(0)]
+    # Order totals
+    subtotal = models.DecimalField(
+        max_digits=10, 
+        decimal_places=2,
+        verbose_name='جمع جزء'
+    )
+    shipping_cost = models.DecimalField(
+        max_digits=10, 
+        decimal_places=2,
+        default=0,
+        verbose_name='هزینه ارسال'
+    )
+    tax = models.DecimalField(
+        max_digits=10, 
+        decimal_places=2,
+        default=0,
+        verbose_name='مالیات'
+    )
+    total = models.DecimalField(
+        max_digits=10, 
+        decimal_places=2,
+        verbose_name='جمع کل'
     )
     
-    # Status
+    # Order status
     status = models.CharField(
-        max_length=20,
-        choices=STATUS_CHOICES,
-        default='pending'
-    )
-    payment_status = models.CharField(
-        max_length=20,
-        choices=PAYMENT_STATUS_CHOICES,
-        default='pending'
+        max_length=200,
+        choices=ORDER_STATUS_CHOICES,
+        default='pending',
+        verbose_name='وضعیت سفارش'
     )
     
-    # Terms acceptance
-    terms_accepted = models.BooleanField(default=False)
-    
-    # Notes
-    admin_notes = models.TextField(blank=True, null=True)
+    # Additional notes
+    notes = models.TextField(
+        blank=True, 
+        null=True,
+        verbose_name='یادداشت‌ها'
+    )
     
     # Timestamps
-    created_date = models.DateTimeField(auto_now_add=True)
-    updated_date = models.DateTimeField(auto_now=True)
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ثبت')
+    updated_date = models.DateTimeField(auto_now=True, verbose_name='تاریخ بروزرسانی')
     
     class Meta:
+        verbose_name = 'سفارش'
+        verbose_name_plural = 'سفارشات'
         ordering = ['-created_date']
-        verbose_name = 'Order'
-        verbose_name_plural = 'Orders'
     
     def __str__(self):
-        return f"Order #{self.order_number} - {self.user.email}"
+        return f"سفارش #{self.order_number}"
     
     def save(self, *args, **kwargs):
         if not self.order_number:
             # Generate unique order number
-            import uuid
-            from datetime import datetime
-            timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
-            unique_id = str(uuid.uuid4())[:8].upper()
-            self.order_number = f"ORD-{timestamp}-{unique_id}"
+            import random
+            import string
+            from django.utils import timezone
+            
+            timestamp = timezone.now().strftime('%Y%m%d%H%M%S')
+            random_str = ''.join(random.choices(string.digits, k=4))
+            self.order_number = f"ORD{timestamp}{random_str}"
+        
         super().save(*args, **kwargs)
-    
-    def get_status_display_class(self):
-        """Return CSS class for status badge"""
-        status_classes = {
-            'pending': 'warning',
-            'confirmed': 'info',
-            'processing': 'primary',
-            'shipped': 'secondary',
-            'delivered': 'success',
-            'cancelled': 'danger',
-        }
-        return status_classes.get(self.status, 'secondary')
 
 
 class OrderItem(models.Model):
@@ -206,36 +218,38 @@ class OrderItem(models.Model):
     order = models.ForeignKey(
         Order,
         on_delete=models.CASCADE,
-        related_name='items'
+        related_name='items',
+        verbose_name='سفارش'
     )
     product = models.ForeignKey(
         'shop.Product',
-        on_delete=models.SET_NULL,
-        null=True
+        on_delete=models.CASCADE,
+        verbose_name='محصول'
     )
-    product_name = models.CharField(max_length=255)
+    product_name = models.CharField(
+        max_length=255,
+        verbose_name='نام محصول'
+    )
     product_price = models.DecimalField(
         max_digits=10,
-        decimal_places=0
+        decimal_places=2,
+        verbose_name='قیمت محصول'
     )
     quantity = models.PositiveIntegerField(
         default=1,
-        validators=[MinValueValidator(1)]
+        verbose_name='تعداد'
     )
     subtotal = models.DecimalField(
         max_digits=10,
-        decimal_places=0
+        decimal_places=2,
+        verbose_name='جمع جزء'
     )
     
     created_date = models.DateTimeField(auto_now_add=True)
     
     class Meta:
-        verbose_name = 'Order Item'
-        verbose_name_plural = 'Order Items'
+        verbose_name = 'آیتم سفارش'
+        verbose_name_plural = 'آیتم‌های سفارش'
     
     def __str__(self):
         return f"{self.product_name} x {self.quantity}"
-    
-    def save(self, *args, **kwargs):
-        self.subtotal = self.product_price * self.quantity
-        super().save(*args, **kwargs)
