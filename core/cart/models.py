@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.db import models
 from shop.models import Product
 from django.contrib.auth import get_user_model
@@ -32,6 +33,23 @@ class Cart(models.Model):
     def get_total_items(self):
         """Get total number of items in cart"""
         return sum(item.quantity for item in self.items.all())
+
+    def get_total_weight(self):
+        """
+        Calculate total weight of cart based on product weight * quantity
+        """
+        return sum(
+            item.product.weight * item.quantity
+            for item in self.items.select_related("product")
+        )
+
+    def get_shipping_cost(self):
+        """
+        Shipping cost = total_weight * 100
+        """
+        total_weight = self.get_total_weight()
+        return Decimal(total_weight) * Decimal("100")
+
 
 class CartItem(models.Model):
     """

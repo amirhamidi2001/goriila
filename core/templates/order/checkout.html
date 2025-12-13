@@ -14,6 +14,7 @@
         <nav class="breadcrumbs">
           <ol>
             <li>
+              <a href="{% url 'website:index' %}">صفحه اصلی</a>
             </li>
             <li class="current">تسویه حساب</li>
           </ol>
@@ -29,106 +30,92 @@
           <div class="col-lg-7">
             <!-- Checkout Form -->
             <div class="checkout-container" data-aos="fade-up">
-
-
-                          <form method="post" enctype="multipart/form-data">
-              {% csrf_token %}
-
-              <!-- نمایش خطاها -->
-              {% if form.errors %}
-                <div class="alert alert-danger">
-                  <ul>
-                    {% for field in form %}
-                      {% for error in field.errors %}
-                        <li>{{ field.label }}: {{ error }}</li>
-                      {% endfor %}
-                    {% endfor %}
-                    {% for error in form.non_field_errors %}
-                      <li>{{ error }}</li>
-                    {% endfor %}
-                  </ul>
+              <div class="checkout-section" id="payment-method">
+                <div class="section-header">
+                  <div class="section-number">1</div>
+                  <h3>روش پرداخت</h3>
                 </div>
-              {% endif %}
+                <div class="section-content">
+                  <div class="payment-options">
+                    <div class="payment-option active">
+                      <input type="radio" name="payment-method" id="credit-card" checked="" />
+                      <label for="credit-card">
+                        <span class="payment-icon"><i class="bi bi-credit-card-2-front"></i></span>
+                        <span class="payment-label">6219861921574926</span>
+                      </label>
+                    </div>
+                    <div class="payment-option">
+                      <input type="radio" name="payment-method" id="paypal" />
+                      <label for="paypal">
+                        <span class="payment-icon"><i class="bi bi-credit-card-2-front"></i></span>
+                        <span class="payment-label">6219861921574926</span>
+                      </label>
+                    </div>
+                    <div class="payment-option">
+                      <input type="radio" name="payment-method" id="apple-pay" />
+                      <label for="apple-pay">
+                        <span class="payment-icon"><i class="bi bi-credit-card-2-front"></i></span>
+                        <span class="payment-label">6219861921574926</span>
+                      </label>
+                    </div>
+                  </div>
 
-              <!-- بخش 1: انتخاب آدرس -->
-              <div class="address-selection">
-                      {% for address in form.fields.shipping_address.queryset %}
+                  <div class="payment-details" id="credit-card-details">
+                    <p class="payment-info">جعفر قبادی</p>
+                  </div>
+
+                  <div class="payment-details d-none" id="paypal-details">
+                    <p class="payment-info">جعفر قبادی</p>
+                  </div>
+
+                  <div class="payment-details d-none" id="apple-pay-details">
+                    <p class="payment-info">جعفر قبادی</p>
+                  </div>
+                </div>
+              </div>
+              <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <!-- Shipping Address Selection -->
+                <div class="checkout-section" id="shipping-address">
+                  <div class="section-header">
+                    <div class="section-number">2</div>
+                    <h3>انتخاب آدرس ارسال</h3>
+                  </div>
+                  <div class="section-content">
+                    {% if form.shipping_address.errors %}
+                      <div class="alert alert-danger">{{ form.shipping_address.errors }}</div>
+                    {% endif %}
+
+                    <div class="address-selection">
+                      {% for radio in form.shipping_address %}
                         <div class="address-option">
-                          <input 
-                            type="radio" 
-                            name="shipping_address" 
-                            id="address_{{ address.id }}" 
-                            value="{{ address.id }}"
-                            {% if address.is_default %}checked{% endif %}
-                          />
-                          <label for="address_{{ address.id }}" class="address-card">
-                            <div class="address-header">
-                              <span class="address-label">
-                                <i class="bi bi-geo-alt"></i>
-                                {{ address.label }}
-                              </span>
-                              {% if address.is_default %}
-                                <span class="badge bg-primary">پیش‌فرض</span>
-                              {% endif %}
-                            </div>
-                            <div class="address-details">
-                              <p class="address-name">
-                                <strong>{{ address.full_name }}</strong>
-                              </p>
-                              <p class="address-phone">
-                                <i class="bi bi-telephone"></i>
-                                {{ address.phone }}
-                              </p>
-                              <p class="address-text">
-                                {{ address.get_short_address }}
-                              </p>
-                              <p class="address-postal">
-                                کد پستی: {{ address.postal_code }}
-                              </p>
-                            </div>
-                          </label>
+                          {{ radio.tag }}
+                          <label for="{{ radio.id_for_label }}" class="address-card">{{ radio.choice_label }}</label>
                         </div>
                       {% endfor %}
                     </div>
 
-              <!-- بخش 2: اطلاعات پرداخت -->
-              <div class="checkout-section" id="payment-method">
+                    {% if form.shipping_address.errors %}
+                      <div class="text-danger mt-2">{{ form.shipping_address.errors }}</div>
+                    {% endif %}
+
+                    <div class="mt-3">
+                      <a href="{% url 'dashboard:addresses' %}" class="btn btn-outline-primary">
+                        <i class="bi bi-plus-circle"></i>
+                        مدیریت آدرس‌ها
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="checkout-section" id="payment-method">
                   <div class="section-header">
-                    <div class="section-number">2</div>
+                    <div class="section-number">3</div>
                     <h3>اطلاعات پرداخت</h3>
                   </div>
                   <div class="section-content">
-                    <div class="bank-info">
-                      <div class="alert alert-info">
-                        <h5>
-                          <i class="bi bi-info-circle"></i>
-                          راهنمای پرداخت
-                        </h5>
-                        <p>لطفاً مبلغ <strong>{{ total|floatformat:2 }} تومان</strong> را به شماره کارت زیر واریز نمایید:</p>
-                      </div>
-                      
-                      <div class="card mb-3">
-                        <div class="card-body">
-                          <div class="bank-card-display">
-                            <div class="bank-card-number">
-                              <label>شماره کارت:</label>
-                              <div class="card-number-display">
-                                {{ bank_card_number }}
-                                <button type="button" class="btn btn-sm btn-outline-secondary copy-btn" onclick="copyToClipboard('{{ bank_card_number }}')">
-                                  <i class="bi bi-clipboard"></i>
-                                  کپی
-                                </button>
-                              </div>
-                            </div>
-                            <div class="bank-card-holder">
-                              <label>به نام:</label>
-                              <span>{{ bank_account_holder }}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
                     <div class="form-group">
                       <label for="{{ form.payment_receipt.id_for_label }}">
                         {{ form.payment_receipt.label }}
@@ -142,43 +129,38 @@
                         <div class="text-danger">{{ form.payment_receipt.errors }}</div>
                       {% endif %}
                       <div class="mt-2">
-                        <img id="receipt-preview" src="#" alt="پیش‌نمایش رسید" style="max-width: 300px; display: none;" class="img-thumbnail"/>
+                        <img id="receipt-preview" src="#" alt="پیش‌نمایش رسید" style="max-width: 300px; display: none;" class="img-thumbnail" />
                       </div>
-                    </div>
-
-                    <div class="form-group mt-3">
-                      <label for="{{ form.notes.id_for_label }}">
-                        {{ form.notes.label }}
-                      </label>
-                      {{ form.notes }}
-                      {% if form.notes.errors %}
-                        <div class="text-danger">{{ form.notes.errors }}</div>
-                      {% endif %}
                     </div>
                   </div>
                 </div>
 
-              <!-- بخش 3: قبول شرایط و ثبت -->
-              <div class="mb-4">
-                <h5>3. قبول شرایط و ثبت سفارش</h5>
-                <hr />
-
+                <!-- Order Review -->
+                <div class="checkout-section" id="order-review">
+                  <div class="section-header">
+                    <div class="section-number">4</div>
+                    <h3>بررسی و ثبت سفارش</h3>
+                  </div>
+                  <div class="section-content">
                     <div class="form-check terms-check">
                       {{ form.terms_accepted }}
                       <label class="form-check-label" for="{{ form.terms_accepted.id_for_label }}">
                         {{ form.terms_accepted.label }}
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">شرایط و قوانین</a>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">شرایط و ضوابط</a>
                         و
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">حریم خصوصی</a>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">سیاست حفظ حریم خصوصی</a>
                       </label>
                       {% if form.terms_accepted.errors %}
                         <div class="text-danger">{{ form.terms_accepted.errors }}</div>
                       {% endif %}
                     </div>
 
-                <button type="submit" class="btn btn-primary btn-lg w-100">ثبت سفارش - {{ total|floatformat:2 }} تومان</button>
-              </div>
-            </form>
+                    <div class="place-order-container">
+                      <button type="submit" class="btn btn-primary place-order-btn"><span class="btn-text">ثبت سفارش</span></button>
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
 
@@ -205,7 +187,7 @@
                         <h4>{{ item.product.name }}</h4>
                         <div class="order-item-price">
                           <span class="quantity">{{ item.quantity }} ×</span>
-                          <span class="price">{{ item.product.get_price|floatformat:2 }} تومان</span>
+                          <span class="price formatted-price">{{ item.product.get_price }} تومان</span>
                         </div>
                       </div>
                     </div>
@@ -215,19 +197,15 @@
                 <div class="order-totals">
                   <div class="order-subtotal d-flex justify-content-between">
                     <span>جمع جزء</span>
-                    <span>{{ subtotal|floatformat:2 }} تومان</span>
+                    <span class="formatted-price">{{ subtotal }} تومان</span>
                   </div>
                   <div class="order-shipping d-flex justify-content-between">
                     <span>هزینه ارسال</span>
-                    <span>{{ shipping_cost|floatformat:2 }} تومان</span>
-                  </div>
-                  <div class="order-tax d-flex justify-content-between">
-                    <span>مالیات</span>
-                    <span>{{ tax|floatformat:2 }} تومان</span>
+                    <span class="formatted-price">{{ shipping_cost }} تومان</span>
                   </div>
                   <div class="order-total d-flex justify-content-between">
                     <span>جمع کل</span>
-                    <span>{{ total|floatformat:2 }} تومان</span>
+                    <span class="formatted-price">{{ total }} تومان</span>
                   </div>
                 </div>
 
@@ -251,7 +229,17 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <p>متن شرایط و قوانین فروشگاه در اینجا قرار می‌گیرد...</p>
+                <h6>قوانین عمومی</h6>
+                <p>1. کلیه خریدها با توجه به موجودی کالا انجام می‌شود.</p>
+                <p>2. قیمت‌ها به تومان بوده و شامل مالیات نمی‌باشد.</p>
+                <p>3. ارسال کالا در شهر تهران 24 تا 48 ساعت و سایر شهرها 3 تا 7 روز کاری زمان می‌برد.</p>
+                <p>4. امکان بازگرداندن کالا تا 7 روز پس از تحویل وجود دارد.</p>
+
+                <h6 class="mt-4">روش پرداخت</h6>
+                <p>پرداخت از طریق واریز به حساب بانکی فروشگاه انجام می‌شود.</p>
+
+                <h6 class="mt-4">روش ارسال</h6>
+                <p>ارسال از طریق پست پیشتاز یا تیپاکس انجام می‌شود.</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">متوجه شدم</button>
@@ -268,7 +256,16 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <p>متن حریم خصوصی فروشگاه در اینجا قرار می‌گیرد...</p>
+                <h6>حفاظت از اطلاعات</h6>
+                <p>فروشگاه گوریلا متعهد به حفظ حریم خصوصی و امنیت اطلاعات کاربران می‌باشد.</p>
+
+                <h6 class="mt-4">اطلاعات جمع‌آوری شده</h6>
+                <p>• اطلاعات شخصی (نام، شماره تماس، آدرس)</p>
+                <p>• اطلاعات پرداخت (شماره کارت در سیستم بانکی ذخیره نمی‌شود)</p>
+                <p>• اطلاعات سفارشات</p>
+
+                <h6 class="mt-4">استفاده از اطلاعات</h6>
+                <p>اطلاعات شما تنها برای ارسال سفارش و ارتباط با شما استفاده می‌شود.</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">متوجه شدم</button>
@@ -283,30 +280,30 @@
 
   <script>
     // Preview payment receipt image
-    document.getElementById('{{ form.payment_receipt.id_for_label }}').addEventListener('change', function(e) {
-      const file = e.target.files[0];
+    document.getElementById('{{ form.payment_receipt.id_for_label }}').addEventListener('change', function (e) {
+      const file = e.target.files[0]
       if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const preview = document.getElementById('receipt-preview');
-          preview.src = e.target.result;
-          preview.style.display = 'block';
+        const reader = new FileReader()
+        reader.onload = function (e) {
+          const preview = document.getElementById('receipt-preview')
+          preview.src = e.target.result
+          preview.style.display = 'block'
         }
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(file)
       }
-    });
-
+    })
+    
     // Copy bank card number to clipboard
     function copyToClipboard(text) {
-      const textarea = document.createElement('textarea');
-      textarea.value = text.replace(/-/g, '');
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
-      
+      const textarea = document.createElement('textarea')
+      textarea.value = text.replace(/-/g, '')
+      document.body.appendChild(textarea)
+      textarea.select()
+      document.execCommand('copy')
+      document.body.removeChild(textarea)
+    
       // Show feedback
-      alert('شماره کارت کپی شد');
+      alert('شماره کارت کپی شد')
     }
   </script>
 {% endblock %}

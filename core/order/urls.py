@@ -1,10 +1,9 @@
-# order/urls.py
 from django.urls import path
-from .views import CheckoutView, OrderSuccessView
+from . import views
 
-app_name = 'order'
+app_name = "order"
 
 urlpatterns = [
-    path('checkout/', CheckoutView.as_view(), name='checkout'),
-    path('success/', OrderSuccessView.as_view(), name='order_success'),
+    path("checkout/", views.CheckoutView.as_view(), name="checkout"),
+    path("confirmation/", views.OrderConfirmationView.as_view(), name="confirmation"),
 ]
