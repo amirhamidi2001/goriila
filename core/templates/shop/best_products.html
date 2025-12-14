@@ -12,7 +12,7 @@
             </div>
           </div>
           <div class="product-info">
-            <h4 class="product-name">{{ product.name }}</h4>
+            <h4 class="product-name"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h4>
             {% with s=product.rating|star_parts %}
               <div class="product-rating">
                 {% for _ in s.empty %}

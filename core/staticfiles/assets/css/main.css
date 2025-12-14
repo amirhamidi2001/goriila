@@ -21,10 +21,10 @@
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
 :root { 
-  --background-color: #100010; /* Background color for the entire website, including individual sections */
+  --background-color: #000010; /* Background color for the entire website, including individual sections */
   --default-color: #ffeeff; /* Default color used for the majority of the text content across the entire website */
-  --heading-color: #ff00ff; /* Color for headings, subheadings and title throughout the website */
-  --accent-color: #900090; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --heading-color: #00ffff; /* Color for headings, subheadings and title throughout the website */
+  --accent-color: #1E90FF; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
   --surface-color: #000000; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
   --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
 }
@@ -7382,12 +7382,12 @@ section,
 .account .content-area .orders-grid .order-card .tracking-info .tracking-timeline .timeline-item .timeline-content p {
   margin: 0 0 4px;
   font-size: 14px;
-  color: color-mix(in srgb, var(--default-color), transparent 30%);
+  color: color-mix(in srgb, #000, transparent 30%);
 }
 
 .account .content-area .orders-grid .order-card .tracking-info .tracking-timeline .timeline-item .timeline-content .timeline-date {
   font-size: 13px;
-  color: color-mix(in srgb, var(--default-color), transparent 40%);
+  color: color-mix(in srgb, #000, transparent 40%);
 }
 
 .account .content-area .orders-grid .order-card .tracking-info .tracking-timeline .timeline-item .timeline-content .shipping-info {
@@ -7456,13 +7456,14 @@ section,
 .account .content-area .orders-grid .order-card .order-details .details-content .detail-section .info-grid .info-item .label {
   display: block;
   font-size: 13px;
-  color: color-mix(in srgb, var(--default-color), transparent 40%);
+  color: color-mix(in srgb, #000, transparent 40%);
   margin-bottom: 4px;
 }
 
 .account .content-area .orders-grid .order-card .order-details .details-content .detail-section .info-grid .info-item .value {
   font-size: 14px;
   font-weight: 500;
+  color: color-mix(in srgb, #000, transparent 40%);
 }
 
 .account .content-area .orders-grid .order-card .order-details .details-content .detail-section .order-items .item {
@@ -7501,7 +7502,7 @@ section,
   display: flex;
   gap: 12px;
   font-size: 13px;
-  color: color-mix(in srgb, var(--default-color), transparent 40%);
+  color: color-mix(in srgb, #000, transparent 40%);
 }
 
 .account .content-area .orders-grid .order-card .order-details .details-content .detail-section .order-items .item .item-price {
@@ -7524,7 +7525,7 @@ section,
 }
 
 .account .content-area .orders-grid .order-card .order-details .details-content .detail-section .price-breakdown .price-row:not(.total) {
-  color: color-mix(in srgb, var(--default-color), transparent 30%);
+  color: color-mix(in srgb, #000, transparent 30%);
 }
 
 .account .content-area .orders-grid .order-card .order-details .details-content .detail-section .price-breakdown .price-row.total {
@@ -7545,6 +7546,7 @@ section,
   margin: 0;
   font-size: 14px;
   line-height: 1.6;
+  color: color-mix(in srgb, #000, transparent 30%);
 }
 
 .account .content-area .orders-grid .order-card .order-details .details-content .detail-section .address-info p.contact {

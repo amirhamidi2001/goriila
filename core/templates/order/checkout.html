@@ -36,6 +36,9 @@
                   <h3>روش پرداخت</h3>
                 </div>
                 <div class="section-content">
+                  <div>
+                    <p class="payment-info">لطفاً مبلغ سفارش را به یکی از شماره کارت های زیر واریز فرمایید و تصویر فیش واریزی را بارگذاری نمایید.</p>
+                  </div>
                   <div class="payment-options">
                     <div class="payment-option active">
                       <input type="radio" name="payment-method" id="credit-card" checked="" />
@@ -100,8 +103,8 @@
                       <div class="text-danger mt-2">{{ form.shipping_address.errors }}</div>
                     {% endif %}
 
-                    <div class="mt-3">
-                      <a href="{% url 'dashboard:addresses' %}" class="btn btn-outline-primary">
+                    <div class="place-order-container">
+                      <a href="{% url 'dashboard:addresses' %}" class="btn btn-primary place-order-btn">
                         <i class="bi bi-plus-circle"></i>
                         مدیریت آدرس‌ها
                       </a>

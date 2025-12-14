@@ -239,7 +239,7 @@
         inlineOffsetY: -85,
         containInline: true,
         hoverBoundingBox: false,
-        zoomFactor: 3,
+        zoomFactor: 1.5,
         handleTouch: false
       };
 

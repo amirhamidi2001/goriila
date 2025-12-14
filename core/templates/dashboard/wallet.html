@@ -1,20 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-  حساب کاربری فروشگاه اینترنتی مکمل گوریلا
+  پرداخت های من فروشگاه اینترنتی مکمل گوریلا
 {% endblock %}
 {% block content %}
   <main class="main">
     <!-- Page Title -->
     <div class="page-title light-background">
       <div class="container d-lg-flex justify-content-between align-items-center">
-        <h1 class="mb-2 mb-lg-0">حساب کاربری</h1>
+        <h1 class="mb-2 mb-lg-0">پرداخت های من</h1>
         <nav class="breadcrumbs">
           <ol>
             <li>
               <a href="{% url 'website:index' %}">صفحه اصلی</a>
             </li>
-            <li class="current">حساب کاربری</li>
+            <li class="current">پرداخت های من</li>
           </ol>
         </nav>
       </div>
@@ -53,33 +53,31 @@
               <nav class="menu-nav">
                 <ul class="nav flex-column" role="tablist">
                   <li class="nav-item">
-                    <a class="nav-link active" data-bs-toggle="tab" href="#orders">
+                    <a class="nav-link" href="{% url 'dashboard:orders' %}">
                       <i class="bi bi-box-seam"></i>&nbsp;
                       <span>سفارش ها</span>
-                      <span class="badge">3</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="tab" href="#wishlist">
                       <i class="bi bi-heart"></i>&nbsp;
                       <span>علاقه مندی ها</span>
-                      <span class="badge">12</span>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#wallet">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#wallet">
                       <i class="bi bi-wallet2"></i>&nbsp;
                       <span>پرداخت ها</span>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#addresses">
+                    <a class="nav-link" href="{% url 'dashboard:addresses' %}">
                       <i class="bi bi-geo-alt"></i>&nbsp;
                       <span>آدرس ها</span>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#settings">
+                    <a class="nav-link" href="{% url 'dashboard:settings' %}">
                       <i class="bi bi-gear"></i>&nbsp;
                       <span>تنظیمات حساب</span>
                     </a>
@@ -107,69 +105,31 @@
                 <!-- Payment Methods Tab -->
                 <div class="tab-pane fade show active" id="wallet">
                   <div class="section-header" data-aos="fade-up">
-                    <h2>Payment Methods</h2>
-                    <div class="header-actions">
-                      <button type="button" class="btn-add-new">
-                        <i class="bi bi-plus-lg"></i>
-                        Add New Card
-                      </button>
-                    </div>
+                    <h2>پرداخت های من</h2>
                   </div>
 
                   <div class="payment-cards-grid">
-                    <!-- Payment Card 1 -->
-                    <div class="payment-card default" data-aos="fade-up" data-aos-delay="100">
-                      <div class="card-header">
-                        <i class="bi bi-credit-card"></i>
-                        <div class="card-badges">
-                          <span class="default-badge">Default</span>
-                          <span class="card-type">Visa</span>
+                    {% if orders %}
+                      <!-- Payment Card 1 -->
+                      {% for order in orders %}
+                        <div class="payment-card default" data-aos="fade-up" data-aos-delay="100">
+                          <div class="card-header">
+                            <img src="{{ order.payment_receipt.url }}" class="card-img-bottom" alt="رسید پرداخت سفارش {{ order.order_number }}" style="max-height: 300px; object-fit: contain;" />
+                          </div>
+                          <div class="card-body">
+                            <div class="card-number">{{ order.order_number }}</div>
+                            <div class="card-info">
+                              <span>{{ order.created_date|date:'Y/m/d' }}</span>
+                            </div>
+                          </div>
                         </div>
+                      {% endfor %}
+                    {% else %}
+                      <div class="alert alert-warning">
+                        <p>شما هنوز هیچ سفارشی ثبت نکرده‌اید.</p>
+                        <a href="" class="btn btn-primary">مشاهده محصولات</a>
                       </div>
-                      <div class="card-body">
-                        <div class="card-number">•••• •••• •••• 4589</div>
-                        <div class="card-info">
-                          <span>Expires 09/2026</span>
-                        </div>
-                      </div>
-                      <div class="card-actions">
-                        <button type="button" class="btn-edit">
-                          <i class="bi bi-pencil"></i>
-                          Edit
-                        </button>
-                        <button type="button" class="btn-remove">
-                          <i class="bi bi-trash"></i>
-                          Remove
-                        </button>
-                      </div>
-                    </div>
-
-                    <!-- Payment Card 2 -->
-                    <div class="payment-card" data-aos="fade-up" data-aos-delay="200">
-                      <div class="card-header">
-                        <i class="bi bi-credit-card"></i>
-                        <div class="card-badges">
-                          <span class="card-type">Mastercard</span>
-                        </div>
-                      </div>
-                      <div class="card-body">
-                        <div class="card-number">•••• •••• •••• 7821</div>
-                        <div class="card-info">
-                          <span>Expires 05/2025</span>
-                        </div>
-                      </div>
-                      <div class="card-actions">
-                        <button type="button" class="btn-edit">
-                          <i class="bi bi-pencil"></i>
-                          Edit
-                        </button>
-                        <button type="button" class="btn-remove">
-                          <i class="bi bi-trash"></i>
-                          Remove
-                        </button>
-                        <button type="button" class="btn-make-default">Make Default</button>
-                      </div>
-                    </div>
+                    {% endif %}
                   </div>
                 </div>
               </div>

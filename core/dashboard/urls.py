@@ -13,11 +13,11 @@ app_name = "dashboard"
 
 urlpatterns = [
     # path("addresses/", DashboardAddressesView.as_view(), name="dashboard-addresses"),
-    path("orders/", DashboardOrdersView.as_view(), name="dashboard-orders"),
-    path("reviews/", DashboardReviewsView.as_view(), name="dashboard-reviews"),
-    path("settings/", DashboardSettingsView.as_view(), name="dashboard-settings"),
-    path("wallet/", DashboardWalletView.as_view(), name="dashboard-wallet"),
-    path("wishlist/", DashboardWishlistView.as_view(), name="dashboard-wishlist"),
+    path("orders/", OrderListView.as_view(), name="orders"),
+    path("reviews/", DashboardReviewsView.as_view(), name="reviews"),
+    path("settings/", DashboardSettingsView.as_view(), name="settings"),
+    path("wallet/", DashboardWalletView.as_view(), name="wallet"),
+    path("wishlist/", DashboardWishlistView.as_view(), name="wishlist"),
     path("addresses/", AddressListView.as_view(), name="addresses"),
     path("addresses/add/", AddressCreateView.as_view(), name="address_add"),
     path("addresses/<int:pk>/edit/", AddressUpdateView.as_view(), name="address_edit"),
