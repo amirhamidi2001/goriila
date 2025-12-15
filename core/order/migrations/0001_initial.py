@@ -11,80 +11,283 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('shop', '0004_alter_product_weight'),
+        ("shop", "0004_alter_product_weight"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Address',
+            name="Address",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('address_type', models.CharField(choices=[('home', 'خانه'), ('office', 'محل کار'), ('other', 'سایر')], default='home', max_length=200, verbose_name='Address Type')),
-                ('label', models.CharField(max_length=100, verbose_name='Label')),
-                ('full_name', models.CharField(max_length=200, verbose_name='Full Name')),
-                ('phone', models.CharField(max_length=12, validators=[accounts.validators.validate_iranian_cellphone_number], verbose_name='Phone Number')),
-                ('address_line1', models.CharField(max_length=255, verbose_name='Address Line 1')),
-                ('address_line2', models.CharField(blank=True, max_length=255, null=True, verbose_name='Address Line 2 (Optional)')),
-                ('city', models.CharField(max_length=100, verbose_name='City')),
-                ('state', models.CharField(max_length=100, verbose_name='State/Province')),
-                ('postal_code', models.CharField(max_length=200, verbose_name='Postal Code')),
-                ('country', models.CharField(default='ایران', max_length=100, verbose_name='Country')),
-                ('is_default', models.BooleanField(default=False, verbose_name='Default Address')),
-                ('created_date', models.DateTimeField(auto_now_add=True)),
-                ('updated_date', models.DateTimeField(auto_now=True)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='addresses', to=settings.AUTH_USER_MODEL, verbose_name='User')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "address_type",
+                    models.CharField(
+                        choices=[
+                            ("home", "خانه"),
+                            ("office", "محل کار"),
+                            ("other", "سایر"),
+                        ],
+                        default="home",
+                        max_length=200,
+                        verbose_name="Address Type",
+                    ),
+                ),
+                ("label", models.CharField(max_length=100, verbose_name="Label")),
+                (
+                    "full_name",
+                    models.CharField(max_length=200, verbose_name="Full Name"),
+                ),
+                (
+                    "phone",
+                    models.CharField(
+                        max_length=12,
+                        validators=[
+                            accounts.validators.validate_iranian_cellphone_number
+                        ],
+                        verbose_name="Phone Number",
+                    ),
+                ),
+                (
+                    "address_line1",
+                    models.CharField(max_length=255, verbose_name="Address Line 1"),
+                ),
+                (
+                    "address_line2",
+                    models.CharField(
+                        blank=True,
+                        max_length=255,
+                        null=True,
+                        verbose_name="Address Line 2 (Optional)",
+                    ),
+                ),
+                ("city", models.CharField(max_length=100, verbose_name="City")),
+                (
+                    "state",
+                    models.CharField(max_length=100, verbose_name="State/Province"),
+                ),
+                (
+                    "postal_code",
+                    models.CharField(max_length=200, verbose_name="Postal Code"),
+                ),
+                (
+                    "country",
+                    models.CharField(
+                        default="ایران", max_length=100, verbose_name="Country"
+                    ),
+                ),
+                (
+                    "is_default",
+                    models.BooleanField(default=False, verbose_name="Default Address"),
+                ),
+                ("created_date", models.DateTimeField(auto_now_add=True)),
+                ("updated_date", models.DateTimeField(auto_now=True)),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="addresses",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="User",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Address',
-                'verbose_name_plural': 'Addresses',
-                'ordering': ['-is_default', '-created_date'],
+                "verbose_name": "Address",
+                "verbose_name_plural": "Addresses",
+                "ordering": ["-is_default", "-created_date"],
             },
         ),
         migrations.CreateModel(
-            name='Order',
+            name="Order",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('order_number', models.CharField(editable=False, max_length=200, unique=True, verbose_name='شماره سفارش')),
-                ('shipping_full_name', models.CharField(max_length=200, verbose_name='نام گیرنده')),
-                ('shipping_phone', models.CharField(max_length=12, verbose_name='شماره تماس')),
-                ('shipping_address_line1', models.CharField(max_length=255, verbose_name='آدرس خط 1')),
-                ('shipping_address_line2', models.CharField(blank=True, max_length=255, null=True, verbose_name='آدرس خط 2')),
-                ('shipping_city', models.CharField(max_length=100, verbose_name='شهر')),
-                ('shipping_state', models.CharField(max_length=100, verbose_name='استان')),
-                ('shipping_postal_code', models.CharField(max_length=200, verbose_name='کد پستی')),
-                ('shipping_country', models.CharField(default='ایران', max_length=100, verbose_name='کشور')),
-                ('payment_receipt', models.ImageField(upload_to='payment_receipts/%Y/%m/%d/', verbose_name='رسید پرداخت')),
-                ('subtotal', models.DecimalField(decimal_places=0, max_digits=10, verbose_name='جمع جزء')),
-                ('shipping_cost', models.DecimalField(decimal_places=0, default=0, max_digits=10, verbose_name='هزینه ارسال')),
-                ('total', models.DecimalField(decimal_places=0, max_digits=10, verbose_name='جمع کل')),
-                ('status', models.CharField(choices=[('pending', 'در انتظار بررسی'), ('payment_verified', 'پرداخت تایید شده'), ('processing', 'در حال پردازش'), ('shipped', 'ارسال شده'), ('delivered', 'تحویل داده شده'), ('cancelled', 'لغو شده')], default='pending', max_length=200, verbose_name='وضعیت سفارش')),
-                ('notes', models.TextField(blank=True, null=True, verbose_name='یادداشت\u200cها')),
-                ('created_date', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ثبت')),
-                ('updated_date', models.DateTimeField(auto_now=True, verbose_name='تاریخ بروزرسانی')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='orders', to=settings.AUTH_USER_MODEL, verbose_name='کاربر')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "order_number",
+                    models.CharField(
+                        editable=False,
+                        max_length=200,
+                        unique=True,
+                        verbose_name="شماره سفارش",
+                    ),
+                ),
+                (
+                    "shipping_full_name",
+                    models.CharField(max_length=200, verbose_name="نام گیرنده"),
+                ),
+                (
+                    "shipping_phone",
+                    models.CharField(max_length=12, verbose_name="شماره تماس"),
+                ),
+                (
+                    "shipping_address_line1",
+                    models.CharField(max_length=255, verbose_name="آدرس خط 1"),
+                ),
+                (
+                    "shipping_address_line2",
+                    models.CharField(
+                        blank=True, max_length=255, null=True, verbose_name="آدرس خط 2"
+                    ),
+                ),
+                ("shipping_city", models.CharField(max_length=100, verbose_name="شهر")),
+                (
+                    "shipping_state",
+                    models.CharField(max_length=100, verbose_name="استان"),
+                ),
+                (
+                    "shipping_postal_code",
+                    models.CharField(max_length=200, verbose_name="کد پستی"),
+                ),
+                (
+                    "shipping_country",
+                    models.CharField(
+                        default="ایران", max_length=100, verbose_name="کشور"
+                    ),
+                ),
+                (
+                    "payment_receipt",
+                    models.ImageField(
+                        upload_to="payment_receipts/%Y/%m/%d/",
+                        verbose_name="رسید پرداخت",
+                    ),
+                ),
+                (
+                    "subtotal",
+                    models.DecimalField(
+                        decimal_places=0, max_digits=10, verbose_name="جمع جزء"
+                    ),
+                ),
+                (
+                    "shipping_cost",
+                    models.DecimalField(
+                        decimal_places=0,
+                        default=0,
+                        max_digits=10,
+                        verbose_name="هزینه ارسال",
+                    ),
+                ),
+                (
+                    "total",
+                    models.DecimalField(
+                        decimal_places=0, max_digits=10, verbose_name="جمع کل"
+                    ),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("pending", "در انتظار بررسی"),
+                            ("payment_verified", "پرداخت تایید شده"),
+                            ("processing", "در حال پردازش"),
+                            ("shipped", "ارسال شده"),
+                            ("delivered", "تحویل داده شده"),
+                            ("cancelled", "لغو شده"),
+                        ],
+                        default="pending",
+                        max_length=200,
+                        verbose_name="وضعیت سفارش",
+                    ),
+                ),
+                (
+                    "notes",
+                    models.TextField(
+                        blank=True, null=True, verbose_name="یادداشت\u200cها"
+                    ),
+                ),
+                (
+                    "created_date",
+                    models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ثبت"),
+                ),
+                (
+                    "updated_date",
+                    models.DateTimeField(auto_now=True, verbose_name="تاریخ بروزرسانی"),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="orders",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="کاربر",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'سفارش',
-                'verbose_name_plural': 'سفارشات',
-                'ordering': ['-created_date'],
+                "verbose_name": "سفارش",
+                "verbose_name_plural": "سفارشات",
+                "ordering": ["-created_date"],
             },
         ),
         migrations.CreateModel(
-            name='OrderItem',
+            name="OrderItem",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('product_name', models.CharField(max_length=255, verbose_name='نام محصول')),
-                ('product_price', models.DecimalField(decimal_places=0, max_digits=10, verbose_name='قیمت محصول')),
-                ('quantity', models.PositiveIntegerField(default=1, verbose_name='تعداد')),
-                ('subtotal', models.DecimalField(decimal_places=0, max_digits=10, verbose_name='جمع جزء')),
-                ('created_date', models.DateTimeField(auto_now_add=True)),
-                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='items', to='order.order', verbose_name='سفارش')),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shop.product', verbose_name='محصول')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "product_name",
+                    models.CharField(max_length=255, verbose_name="نام محصول"),
+                ),
+                (
+                    "product_price",
+                    models.DecimalField(
+                        decimal_places=0, max_digits=10, verbose_name="قیمت محصول"
+                    ),
+                ),
+                (
+                    "quantity",
+                    models.PositiveIntegerField(default=1, verbose_name="تعداد"),
+                ),
+                (
+                    "subtotal",
+                    models.DecimalField(
+                        decimal_places=0, max_digits=10, verbose_name="جمع جزء"
+                    ),
+                ),
+                ("created_date", models.DateTimeField(auto_now_add=True)),
+                (
+                    "order",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="items",
+                        to="order.order",
+                        verbose_name="سفارش",
+                    ),
+                ),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="shop.product",
+                        verbose_name="محصول",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'آیتم سفارش',
-                'verbose_name_plural': 'آیتم\u200cهای سفارش',
+                "verbose_name": "آیتم سفارش",
+                "verbose_name_plural": "آیتم\u200cهای سفارش",
             },
         ),
     ]

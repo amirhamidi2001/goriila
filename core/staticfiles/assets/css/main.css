@@ -1767,7 +1767,7 @@ h6 {
 # Global Page Titles & Breadcrumbs
 --------------------------------------------------------------*/
 .page-title {
-  color: #ff00ff;
+  color: #00ffff;
   background-color: var(--background-color);
   padding: 25px 0;
   position: relative;

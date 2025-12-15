@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  لیست فاکتورهای ارسال
+{% endblock %}
+
+{% block content %}
+  <!-- Page Title -->
+  <div class="page-title light-background">
+    <div class="container d-lg-flex justify-content-between align-items-center">
+      <h1 class="mb-2 mb-lg-0">فاکتورهای ارسال</h1>
+      <nav class="breadcrumbs">
+        <ol>
+          <li>
+          </li>
+          <li>
+            <a href="{% url 'admin:index' %}">مدیریت</a>
+          </li>
+          <li class="current">فاکتورهای ارسال</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Invoice List Section -->
+  <section id="shipping-invoices" class="account section">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+      <div class="row">
+        <div class="col-12">
+          <div class="content-area">
+            <!-- Section Header -->
+            <div class="section-header" data-aos="fade-up">
+              <h2>
+                <i class="bi bi-box-seam me-2"></i>
+                مدیریت فاکتورهای ارسال
+              </h2>
+              <div class="header-actions">
+                <div class="stats-badge">
+                  <i class="bi bi-file-earmark-text"></i>
+                  <span>تعداد کل: <strong>{{ total_orders }}</strong></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Orders Table -->
+            {% if orders %}
+              <div class="table-responsive" data-aos="fade-up" data-aos-delay="200">
+                <table class="table table-hover align-middle">
+                  <thead class="table-primary">
+                    <tr>
+                      <th scope="col">شماره سفارش</th>
+                      <th scope="col">گیرنده</th>
+                      <th scope="col">شماره تماس</th>
+                      <th scope="col">شهر</th>
+                      <th scope="col">تاریخ ثبت</th>
+                      <th scope="col">وضعیت</th>
+                      <th scope="col" class="text-center">عملیات</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for order in orders %}
+                      <tr>
+                        <td>
+                          <strong class="text-primary">{{ order.order_number }}</strong>
+                        </td>
+                        <td>{{ order.shipping_full_name }}</td>
+                        <td dir="ltr" class="text-end">{{ order.shipping_phone }}</td>
+                        <td>{{ order.shipping_city }}</td>
+                        <td>
+                          <small>{{ order.created_date|date:'Y/m/d' }}</small><br />
+                          <small class="text-muted">{{ order.created_date|date:'H:i' }}</small>
+                        </td>
+                        <td>
+                          <span class="badge 
+                      {% if order.status == 'pending' %}
+                              
+                              bg-warning
+
+
+                            {% elif order.status == 'payment_verified' %}
+                              
+                              bg-info
+
+
+                            {% elif order.status == 'processing' %}
+                              
+                              bg-primary
+
+
+                            {% elif order.status == 'shipped' %}
+                              
+                              bg-success
+
+
+                            {% elif order.status == 'delivered' %}
+                              
+                              bg-success
+
+
+                            {% elif order.status == 'cancelled' %}
+                              
+                              bg-danger
+
+
+                            {% endif %}">
+                            {{ order.get_status_display }}
+                          </span>
+                        </td>
+                        <td class="text-center">
+                          <div class="btn-group" role="group">
+                            <a href="{% url 'order:shipping_invoice_detail' order.id %}" class="btn btn-sm btn-outline-primary" target="_blank" title="مشاهده فاکتور">
+                              <i class="bi bi-eye"></i>
+                              مشاهده
+                            </a>
+                            <a href="{% url 'order:shipping_invoice_pdf' order.id %}" class="btn btn-sm btn-outline-success" target="_blank" title="دانلود PDF">
+                              <i class="bi bi-file-earmark-pdf"></i>
+                              PDF
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Pagination -->
+              {% if is_paginated %}
+                <div class="pagination-wrapper mt-4" data-aos="fade-up">
+                  <nav aria-label="صفحه‌بندی">
+                    <ul class="pagination justify-content-center">
+                      {% if page_obj.has_previous %}
+                        <li class="page-item">
+                          <a class="page-link" href="?page=1" aria-label="اولین"><i class="bi bi-chevron-double-right"></i></a>
+                        </li>
+                        <li class="page-item">
+                          <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="قبلی"><i class="bi bi-chevron-right"></i></a>
+                        </li>
+                      {% else %}
+                        <li class="page-item disabled">
+                          <span class="page-link"><i class="bi bi-chevron-double-right"></i></span>
+                        </li>
+                        <li class="page-item disabled">
+                          <span class="page-link"><i class="bi bi-chevron-right"></i></span>
+                        </li>
+                      {% endif %}
+
+                      {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                          <li class="page-item active">
+                            <span class="page-link">{{ num }}</span>
+                          </li>
+                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                          <li class="page-item">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+
+                      {% if page_obj.has_next %}
+                        <li class="page-item">
+                          <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="بعدی"><i class="bi bi-chevron-left"></i></a>
+                        </li>
+                        <li class="page-item">
+                          <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="آخرین"><i class="bi bi-chevron-double-left"></i></a>
+                        </li>
+                      {% else %}
+                        <li class="page-item disabled">
+                          <span class="page-link"><i class="bi bi-chevron-left"></i></span>
+                        </li>
+                        <li class="page-item disabled">
+                          <span class="page-link"><i class="bi bi-chevron-double-left"></i></span>
+                        </li>
+                      {% endif %}
+                    </ul>
+                  </nav>
+                  <div class="text-center mt-2">
+                    <small class="text-muted">صفحه {{ page_obj.number }} از {{ page_obj.paginator.num_pages }}</small>
+                  </div>
+                </div>
+              {% endif %}
+            {% else %}
+              <!-- No Orders Message -->
+              <div class="alert alert-info text-center" role="alert" data-aos="fade-up">
+                <i class="bi bi-info-circle fs-1 d-block mb-3"></i>
+                <h4>هیچ سفارشی یافت نشد</h4>
+                <p class="mb-0">در حال حاضر سفارشی برای نمایش وجود ندارد.</p>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .stats-badge {
+      background: #f8f9fa;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    
+    .stats-badge i {
+      color: #0d6efd;
+    }
+    
+    .table thead {
+      background: #0d6efd;
+      color: white;
+    }
+    
+    .table tbody tr {
+      transition: all 0.3s ease;
+    }
+    
+    .table tbody tr:hover {
+      background-color: #f8f9fa;
+      transform: scale(1.01);
+    }
+    
+    .btn-group .btn {
+      margin: 0 2px;
+    }
+    
+    @media print {
+      .header,
+      .footer,
+      .page-title,
+      .section-header,
+      .btn-group {
+        display: none !important;
+      }
+    }
+  </style>
+{% endblock %}

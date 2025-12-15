@@ -1,13 +1,19 @@
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.db import transaction
 from decimal import Decimal
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.contrib.admin.views.decorators import staff_member_required
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from weasyprint import HTML
+import tempfile
 
+from .store_settings import STORE_INFO
 from .models import Order, OrderItem, Address
 from .forms import CheckoutForm
 from cart.models import Cart
@@ -162,3 +168,106 @@ class OrderConfirmationView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         # Additional context can be added here if needed
         return context
+
+
+@method_decorator(staff_member_required, name="dispatch")
+class ShippingInvoiceListView(ListView):
+    """
+    Display a paginated list of orders for staff users in order to
+    view and manage shipping invoices.
+    """
+
+    model = Order
+    template_name = "order/shipping_invoice_list.html"
+    context_object_name = "orders"
+    paginate_by = 20
+
+    def get_queryset(self):
+        """
+        Return the base queryset for the view.
+        """
+        return Order.objects.all().select_related("user").prefetch_related("items")
+
+    def get_context_data(self, **kwargs):
+        """
+        Add additional context data for the template.
+        """
+        context = super().get_context_data(**kwargs)
+        context["total_orders"] = Order.objects.count()
+        return context
+
+
+@method_decorator(staff_member_required, name="dispatch")
+class ShippingInvoiceDetailView(DetailView):
+    """
+    Display detailed information for a single order shipping invoice.
+    """
+
+    model = Order
+    template_name = "order/shipping_invoice_detail.html"
+    context_object_name = "order"
+    pk_url_kwarg = "order_id"
+
+    def get_context_data(self, **kwargs):
+        """
+        Add additional context data for the shipping invoice detail view.
+        """
+        context = super().get_context_data(**kwargs)
+        order = self.get_object()
+
+        context["store"] = STORE_INFO
+
+        context["total_items"] = sum(item.quantity for item in order.items.all())
+
+        total_weight = 0
+        for item in order.items.select_related("product"):
+            if hasattr(item.product, "weight") and item.product.weight:
+                total_weight += item.product.weight * item.quantity
+        context["total_weight"] = total_weight
+
+        return context
+
+
+@staff_member_required
+def shipping_invoice_pdf_view(request, order_id):
+    """
+    Generate and return a PDF version of a shipping invoice for an order.
+    """
+    try:
+        order = (
+            Order.objects.select_related("user")
+            .prefetch_related("items__product")
+            .get(id=order_id)
+        )
+    except Order.DoesNotExist:
+        return HttpResponse("سفارش یافت نشد", status=404)
+
+    store = STORE_INFO
+
+    total_items = sum(item.quantity for item in order.items.all())
+
+    total_weight = 0
+    for item in order.items.select_related("product"):
+        if hasattr(item.product, "weight") and item.product.weight:
+            total_weight += item.product.weight * item.quantity
+
+    html_string = render_to_string(
+        "order/shipping_invoice_pdf.html",
+        {
+            "order": order,
+            "store": store,
+            "total_items": total_items,
+            "total_weight": total_weight,
+        },
+    )
+
+    html = HTML(string=html_string, base_url=request.build_absolute_uri())
+    result = html.write_pdf()
+
+    response = HttpResponse(content_type="application/pdf")
+    response["Content-Disposition"] = (
+        f'inline; filename="shipping_invoice_{order.order_number}.pdf"'
+    )
+    response.write(result)
+
+    return response
