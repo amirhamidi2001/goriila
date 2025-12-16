@@ -53,16 +53,16 @@
               <nav class="menu-nav">
                 <ul class="nav flex-column" role="tablist">
                   <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#orders">
+                    <a class="nav-link" href="{% url 'dashboard:orders' %}">
                       <i class="bi bi-box-seam"></i>&nbsp;
                       <span>سفارش ها</span>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" data-bs-toggle="tab" href="#wishlist">
+                    <a class="nav-link active" href="{% url 'dashboard:wishlist' %}">
                       <i class="bi bi-heart"></i>&nbsp;
                       <span>علاقه مندی ها</span>
-                      <span class="badge">12</span>
+                      <span class="badge">{{ total_items }}</span>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -72,13 +72,13 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#addresses">
+                    <a class="nav-link" href="{% url 'dashboard:addresses' %}">
                       <i class="bi bi-geo-alt"></i>&nbsp;
                       <span>آدرس ها</span>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#settings">
+                    <a class="nav-link" href="{% url 'dashboard:settings' %}">
                       <i class="bi bi-gear"></i>&nbsp;
                       <span>تنظیمات حساب</span>
                     </a>
@@ -110,31 +110,31 @@
                   </div>
 
                   <div class="wishlist-grid">
-
-                    <!-- Wishlist Item -->
-                    <div class="wishlist-card" data-aos="fade-up" data-aos-delay="200">
-                      <div class="wishlist-image">
-                        <img src="{% static 'assets/img/product/product-2.webp' %}" alt="Product" loading="lazy" />
-                        <button class="btn-remove" type="button" aria-label="Remove from wishlist"><i class="bi bi-trash"></i></button>
-                      </div>
-                      <div class="wishlist-content">
-                        <h4>Consectetur adipiscing elit</h4>
-                        <div class="product-meta">
-                          <div class="rating">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star"></i>
-                            <span>(4.0)</span>
+                    {% if wishlist_items %}
+                      {% for item in wishlist_items %}
+                        <!-- Wishlist Item -->
+                        <div class="wishlist-card" data-aos="fade-up" data-aos-delay="200">
+                          <div class="wishlist-image">
+                            <img src="{{ item.product.image.url }}" alt="Product" loading="lazy" />
+                            <form action="{% url 'dashboard:wishlist_delete' pk=item.pk %}" method="post">
+                              {% csrf_token %}
+                              <button class="btn-remove" type="submit" aria-label="Remove from wishlist"><i class="bi bi-trash"></i></button>
+                            </form>
                           </div>
-                          <div class="price">
-                            <span class="current">$149.99</span>
+                          <div class="wishlist-content">
+                            <h4><a href="{{ item.product.get_absolute_url }}">{{ item.product.name }}</a></h4>
+                            <div class="product-meta">
+                              <div class="price">
+                                <span class="current formatted-price">{{ item.product.get_price }}</span>
+                              </div>
+                            </div>
+                            <button type="button" onclick="addToCart({{ item.product.id }})" id="add-to-cart-btn" class="btn-add-cart">افزودن به سبد خرید</button>
                           </div>
                         </div>
-                        <button type="button" class="btn-add-cart">Add to Cart</button>
-                      </div>
-                    </div>
+                      {% endfor %}
+                    {% else %}
+                      <p>هنوز محصولی به علاقه‌مندی‌ها اضافه نکرده‌اید.</p>
+                    {% endif %}
                   </div>
                 </div>
               </div>
@@ -145,4 +145,28 @@
     </section>
     <!-- /Account Section -->
   </main>
+  <!-- jQuery and AJAX script -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+    function addToCart(product_id) {
+      $.ajax({
+        url: "{% url 'cart:session-add-product' %}",
+        type: 'POST',
+        data: {
+          product_id: product_id,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function (response) {
+          if (response.added === false) {
+            alert('تعداد انتخاب شده بیشتر از موجودی محصول است.')
+            return
+          }
+          $('#total-cart-item-count').html(response.total_quantity)
+        },
+        error: function (xhr, status, error) {
+          console.error(error)
+        }
+      })
+    }
+  </script>
 {% endblock %}

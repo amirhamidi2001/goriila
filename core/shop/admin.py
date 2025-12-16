@@ -101,14 +101,3 @@ class ReviewAdmin(admin.ModelAdmin):
     list_filter = ("approved",)
     search_fields = ("name", "email", "review")
     actions = ["approve_reviews"]
-
-
-@admin.register(Wishlist)
-class WishlistAdmin(admin.ModelAdmin):
-    """
-    Admin configuration for Wishlist model.
-    """
-
-    list_display = ("user", "product")
-    list_filter = ("user", "product")
-    search_fields = ("user", "product")

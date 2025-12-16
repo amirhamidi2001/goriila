@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from django.core.exceptions import FieldError
 
-from .models import Product, Category, Brand
+from .models import Product, Category, Brand, Wishlist
 from .forms import ReviewForm
 
 
@@ -64,7 +64,12 @@ class ProductDetailView(DetailView):
         context["reviews"] = product.reviews.filter(approved=True).order_by(
             "-created_at"
         )
-
+        if self.request.user.is_authenticated:
+            context["is_in_wishlist"] = Wishlist.objects.filter(
+                user=self.request.user, product=self.object
+            ).exists()
+        else:
+            context["is_in_wishlist"] = False
         return context
 
     def post(self, request, *args, **kwargs):

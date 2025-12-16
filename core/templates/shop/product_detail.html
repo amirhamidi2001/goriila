@@ -120,12 +120,25 @@
                   </div>
                 </div>
                 <div class="action-buttons">
-                  <button class="btn icon-action" title="حذف کالا از سبد خرید"><i class="bi bi-trash"></i></button>
+                  <button class="btn icon-action" type="button" onclick="removeProduct('{{ product.id }}')" title="حذف کالا از سبد خرید"><i class="bi bi-trash"></i></button>
                   <button type="button" onclick="addToCart({{ product.id }})" id="add-to-cart-btn" class="btn primary-action">
                     <i class="bi bi-bag-plus"></i>
                     افزودن به سبد خرید
                   </button>
-                  <button class="btn icon-action" title="افزودن کالا به لیست علاقه‌مندی‌ها"><i class="bi bi-heart"></i></button>
+                  <button class="btn icon-action"
+                    id="wishlist-btn-{{ product.id }}"
+                    onclick="toggleWishlist({{ product.id }})"
+                    title="{% if is_in_wishlist %}
+                      
+                      حذف از لیست علاقه‌مندی‌ها
+
+                    {% else %}
+                      
+                      افزودن به لیست علاقه‌مندی‌ها
+
+                    {% endif %}">
+                    <i class="bi bi-heart{% if is_in_wishlist %}-fill{% endif %}" id="wishlist-icon-{{ product.id }}"></i>
+                  </button>
                 </div>
               </div>
 
@@ -331,6 +344,29 @@
   <!-- jQuery and AJAX script -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script>
+    function removeProduct(product_id) {
+      $.ajax({
+        url: "{% url 'cart:session-remove-product' %}",
+        type: 'POST',
+        data: {
+          product_id: product_id,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function (response) {
+          $('#total-cart-item-count').text(response.total_quantity)
+          $('#quantity-' + product_id).val(0)
+          $('#cart-item-' + product_id).remove()
+          if (response.total_quantity === 0) {
+            $('#empty-cart-message').show()
+          }
+        },
+        error: function (xhr) {
+          console.error(xhr)
+        }
+      })
+    }
+  </script>
+  <script>
     function addToCart(product_id) {
       $.ajax({
         url: "{% url 'cart:session-add-product' %}",
@@ -378,6 +414,53 @@
         },
         error: function (xhr, status, error) {
           console.error(error)
+        }
+      })
+    }
+  </script>
+  <script>
+    function toggleWishlist(product_id) {
+      {% if not user.is_authenticated %}
+    alert('برای افزودن به لیست علاقه‌مندی‌ها ابتدا وارد حساب کاربری خود شوید.');
+    window.location.href = "{% url 'accounts:login' %}?next={{ request.path }}";
+    return;
+  {% endif %}
+      const icon = $('#wishlist-icon-' + product_id)
+      const btn = $('#wishlist-btn-' + product_id)
+    
+      btn.prop('disabled', true)
+    
+      $.ajax({
+        url: "{% url 'dashboard:wishlist_toggle' %}",
+        type: 'POST',
+        data: {
+          product_id: product_id,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function (response) {
+          if (response.added) {
+            icon.removeClass('bi-heart').addClass('bi-heart-fill')
+            btn.attr('title', 'حذف از لیست علاقه‌مندی‌ها')
+          } else {
+            icon.removeClass('bi-heart-fill').addClass('bi-heart')
+            btn.attr('title', 'افزودن به لیست علاقه‌مندی‌ها')
+          }
+    
+          $('.wishlist-count').text(response.total_wishlist_items)
+    
+          console.log(response.message)
+        },
+        error: function (xhr) {
+          if (xhr.status === 401 || xhr.status === 403) {
+            alert('لطفاً ابتدا وارد حساب کاربری خود شوید.')
+            window.location.href = "{% url 'accounts:login' %}?next={{ request.path }}"
+          } else {
+            alert('خطایی رخ داده است. لطفاً دوباره تلاش کنید.')
+          }
+          console.error(xhr)
+        },
+        complete: function () {
+          btn.prop('disabled', false)
         }
       })
     }

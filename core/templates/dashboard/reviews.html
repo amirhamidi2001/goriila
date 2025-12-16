@@ -53,14 +53,14 @@
               <nav class="menu-nav">
                 <ul class="nav flex-column" role="tablist">
                   <li class="nav-item">
-                    <a class="nav-link active" data-bs-toggle="tab" href="#orders">
+                    <a class="nav-link" href="{% url 'dashboard:orders' %}">
                       <i class="bi bi-box-seam"></i>&nbsp;
                       <span>سفارش ها</span>
                       <span class="badge">3</span>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#wishlist">
+                    <a class="nav-link" href="{% url 'dashboard:wishlist' %}">
                       <i class="bi bi-heart"></i>&nbsp;
                       <span>علاقه مندی ها</span>
                       <span class="badge">12</span>
@@ -73,13 +73,13 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#addresses">
+                    <a class="nav-link" href="{% url 'dashboard:addresses' %}">
                       <i class="bi bi-geo-alt"></i>&nbsp;
                       <span>آدرس ها</span>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#settings">
+                    <a class="nav-link" href="{% url 'dashboard:settings' %}">
                       <i class="bi bi-gear"></i>&nbsp;
                       <span>تنظیمات حساب</span>
                     </a>

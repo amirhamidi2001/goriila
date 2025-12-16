@@ -5,12 +5,17 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import update_session_auth_hash
 from django.db.models import Prefetch, Count
+from django.http import JsonResponse
+from django.views.generic import DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
+from shop.models import Wishlist, Product
 from accounts.models import Profile
 from order.models import Order, OrderItem
+
 from .forms import PersonalInfoForm, ChangePasswordForm
 
 
@@ -196,13 +201,63 @@ class DashboardWalletView(LoginRequiredMixin, ListView):
         return context
 
 
-class DashboardWishlistView(LoginRequiredMixin, DetailView):
-    model = Profile
-    template_name = "dashboard/wishlist.html"
-    context_object_name = "profile"
+class DashboardWishlistView(LoginRequiredMixin, ListView):
 
-    def get_object(self, queryset=None):
-        """
-        Return the profile of the currently logged-in user
-        """
-        return self.request.user.user_profile
+    model = Wishlist
+    template_name = "dashboard/wishlist.html"
+    context_object_name = "wishlist_items"
+    paginate_by = 12
+
+    def get_queryset(self):
+        return Wishlist.objects.filter(user=self.request.user).select_related(
+            "product", "product__brand", "product__category"
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["total_items"] = self.get_queryset().count()
+        context["profile"] = self.request.user.user_profile
+        return context
+
+
+class WishlistDeleteView(LoginRequiredMixin, View):
+
+    http_method_names = ["post"]
+
+    def post(self, request, pk):
+        wishlist_item = get_object_or_404(Wishlist, pk=pk, user=request.user)
+        wishlist_item.delete()
+        messages.success(request, "محصول از لیست علاقه‌مندی‌ها حذف شد")
+        return redirect("dashboard:wishlist")
+
+
+class WishlistToggleView(LoginRequiredMixin, View):
+
+    http_method_names = ["post"]
+
+    def post(self, request):
+        product_id = request.POST.get("product_id")
+
+        if not product_id:
+            return JsonResponse({"error": "محصول یافت نشد"}, status=400)
+
+        product = get_object_or_404(Product, id=product_id)
+
+        wishlist_item = Wishlist.objects.filter(
+            user=request.user, product=product
+        ).first()
+
+        if wishlist_item:
+            wishlist_item.delete()
+            added = False
+            message = "محصول از لیست علاقه‌مندی‌ها حذف شد"
+        else:
+            Wishlist.objects.create(user=request.user, product=product)
+            added = True
+            message = "محصول به لیست علاقه‌مندی‌ها اضافه شد"
+
+        total_items = Wishlist.objects.filter(user=request.user).count()
+
+        return JsonResponse(
+            {"added": added, "message": message, "total_wishlist_items": total_items}
+        )

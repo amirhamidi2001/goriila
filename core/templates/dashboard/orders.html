@@ -63,7 +63,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="{% url 'dashboard:wishlist' %}">
                       <i class="bi bi-heart"></i>&nbsp;
                       <span>علاقه مندی ها</span>
                     </a>
@@ -81,7 +81,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="{% url 'dashboard:settings' %}">
                       <i class="bi bi-gear"></i>&nbsp;
                       <span>تنظیمات حساب</span>
                     </a>
@@ -461,7 +461,7 @@
                   <i class="bi bi-box-seam"></i>
                   <h3>هیچ سفارشی یافت نشد</h3>
                   <p>شما هنوز سفارشی ثبت نکرده‌اید</p>
-                  <a href="{% url 'shop:product_list' %}" class="btn btn-primary">مشاهده محصولات</a>
+                  <a href="{% url 'shop:product-list' %}" class="btn btn-primary">مشاهده محصولات</a>
                 </div>
               {% endif %}
             </div>
