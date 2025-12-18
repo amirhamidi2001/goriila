@@ -20,6 +20,19 @@ from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
 from website.views import Custom404View
+from django.contrib import admin
+from django.urls import path, include
+from django.contrib.sitemaps.views import sitemap
+from website.sitemaps import StaticViewSitemap
+from blog.sitemaps import BlogSitemap
+from shop.sitemaps import ProductSitemap
+
+sitemaps = {
+    "blog": BlogSitemap,
+    "products": ProductSitemap,
+    "static": StaticViewSitemap,
+}
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -31,9 +44,17 @@ urlpatterns = [
     path("dashboard/", include("dashboard.urls")),
     path("order/", include("order.urls")),
     path("shop/", include("shop.urls")),
+    # The unified sitemap
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
+    path("robots.txt", include("robots.urls")),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-# handler404 = Custom404View.as_view()
+handler404 = Custom404View.as_view()

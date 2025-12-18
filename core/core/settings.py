@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
+    "django.contrib.sitemaps",
     "django.contrib.humanize",
     "website",
     "accounts",
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
     "shop",
     "social_django",
     "taggit",
+    "robots",
 ]
 
 MIDDLEWARE = [

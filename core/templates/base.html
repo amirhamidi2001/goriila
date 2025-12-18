@@ -9,8 +9,29 @@
 
       {% endblock %}
     </title>
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
+
+    <meta name="description" content="خرید مکمل بدنسازی اصل از فروشگاه اینترنتی مکمل گوریلا با تضمین اصالت کالا، مشاوره تخصصی و ارسال سریع. عرضه برندهای معتبر ورزشی با بهترین قیمت." />
+    <meta name="keywords" content="مکمل بدنسازی, خرید مکمل ورزشی, فروشگاه مکمل گوریلا, پروتئین وی, آمینو اسید" />
+
+    <!-- Author -->
+    <meta name="author" content="Amir Hamidi" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://goriilashop.com/" />
+
+    <!-- Open Graph (OG) for Social Media -->
+    <meta property="og:title" content="فروشگاه اینترنتی مکمل بدنسازی گوریلا" />
+    <meta property="og:description" content="خرید مکمل بدنسازی اصل از فروشگاه گوریلا با مشاوره تخصصی و تضمین کیفیت. همراه شما در مسیر رشد و تناسب اندام." />
+    <meta property="og:image" content="https://goriilashop.com/static/assets/img/product/product-2.webp" />
+    <meta property="og:url" content="https://goriilashop.com/" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="فروشگاه اینترنتی مکمل بدنسازی گوریلا" />
+    <meta name="twitter:description" content="خرید مکمل بدنسازی اصل از گوریلا با تضمین کیفیت، مشاوره تخصصی و ارسال سریع." />
+    <meta name="twitter:description" content="خرید اینترنتی مکمل بدنسازی - خرید مکمل بدنسازی اصل - خرید آنلاین مکمل بدنسازی - فروشگاه آنلاین مکمل ورزشی - فروشگاه اینترنتی مکمل ورزشی" />
+    <meta name="twitter:image" content="https://goriilashop.com/static/assets/img/product/product-2.webp" />
 
     <!-- Favicons -->
     <link href="{% static 'favicon.png' %}" rel="icon" />
@@ -33,13 +54,13 @@
     <!-- Main CSS File -->
     <link href="{% static 'assets/css/main.css' %}" rel="stylesheet" />
 
-    <!--                  =======================================================
+    <!--                          =======================================================
   * Template Name: Goriila
   * Template URL: https://bootstrapmade.com/Goriila-bootstrap-ecommerce-template/
   * Updated: Aug 26 2025 with Bootstrap v5.3.7
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
-  ========================================================                  -->
+  ========================================================                          -->
   </head>
 
   <body class="index-page">
@@ -104,7 +125,7 @@
             <!-- Logo -->
             <a href="{% url 'website:index' %}" class="logo d-flex align-items-center">
               <!-- Uncomment the line below if you also wish to use an image logo -->
-              <!-- <img src="{% static 'assets/img/logo.webp' %}" alt=""> -->
+              <!-- <img src="{% static 'assets/img/logo.webp' %}" alt="logo.webp"> -->
               <h1 class="sitename">Goriila</h1>
             </a>
 
@@ -266,6 +287,9 @@
                   <li>
                     <a href="{% url 'shop:product-list' %}?brand_id=4">QNT</a>
                   </li>
+                  <li>
+                    <a href="{% url 'shop:product-list' %}?brand_id=5">HYPE</a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -288,6 +312,9 @@
                   </li>
                   <li>
                     <a href="{% url 'dashboard:settings' %}">حساب کاربری</a>
+                  </li>
+                  <li>
+                    <a href="{% url 'accounts:logout' %}">خروج</a>
                   </li>
                 </ul>
               </div>
