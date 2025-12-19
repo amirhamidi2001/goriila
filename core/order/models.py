@@ -2,10 +2,18 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth import get_user_model
 from decimal import Decimal
-from accounts.validators import validate_iranian_cellphone_number
 from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import ValidationError
+from accounts.validators import validate_iranian_cellphone_number
+
 
 User = get_user_model()
+
+
+def validate_image_size(image):
+    max_size = 2 * 1024 * 1024  # 2MB
+    if image.size > max_size:
+        raise ValidationError("حجم عکس نباید بیشتر از ۲ مگابایت باشه")
 
 
 class Address(models.Model):
@@ -132,7 +140,9 @@ class Order(models.Model):
 
     # Payment receipt
     payment_receipt = models.ImageField(
-        upload_to="payment_receipts/%Y/%m/%d/", verbose_name="رسید پرداخت"
+        upload_to="payment_receipts/%Y/%m/%d/",
+        validators=[validate_image_size],
+        verbose_name="رسید پرداخت",
     )
 
     # Order totals

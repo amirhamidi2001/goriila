@@ -5,6 +5,10 @@ from .models import Product, Category, Brand, Review, Wishlist
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+    """
+    Admin configuration for product categories.
+    """
+
     list_display = ("name", "slug", "created_at")
     search_fields = ("name",)
     prepopulated_fields = {"slug": ("name",)}
@@ -13,6 +17,10 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
+    """
+    Admin configuration for product brands.
+    """
+
     list_display = ("name", "slug")
     search_fields = ("name",)
     prepopulated_fields = {"slug": ("name",)}
@@ -20,9 +28,14 @@ class BrandAdmin(admin.ModelAdmin):
 
 
 class ImagePreviewMixin:
-    """Reusable image preview mixin."""
+    """
+    Reusable mixin to display image previews in Django admin.
+    """
 
     def image_preview(self, obj):
+        """
+        Render a thumbnail preview of the product image.
+        """
         if obj.image:
             return format_html(
                 '<img src="{}" width="60" style="border-radius:4px;" />',
@@ -35,6 +48,10 @@ class ImagePreviewMixin:
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin, ImagePreviewMixin):
+    """
+    Admin configuration for products.
+    """
+
     list_display = (
         "name",
         "category",
@@ -46,11 +63,18 @@ class ProductAdmin(admin.ModelAdmin, ImagePreviewMixin):
         "available",
         "image_preview",
     )
+
     list_filter = ("available", "category", "brand", "created_at")
     search_fields = ("name", "description")
     prepopulated_fields = {"slug": ("name",)}
-    readonly_fields = ("created_at", "updated_at", "image_preview", "hologram_preview")
     autocomplete_fields = ("category", "brand")
+
+    readonly_fields = (
+        "created_at",
+        "updated_at",
+        "image_preview",
+        "hologram_preview",
+    )
 
     fieldsets = (
         (
@@ -68,17 +92,52 @@ class ProductAdmin(admin.ModelAdmin, ImagePreviewMixin):
         ),
         (
             "Pricing & Availability",
-            {"fields": ("price", "discount", "stock", "available")},
+            {
+                "fields": (
+                    "price",
+                    "discount",
+                    "stock",
+                    "available",
+                )
+            },
         ),
         (
             "Images",
-            {"fields": ("image", "image_preview", "hologram", "hologram_preview")},
+            {
+                "fields": (
+                    "image",
+                    "image_preview",
+                    "hologram",
+                    "hologram_preview",
+                )
+            },
         ),
-        ("Detail", {"fields": ("weight", "taste", "rating", "especial")}),
-        ("Metadata", {"fields": ("created_at", "updated_at")}),
+        (
+            "Detail",
+            {
+                "fields": (
+                    "weight",
+                    "taste",
+                    "rating",
+                    "especial",
+                )
+            },
+        ),
+        (
+            "Metadata",
+            {
+                "fields": (
+                    "created_at",
+                    "updated_at",
+                )
+            },
+        ),
     )
 
     def hologram_preview(self, obj):
+        """
+        Render a thumbnail preview of the hologram image.
+        """
         if obj.hologram:
             return format_html(
                 '<img src="{}" width="60" style="border-radius:4px;" />',
@@ -94,7 +153,7 @@ class ProductAdmin(admin.ModelAdmin, ImagePreviewMixin):
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
     """
-    Admin configuration for Review model.
+    Allows administrators to review and approve user-submitted reviews.
     """
 
     list_display = ("name", "product", "approved", "created_at")

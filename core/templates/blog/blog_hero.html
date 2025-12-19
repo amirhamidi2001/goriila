@@ -1,112 +1,114 @@
 {% load blog_tags %}
 
 <!-- Blog Hero Section -->
-<section id="blog-hero" class="blog-hero section">
-  <div class="container" data-aos="fade-up">
-    <div class="row g-4">
-      <!-- Left Side Posts -->
-      <div class="col-lg-3">
-        <div class="side-posts">
-          <!-- Side Post 1 -->
-          <article class="post-item side-post" data-aos="fade-right" data-aos-delay="100">
-            <div class="post-img">
-              <img src="{{ blog_hero.0.image.url }}" alt="{{ blog_hero.0.title }}" class="img-fluid" loading="lazy" />
-              {% for category in blog_hero.0.category.all %}
-                <span class="category entertainment">{{ category.name }}</span>
-              {% endfor %}
-            </div>
-            <div class="post-content">
-              <h3 class="post-title"><a href="{% url 'blog:post-detail' blog_hero.0.pk %}">{{ blog_hero.0.title }}</a></h3>
-              <div class="post-meta">
-                <span>{{ blog_hero.0.created_at|date:'M j, Y' }}</span>
-                <span class="dot">•</span>
-                <span><i class="bi bi-chat-text"></i> {{ blog_hero.0.comments.count }}</span>
+{% if blog_hero|length > 1 %}
+  <section id="blog-hero" class="blog-hero section">
+    <div class="container" data-aos="fade-up">
+      <div class="row g-4">
+        <!-- Left Side Posts -->
+        <div class="col-lg-3">
+          <div class="side-posts">
+            <!-- Side Post 1 -->
+            <article class="post-item side-post" data-aos="fade-right" data-aos-delay="100">
+              <div class="post-img">
+                <img src="{{ blog_hero.0.image.url }}" alt="{{ blog_hero.0.title }}" class="img-fluid" loading="lazy" />
+                {% for category in blog_hero.0.category.all %}
+                  <span class="category entertainment">{{ category.name }}</span>
+                {% endfor %}
               </div>
-            </div>
-          </article>
+              <div class="post-content">
+                <h3 class="post-title"><a href="{% url 'blog:post-detail' blog_hero.0.pk %}">{{ blog_hero.0.title }}</a></h3>
+                <div class="post-meta">
+                  <span>{{ blog_hero.0.created_at|date:'M j, Y' }}</span>
+                  <span class="dot">•</span>
+                  <span><i class="bi bi-chat-text"></i> {{ blog_hero.0.comments.count }}</span>
+                </div>
+              </div>
+            </article>
 
-          <!-- Side Post 2 -->
-          <article class="post-item side-post" data-aos="fade-right" data-aos-delay="200">
+            <!-- Side Post 2 -->
+            <article class="post-item side-post" data-aos="fade-right" data-aos-delay="200">
+              <div class="post-img">
+                <img src="{{ blog_hero.1.image.url }}" alt="{{ blog_hero.1.title }}" class="img-fluid" loading="lazy" />
+                {% for category in blog_hero.1.category.all %}
+                  <span class="category technology">{{ category.name }}</span>
+                {% endfor %}
+              </div>
+              <div class="post-content">
+                <h3 class="post-title"><a href="{% url 'blog:post-detail' blog_hero.1.pk %}">{{ blog_hero.1.title }}</a></h3>
+                <div class="post-meta">
+                  <span>{{ blog_hero.1.created_at|date:'M j, Y' }}</span>
+                  <span class="dot">•</span>
+                  <span><i class="bi bi-chat-text"></i> {{ blog_hero.1.comments.count }}</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Main Post -->
+        <div class="col-lg-6">
+          <article class="post-item main-post" data-aos="fade-up">
             <div class="post-img">
-              <img src="{{ blog_hero.1.image.url }}" alt="{{ blog_hero.1.title }}" class="img-fluid" loading="lazy" />
-              {% for category in blog_hero.1.category.all %}
-                <span class="category technology">{{ category.name }}</span>
+              <img src="{{ blog_hero.2.image.url }}" alt="{{ blog_hero.2.title }}" class="img-fluid" />
+              {% for category in blog_hero.2.category.all %}
+                <span class="category business">{{ category.name }}</span>
               {% endfor %}
             </div>
             <div class="post-content">
-              <h3 class="post-title"><a href="{% url 'blog:post-detail' blog_hero.1.pk %}">{{ blog_hero.1.title }}</a></h3>
+              <h2 class="post-title"><a href="{% url 'blog:post-detail' blog_hero.2.pk %}">{{ blog_hero.2.title }}</a></h2>
+              <p class="post-excerpt">{{ blog_hero.2.content|truncatewords:30 }}</p>
               <div class="post-meta">
-                <span>{{ blog_hero.1.created_at|date:'M j, Y' }}</span>
+                <span>{{ blog_hero.2.created_at|date:'M j, Y' }}</span>
                 <span class="dot">•</span>
-                <span><i class="bi bi-chat-text"></i> {{ blog_hero.1.comments.count }}</span>
+                <span><i class="bi bi-chat-text"></i> {{ blog_hero.2.comments.count }}</span>
               </div>
             </div>
           </article>
         </div>
-      </div>
 
-      <!-- Main Post -->
-      <div class="col-lg-6">
-        <article class="post-item main-post" data-aos="fade-up">
-          <div class="post-img">
-            <img src="{{ blog_hero.2.image.url }}" alt="{{ blog_hero.2.title }}" class="img-fluid" />
-            {% for category in blog_hero.2.category.all %}
-              <span class="category business">{{ category.name }}</span>
-            {% endfor %}
-          </div>
-          <div class="post-content">
-            <h2 class="post-title"><a href="{% url 'blog:post-detail' blog_hero.2.pk %}">{{ blog_hero.2.title }}</a></h2>
-            <p class="post-excerpt">{{ blog_hero.2.content|truncatewords:30 }}</p>
-            <div class="post-meta">
-              <span>{{ blog_hero.2.created_at|date:'M j, Y' }}</span>
-              <span class="dot">•</span>
-              <span><i class="bi bi-chat-text"></i> {{ blog_hero.2.comments.count }}</span>
-            </div>
-          </div>
-        </article>
-      </div>
-
-      <!-- Right Side Posts -->
-      <div class="col-lg-3">
-        <div class="side-posts">
-          <!-- Side Post 3 -->
-          <article class="post-item side-post" data-aos="fade-left" data-aos-delay="100">
-            <div class="post-img">
-              <img src="{{ blog_hero.3.image.url }}" alt="{{ blog_hero.3.title }}" class="img-fluid" loading="lazy" />
-              {% for category in blog_hero.3.category.all %}
-                <span class="category lifestyle">{{ category.name }}</span>
-              {% endfor %}
-            </div>
-            <div class="post-content">
-              <h3 class="post-title"><a href="{% url 'blog:post-detail' blog_hero.3.pk %}">{{ blog_hero.3.title }}</a></h3>
-              <div class="post-meta">
-                <span>{{ blog_hero.3.created_at|date:'M j, Y' }}</span>
-                <span class="dot">•</span>
-                <span><i class="bi bi-chat-text"></i> {{ blog_hero.3.comments.count }}</span>
+        <!-- Right Side Posts -->
+        <div class="col-lg-3">
+          <div class="side-posts">
+            <!-- Side Post 3 -->
+            <article class="post-item side-post" data-aos="fade-left" data-aos-delay="100">
+              <div class="post-img">
+                <img src="{{ blog_hero.3.image.url }}" alt="{{ blog_hero.3.title }}" class="img-fluid" loading="lazy" />
+                {% for category in blog_hero.3.category.all %}
+                  <span class="category lifestyle">{{ category.name }}</span>
+                {% endfor %}
               </div>
-            </div>
-          </article>
-
-          <!-- Side Post 4 -->
-          <article class="post-item side-post" data-aos="fade-left" data-aos-delay="200">
-            <div class="post-img">
-              <img src="{{ blog_hero.4.image.url }}" alt="{{ blog_hero.4.title }}" class="img-fluid" loading="lazy" />
-              {% for category in blog_hero.4.category.all %}
-                <span class="category entertainment">{{ category.name }}</span>
-              {% endfor %}
-            </div>
-            <div class="post-content">
-              <h3 class="post-title"><a href="{% url 'blog:post-detail' blog_hero.4.pk %}">{{ blog_hero.4.title }}</a></h3>
-              <div class="post-meta">
-                <span>{{ blog_hero.4.created_at|date:'M j, Y' }}</span>
-                <span class="dot">•</span>
-                <span><i class="bi bi-chat-text"></i> {{ blog_hero.4.comments.count }}</span>
+              <div class="post-content">
+                <h3 class="post-title"><a href="{% url 'blog:post-detail' blog_hero.3.pk %}">{{ blog_hero.3.title }}</a></h3>
+                <div class="post-meta">
+                  <span>{{ blog_hero.3.created_at|date:'M j, Y' }}</span>
+                  <span class="dot">•</span>
+                  <span><i class="bi bi-chat-text"></i> {{ blog_hero.3.comments.count }}</span>
+                </div>
               </div>
-            </div>
-          </article>
+            </article>
+
+            <!-- Side Post 4 -->
+            <article class="post-item side-post" data-aos="fade-left" data-aos-delay="200">
+              <div class="post-img">
+                <img src="{{ blog_hero.4.image.url }}" alt="{{ blog_hero.4.title }}" class="img-fluid" loading="lazy" />
+                {% for category in blog_hero.4.category.all %}
+                  <span class="category entertainment">{{ category.name }}</span>
+                {% endfor %}
+              </div>
+              <div class="post-content">
+                <h3 class="post-title"><a href="{% url 'blog:post-detail' blog_hero.4.pk %}">{{ blog_hero.4.title }}</a></h3>
+                <div class="post-meta">
+                  <span>{{ blog_hero.4.created_at|date:'M j, Y' }}</span>
+                  <span class="dot">•</span>
+                  <span><i class="bi bi-chat-text"></i> {{ blog_hero.4.comments.count }}</span>
+                </div>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+{% endif %}
 <!-- /Blog Hero Section -->

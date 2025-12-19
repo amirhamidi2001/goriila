@@ -3,6 +3,10 @@ from .models import Order, Address
 
 
 class CheckoutForm(forms.ModelForm):
+    """
+    Checkout form for placing an order.
+    """
+
     shipping_address = forms.ModelChoiceField(
         queryset=Address.objects.none(),
         widget=forms.RadioSelect,
@@ -18,10 +22,17 @@ class CheckoutForm(forms.ModelForm):
     )
 
     class Meta:
+        """
+        Model configuration for CheckoutForm.
+        """
+
         model = Order
         fields = ["payment_receipt", "notes"]
 
     def __init__(self, *args, **kwargs):
+        """
+        Initialize the checkout form with user-specific data.
+        """
         user = kwargs.pop("user")
         super().__init__(*args, **kwargs)
 

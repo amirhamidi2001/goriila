@@ -99,8 +99,17 @@ class AddressAdmin(admin.ModelAdmin):
 
 
 class OrderItemInline(admin.TabularInline):
+    """
+    Inline admin display for OrderItem.
+
+    Displays order items within the Order admin page
+    in a read-only tabular format.
+    """
+
     model = OrderItem
     extra = 0
+    can_delete = False
+
     readonly_fields = (
         "product",
         "product_name",
@@ -108,19 +117,31 @@ class OrderItemInline(admin.TabularInline):
         "quantity",
         "subtotal",
     )
-    can_delete = False
 
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ("order_number", "user", "status", "total", "created_date")
+    """
+    Admin configuration for Order model.
+    """
+
+    list_display = (
+        "order_number",
+        "user",
+        "status",
+        "total",
+        "created_date",
+    )
+
     list_filter = ("status", "created_date")
+
     search_fields = (
         "order_number",
         "user__email",
         "shipping_full_name",
         "shipping_phone",
     )
+
     readonly_fields = (
         "order_number",
         "user",
@@ -159,22 +180,50 @@ class OrderAdmin(admin.ModelAdmin):
                 )
             },
         ),
-        ("اطلاعات پرداخت", {"fields": ("payment_receipt",)}),
-        ("مبالغ", {"fields": ("subtotal", "shipping_cost", "total")}),
-        ("یادداشت‌ها", {"fields": ("notes",)}),
+        (
+            "اطلاعات پرداخت",
+            {"fields": ("payment_receipt",)},
+        ),
+        (
+            "مبالغ",
+            {"fields": ("subtotal", "shipping_cost", "total")},
+        ),
+        (
+            "یادداشت‌ها",
+            {"fields": ("notes",)},
+        ),
     )
 
     inlines = [OrderItemInline]
 
     def has_add_permission(self, request):
+        """
+        Disable manual creation of orders via admin panel.
+        """
         return False
 
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
-    list_display = ("order", "product_name", "quantity", "product_price", "subtotal")
+    """
+    Admin configuration for OrderItem model.
+    """
+
+    list_display = (
+        "order",
+        "product_name",
+        "quantity",
+        "product_price",
+        "subtotal",
+    )
+
     list_filter = ("order__created_date",)
-    search_fields = ("order__order_number", "product_name")
+
+    search_fields = (
+        "order__order_number",
+        "product_name",
+    )
+
     readonly_fields = (
         "order",
         "product",
@@ -185,7 +234,13 @@ class OrderItemAdmin(admin.ModelAdmin):
     )
 
     def has_add_permission(self, request):
+        """
+        Prevent adding order items manually.
+        """
         return False
 
     def has_delete_permission(self, request, obj=None):
+        """
+        Prevent deleting order items from admin.
+        """
         return False
