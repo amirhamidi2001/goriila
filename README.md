@@ -1,4 +1,3 @@
-```markdown
 # Goriila
 
 [Goriila](https://goriilashop.com) is a **Django-based e-commerce platform** with features for shopping, blogging, user management, order processing, and more. It comes with an admin dashboard, cart management, and a responsive website interface.
@@ -101,11 +100,4 @@ The app will be available at `http://localhost:8000`.
 
 This project is licensed under the [MIT License](LICENSE).
 
-```
-
----
-
-If you want, I can also **make a version with badges** like **Python version, Django version, Docker, and license badges**, which makes your GitHub README look professional and eye-catching.  
-
-Do you want me to do that?
 ```
