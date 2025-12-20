@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Order, OrderItem
-
+from django.utils.html import format_html
 from django.contrib import admin
-from .models import Address
+
+from .models import Order, OrderItem, Address
 
 
 @admin.register(Address)
@@ -150,6 +150,7 @@ class OrderAdmin(admin.ModelAdmin):
         "total",
         "created_date",
         "updated_date",
+        "payment_receipt_preview",
     )
 
     fieldsets = (
@@ -182,7 +183,7 @@ class OrderAdmin(admin.ModelAdmin):
         ),
         (
             "اطلاعات پرداخت",
-            {"fields": ("payment_receipt",)},
+            {"fields": ("payment_receipt", "payment_receipt_preview")},
         ),
         (
             "مبالغ",
@@ -201,6 +202,16 @@ class OrderAdmin(admin.ModelAdmin):
         Disable manual creation of orders via admin panel.
         """
         return False
+
+    def payment_receipt_preview(self, obj):
+        if obj.payment_receipt:
+            return format_html(
+                '<img src="{}" style="max-width:300px; max-height:300px; border-radius:8px;" />',
+                obj.payment_receipt.url,
+            )
+        return "رسیدی آپلود نشده"
+
+    payment_receipt_preview.short_description = "پیش‌نمایش رسید پرداخت"
 
 
 @admin.register(OrderItem)

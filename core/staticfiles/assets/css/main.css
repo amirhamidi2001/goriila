@@ -2272,7 +2272,7 @@ section,
   border-radius: 12px;
   min-height: 500px;
   overflow: hidden;
-  background-color: #f8f5ff;
+  background-color: #000000;
   transition: all 0.4s ease;
 }
 
@@ -2337,7 +2337,7 @@ section,
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 20px;
-  color: var(--heading-color);
+  color: #00ffff;
 }
 
 .promo-cards .category-featured .category-content p {
@@ -2372,19 +2372,19 @@ section,
 }
 
 .promo-cards .category-card.cat-men {
-  background-color: #e6f4ff;
+  background-color: #000;
 }
 
 .promo-cards .category-card.cat-kids {
-  background-color: #fff4e6;
+  background-color: #000;
 }
 
 .promo-cards .category-card.cat-cosmetics {
-  background-color: #ffe6eb;
+  background-color: #000;
 }
 
 .promo-cards .category-card.cat-accessories {
-  background-color: #e6ffe8;
+  background-color: #000;
 }
 
 .promo-cards .category-card:hover {
@@ -2430,11 +2430,18 @@ section,
   justify-content: center;
 }
 
+.promo-cards .category-card .category-content h5 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #00ffff;
+}
+
 .promo-cards .category-card .category-content h4 {
   font-size: 1.4rem;
   font-weight: 700;
   margin-bottom: 10px;
-  color: var(--heading-color);
+  color: #00ffff;
 }
 
 .promo-cards .category-card .category-content p {

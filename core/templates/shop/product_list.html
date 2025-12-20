@@ -5,7 +5,6 @@
 {% endblock %}
 {% block content %}
   <main class="main">
-
     <!-- Page Title -->
     <div class="page-title light-background">
       <div class="container d-lg-flex justify-content-between align-items-center">
@@ -54,13 +53,13 @@
                       <div class="col-6">
                         <div class="input-group input-group-sm">
                           <span class="input-group-text">تومان</span>
-                          <input type="number" name="min_price" class="form-control min-price-input" placeholder="کمترین قیمت مد نظر" min="0" max="10000000" value="0" step="100000" />
+                          <input type="number" name="min_price" class="form-control min-price-input" placeholder="کمترین قیمت مد نظر" min="0" max="10000000" value="0" step="1000000" />
                         </div>
                       </div>
                       <div class="col-6">
                         <div class="input-group input-group-sm">
                           <span class="input-group-text">تومان</span>
-                          <input type="number" name="max_price" class="form-control max-price-input" placeholder="بیشترین قیمت مد نظر" min="0" max="20000000" value="500000" step="100000" />
+                          <input type="number" name="max_price" class="form-control max-price-input" placeholder="بیشترین قیمت مد نظر" min="0" max="20000000" value="15000000" step="1000000" />
                         </div>
                       </div>
                     </div>
@@ -185,10 +184,20 @@
                         <div class="product-category">{{ product.brand.name }}</div>
                         <div class="product-meta">
                           <div class="product-price formatted-price">{{ product.get_price }}</div>
-                          <div class="product-rating">
-                            <i class="bi bi-star-fill"></i>
-                            {{ product.rating }}
-                          </div>
+                          {% load rating_tags %}
+                          {% with s=product.rating|star_parts %}
+                            <div class="product-rating">
+                              {% for _ in s.empty %}
+                                <i class="bi bi-star"></i>
+                              {% endfor %}
+                              {% for _ in s.half %}
+                                <i class="bi bi-star-half"></i>
+                              {% endfor %}
+                              {% for _ in s.full %}
+                                <i class="bi bi-star-fill"></i>
+                              {% endfor %}
+                            </div>
+                          {% endwith %}
                         </div>
                       </div>
                     </div>
