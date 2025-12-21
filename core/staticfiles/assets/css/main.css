@@ -2580,10 +2580,10 @@ section,
   top: 20px;
   left: 20px;
   z-index: 2;
-  background-color: var(--heading-color);
-  color: var(--contrast-color);
-  font-size: 0.75rem;
-  font-weight: 500;
+  background-color: rgba(34, 34, 34, 0.13);
+  color: var(--heading-color);
+  font-size: 0.85rem;
+  font-weight: 600;
   font-family: var(--heading-font);
   padding: 0.4em 1em;
   border-radius: 0;
@@ -2615,7 +2615,7 @@ section,
   width: 40px;
   height: 40px;
   border: none;
-  background-color: var(--contrast-color);
+  background-color: rgba(34, 34, 34, 0.13);
   color: var(--heading-color);
   border-radius: 10px;
   display: flex;
@@ -2628,12 +2628,12 @@ section,
 }
 
 .best-sellers .action-btn:hover {
-  background-color: var(--heading-color);
+  background-color: rgba(34, 34, 34, 0.13);
   color: var(--contrast-color);
 }
 
 .best-sellers .action-btn.active {
-  background-color: var(--accent-color);
+  background-color: rgba(34, 34, 34, 0.13);
   color: var(--contrast-color);
 }
 
@@ -2643,7 +2643,7 @@ section,
   left: 20px;
   right: 20px;
   padding: 12px 24px;
-  background-color: var(--contrast-color);
+  background-color: rgba(34, 34, 34, 0.13);
   color: var(--heading-color);
   border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
   font-weight: 500;
@@ -2658,7 +2658,7 @@ section,
 }
 
 .best-sellers .cart-btn:hover {
-  background-color: var(--heading-color);
+  background-color: rgba(0, 255, 255, 0.13);
   color: var(--contrast-color);
   border-color: var(--heading-color);
 }
