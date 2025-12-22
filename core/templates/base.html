@@ -232,9 +232,9 @@
       <!-- Mobile Search Form -->
       <div class="collapse" id="mobileSearch">
         <div class="container">
-          <form class="search-form">
+          <form class="search-form" action="{% url 'shop:product-list' %}" method="GET">
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search for products" />
+              <input type="text" class="form-control" placeholder="جستوجوی محصولات" name="q" />
               <button class="btn" type="submit"><i class="bi bi-search"></i></button>
             </div>
           </form>
