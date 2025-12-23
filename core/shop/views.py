@@ -74,6 +74,16 @@ class ProductDetailView(DetailView):
     model = Product
     context_object_name = "product"
 
+    def get_queryset(self):
+        """
+        Return the base queryset for products with related data optimized.
+        """
+        return (
+            Product.objects.select_related("brand", "category")
+            .prefetch_related("images")
+            .all()
+        )
+
     def get_context_data(self, **kwargs):
         """
         Add reviews, review form, and wishlist status to context.

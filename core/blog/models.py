@@ -34,6 +34,12 @@ class Post(models.Model):
     image = models.ImageField(
         upload_to="blog/", default="blog/default.webp", null=True, blank=True
     )
+    video = models.FileField(
+        upload_to="blog/videos/",
+        null=True,
+        blank=True,
+        help_text="فرمت‌های مجاز: mp4, mkv, avi",
+    )
     category = models.ManyToManyField(Category)
     tags = TaggableManager()
     counted_views = models.IntegerField(default=0)

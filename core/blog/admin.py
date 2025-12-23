@@ -22,6 +22,7 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ("title", "content", "author__username")
     fields = (
         "image",
+        "video",
         "title",
         "content",
         "author",

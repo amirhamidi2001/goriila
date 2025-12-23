@@ -42,9 +42,17 @@
                 <div class="thumbnail-wrapper thumbnail-item active" data-image="{{ product.image.url }}">
                   <img src="{{ product.image.url }}" alt="View 1" class="img-fluid" />
                 </div>
-                <div class="thumbnail-wrapper thumbnail-item" data-image="{{ product.hologram.url }}">
-                  <img src="{{ product.hologram.url }}" alt="View 2" class="img-fluid" />
-                </div>
+                {% if product.hologram %}
+                  <div class="thumbnail-wrapper thumbnail-item" data-image="{{ product.hologram.url }}">
+                    <img src="{{ product.hologram.url }}" alt="Hologram" class="img-fluid" />
+                  </div>
+                {% endif %}
+
+                {% for gallery_img in product.images.all %}
+                  <div class="thumbnail-wrapper thumbnail-item" data-image="{{ gallery_img.image.url }}">
+                    <img src="{{ gallery_img.image.url }}" alt="{{ gallery_img.alt|default:product.name }}" class="img-fluid" />
+                  </div>
+                {% endfor %}
               </div>
             </div>
           </div>
@@ -130,11 +138,19 @@
                     onclick="toggleWishlist({{ product.id }})"
                     title="{% if is_in_wishlist %}
                       
+                      
+                      
                       حذف از لیست علاقه‌مندی‌ها
+
+
 
                     {% else %}
                       
+                      
+                      
                       افزودن به لیست علاقه‌مندی‌ها
+
+
 
                     {% endif %}">
                     <i class="bi bi-heart{% if is_in_wishlist %}-fill{% endif %}" id="wishlist-icon-{{ product.id }}"></i>

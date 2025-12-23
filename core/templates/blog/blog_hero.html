@@ -1,7 +1,7 @@
 {% load blog_tags %}
 
 <!-- Blog Hero Section -->
-{% if blog_hero|length > 1 %}
+{% if blog_hero|length >= 5 %}
   <section id="blog-hero" class="blog-hero section">
     <div class="container" data-aos="fade-up">
       <div class="row g-4">
@@ -17,7 +17,7 @@
                 {% endfor %}
               </div>
               <div class="post-content">
-                <h3 class="post-title"><a href="{% url 'blog:post-detail' blog_hero.0.pk %}">{{ blog_hero.0.title }}</a></h3>
+                <h3 class="post-title"><a href="{{ post.get_absolute_url }}">{{ blog_hero.0.title }}</a></h3>
                 <div class="post-meta">
                   <span>{{ blog_hero.0.created_at|date:'M j, Y' }}</span>
                   <span class="dot">•</span>
@@ -35,7 +35,7 @@
                 {% endfor %}
               </div>
               <div class="post-content">
-                <h3 class="post-title"><a href="{% url 'blog:post-detail' blog_hero.1.pk %}">{{ blog_hero.1.title }}</a></h3>
+                <h3 class="post-title"><a href="{{ post.get_absolute_url }}">{{ blog_hero.1.title }}</a></h3>
                 <div class="post-meta">
                   <span>{{ blog_hero.1.created_at|date:'M j, Y' }}</span>
                   <span class="dot">•</span>
@@ -56,7 +56,7 @@
               {% endfor %}
             </div>
             <div class="post-content">
-              <h2 class="post-title"><a href="{% url 'blog:post-detail' blog_hero.2.pk %}">{{ blog_hero.2.title }}</a></h2>
+              <h2 class="post-title"><a href="{{ post.get_absolute_url }}">{{ blog_hero.2.title }}</a></h2>
               <p class="post-excerpt">{{ blog_hero.2.content|truncatewords:30 }}</p>
               <div class="post-meta">
                 <span>{{ blog_hero.2.created_at|date:'M j, Y' }}</span>
@@ -79,7 +79,7 @@
                 {% endfor %}
               </div>
               <div class="post-content">
-                <h3 class="post-title"><a href="{% url 'blog:post-detail' blog_hero.3.pk %}">{{ blog_hero.3.title }}</a></h3>
+                <h3 class="post-title"><a href="{{ post.get_absolute_url }}">{{ blog_hero.3.title }}</a></h3>
                 <div class="post-meta">
                   <span>{{ blog_hero.3.created_at|date:'M j, Y' }}</span>
                   <span class="dot">•</span>
@@ -97,7 +97,7 @@
                 {% endfor %}
               </div>
               <div class="post-content">
-                <h3 class="post-title"><a href="{% url 'blog:post-detail' blog_hero.4.pk %}">{{ blog_hero.4.title }}</a></h3>
+                <h3 class="post-title"><a href="{{ post.get_absolute_url }}">{{ blog_hero.4.title }}</a></h3>
                 <div class="post-meta">
                   <span>{{ blog_hero.4.created_at|date:'M j, Y' }}</span>
                   <span class="dot">•</span>

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Product, Category, Brand, Review, Wishlist
+from .models import Product, Category, Brand, Review, ProductImage, Wishlist
 
 
 @admin.register(Category)
@@ -46,11 +46,19 @@ class ImagePreviewMixin:
     image_preview.short_description = "Image"
 
 
+class ProductImageInline(admin.TabularInline):
+    model = ProductImage
+    extra = 1
+    fields = ("image", "alt")
+
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin, ImagePreviewMixin):
     """
     Admin configuration for products.
     """
+
+    inlines = [ProductImageInline]
 
     list_display = (
         "name",

@@ -75,6 +75,15 @@
             <div class="content">
               <p>{{ post.content }}</p>
 
+              {% if post.video %}
+                <div class="video-container my-4" data-aos="fade-up">
+                  <video controls preload="metadata" playsinline>
+                    <source src="{{ post.video.url }}" type="video/mp4" />
+                    <source src="{{ post.video.url }}" type="video/webm" />مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+                  </video>
+                </div>
+              {% endif %}
+
               <div class="highlight-box">
                 <h3>دسته بندی ها</h3>
                 <ul class="trend-list">
