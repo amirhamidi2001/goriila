@@ -169,8 +169,13 @@
                   <div class="col-6 col-xl-4">
                     <div class="product-card" data-aos="zoom-in">
                       <div class="product-image">
-                        <img src="{{ product.image.url }}" class="main-image img-fluid" alt="{{ product.name }}" loading="lazy" />
-                        <img src="{{ product.hologram.url }}" class="hover-image img-fluid" alt="{{ product.name }}" loading="lazy" />
+                        {% if product.image %}
+                          <img src="{{ product.image.url }}" class="main-image img-fluid" alt="{{ product.name }}" />
+                        {% endif %}
+
+                        {% if product.hologram %}
+                          <img src="{{ product.hologram.url }}" class="hover-image img-fluid" alt="{{ product.name }}" />
+                        {% endif %}
                         <div class="product-overlay">
                           <div class="product-actions">
                             <button type="button" class="action-btn" data-bs-toggle="tooltip"><a href="{{ product.get_absolute_url }}" type="button" class="action-btn" data-bs-toggle="tooltip"><i class="bi bi-eye"></i></a></button>

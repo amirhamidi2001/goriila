@@ -45,8 +45,8 @@
           {% for post in posts %}
             <div class="col-lg-4">
               <article>
-                <div class="post-img">
-                  <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid" />
+                <div class="post-img" style="height:250px; overflow:hidden;">
+                  <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid" style="width:100%; height:100%; object-fit:cover; object-position:center;" />
                 </div>
 
                 <h2 class="title"><a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a></h2>

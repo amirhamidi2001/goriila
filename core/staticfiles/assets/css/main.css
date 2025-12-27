@@ -14,9 +14,9 @@
 --------------------------------------------------------------*/
 /* Fonts */
 :root {
-  --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --heading-font: "Montserrat",  sans-serif;
-  --nav-font: "Poppins",  sans-serif;
+  --default-font: "Vazirmatn", "Tahoma", "Arial", sans-serif;
+  --heading-font: "Vazirmatn", "Georgia", "serif";
+  --nav-font: "Vazirmatn", "Segoe UI", Tahoma, sans-serif;
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
@@ -3350,14 +3350,14 @@ section,
 
 .call-to-action .product-showcase .product-image img {
   width: 100%;
-  height: 180px;
+  height: 200px;
   object-fit: cover;
   border-radius: 12px;
 }
 
 @media (max-width: 768px) {
   .call-to-action .product-showcase .product-image img {
-    height: 150px;
+    height: 200px;
   }
 }
 
@@ -12716,7 +12716,7 @@ section,
 .blog-hero .post-item .post-img img {
   width: 100%;
   aspect-ratio: 16/9;
-  object-fit: cover;
+  object-fit: contain;
   transition: transform 0.3s ease;
 }
 
@@ -12968,7 +12968,7 @@ section,
 .blog-details .hero-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .blog-details .hero-img .meta-overlay {
